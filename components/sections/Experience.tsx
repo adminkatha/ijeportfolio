@@ -1,5 +1,6 @@
 import { Reveal } from "@/components/motion/Reveal";
 import { Fillable } from "@/components/ui/FillIn";
+import { Sep } from "@/components/ui/Sep";
 import { formatMonth, pad2 } from "@/components/ui/format";
 import { isFillIn } from "@/content/data/schema";
 import { getExperience } from "@/lib/content";
@@ -52,18 +53,19 @@ export function Experience({ number }: { number: number }) {
                 ))}
               </ul>
               {role.tech.length ? (
-                <p className="label-mono mt-6 text-text-2">
-                  <span className="text-text">Tools</span>
-                  <span aria-hidden="true" className="mx-2 text-text-3">
-                    —
-                  </span>
-                  {role.tech.map((t, j) => (
-                    <span key={t}>
-                      {j > 0 ? <span className="text-text-3"> / </span> : null}
-                      <Fillable value={t} />
-                    </span>
-                  ))}
-                </p>
+                <div className="mt-6 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                  <p id={`experience-tools-${i}`} className="label-mono text-text">
+                    Tools
+                  </p>
+                  <ul aria-labelledby={`experience-tools-${i}`} className="label-mono flex flex-wrap items-center gap-x-2 gap-y-1 text-text-2">
+                    {role.tech.map((t, j) => (
+                      <li key={t} className="flex items-center gap-2">
+                        {j > 0 ? <Sep /> : null}
+                        <Fillable value={t} />
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               ) : null}
             </div>
           </Reveal>

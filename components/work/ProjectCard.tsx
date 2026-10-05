@@ -3,6 +3,7 @@ import Link from "next/link";
 import { TypographicCover } from "@/components/media/TypographicCover";
 import { Fillable } from "@/components/ui/FillIn";
 import { SampleTag } from "@/components/ui/SampleTag";
+import { Sep } from "@/components/ui/Sep";
 import { pad2, realLink } from "@/components/ui/format";
 import { disciplineLabels, type Project } from "@/content/data/schema";
 import { coverOf, fitOf } from "./cover";
@@ -78,7 +79,7 @@ export function ProjectCard({ project: p, number, sizes, headingLevel: H = "h3" 
         <ul className="label-mono mt-5 flex flex-wrap gap-x-2 gap-y-1 text-text-2" aria-label="Tools">
           {p.stack.map((tool, i) => (
             <li key={tool} className="flex items-center gap-2">
-              {i > 0 ? <span aria-hidden="true" className="text-text-3">/</span> : null}
+              {i > 0 ? <Sep /> : null}
               <Fillable value={tool} />
             </li>
           ))}

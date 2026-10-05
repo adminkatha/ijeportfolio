@@ -24,6 +24,8 @@ export function Header() {
         <nav aria-label="Main" className="hidden md:block">
           <NavLinks items={items} variant="bar" />
         </nav>
+        {/* Before ⌘K in DOM and visual order under 768px (wordmark · Menu · ⌘K). */}
+        <MobileMenu items={items} />
         <CommandButton items={getCommandItems()} />
         <Link
           href="/#contact"
@@ -34,7 +36,6 @@ export function Header() {
             →
           </span>
         </Link>
-        <MobileMenu items={items} />
       </div>
     </header>
   );
