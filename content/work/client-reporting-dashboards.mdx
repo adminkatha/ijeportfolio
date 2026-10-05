@@ -1,30 +1,58 @@
+---
+lede: One reporting system, five clients, no framework and no chart library.
+---
+
 ## Problem
 
-<FillIn>what problem this solved for the client</FillIn>
+Three of the dashboards started from earlier Looker reports: comments in their code note where a metric reproduces the Looker figure and where it corrects it.
+
+<FillIn>what wasn't working in the old reports, in your words</FillIn>
 
 ## Context
 
-<FillIn>who it was for and how it fits their business</FillIn>
+Five businesses use the same system: an online clothing and jewellery shop (Honey Tribe), an e-bike brand (MeloYelo), an RV resort (Riverdance RV Resort), a rooming-house property brand (Rooming House Expert) and The Contract Shop, which generates leads with a business quiz. Each client opens one dashboard page inside a client portal.
 
 ## Constraints
 
-<FillIn>time, budget, tools or data constraints</FillIn>
+- Data comes from many places: Meta and Shopify through Windsor.ai, ActiveCampaign, Campaign Monitor, Klaviyo, sales and stock records, and a quiz feed.
+- The JavaScript is kept ES5-safe and passes an esprima syntax check before every deploy.
+
+<FillIn>time, budget or hosting constraints</FillIn>
 
 ## Architecture
 
-<FillIn>how it is built (stack, data, hosting)</FillIn>
+- **One page per client:** HTML with inline CSS and hand-written vanilla JavaScript, served from the client's own path in the portal.
+- **One data file per client:** a Python export job pulls the client's sources and writes a `data.json` next to the page. A Sync button asks the server to refresh it.
+- **Everything is drawn in the browser** from that file: KPI cards, tables, and every chart as inline SVG.
 
 ## Implementation
 
-<FillIn>the main parts you built</FillIn>
+Every dashboard is built from the same parts:
+
+- a header with a "data through" stamp;
+- period presets, plus a separate benchmark period that every KPI is compared against;
+- day, week or month grain, and relative or absolute chart axes;
+- KPI scorecards with deltas against the benchmark;
+- time-series and breakdown charts, sortable tables and the ads that ran;
+- written "reading of the period" insight cards.
+
+The tabs follow each business:
+
+- **Honey Tribe:** Shopify sales, a Shopify × Meta funnel, product and audience.
+- **MeloYelo:** sales against the financial-year bike target, riders and leads (with speed-to-lead per agent), inventory and production, marketing.
+- **Riverdance RV Resort:** paid social against industry benchmarks, and email.
+- **Rooming House Expert:** the Meta funnel, email, the lead magnet and its email sequence, demographics and placements.
+- **The Contract Shop:** quiz-lead conversion diagnostics, and Meta lead generation.
 
 ## Key technical decision
 
-<FillIn>one decision that mattered, and why</FillIn>
+No framework and no chart library: each page is plain HTML, CSS and JavaScript that draws its own SVG charts from one JSON file.
+
+<FillIn>why you chose this</FillIn>
 
 ## Result
 
-<FillIn>a real outcome (no client figures without permission)</FillIn>
+<FillIn>a real outcome (for example, what the clients or the team now do differently)</FillIn>
 
 ## What I learned
 
