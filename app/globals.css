@@ -355,3 +355,53 @@
     border-top: 1px solid var(--color-line);
   }
 }
+
+/* ── /work discipline filter (phase 9) ──────────────────────────────────────────
+ * <html data-work-filter="video"> is set before first paint by the boot script in app/layout.tsx and
+ * then kept in step by components/work/WorkFilter.tsx. No attribute = "All". Without JS nothing is hidden.
+ */
+@layer components {
+  .work-filter-link {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    gap: 0.6rem;
+    border: 1px solid var(--color-text-3);
+    padding-inline: 1rem;
+    color: var(--color-text-2);
+  }
+
+  .work-filter-link:hover {
+    border-color: var(--color-text);
+    color: var(--color-text);
+  }
+
+  .work-filter-count {
+    color: var(--color-text);
+  }
+
+  :root:not([data-work-filter]) .work-filter-link[data-filter="all"],
+  :root[data-work-filter="web-systems"] .work-filter-link[data-filter="web-systems"],
+  :root[data-work-filter="campaigns"] .work-filter-link[data-filter="campaigns"],
+  :root[data-work-filter="video"] .work-filter-link[data-filter="video"],
+  :root[data-work-filter="creative"] .work-filter-link[data-filter="creative"] {
+    border-color: var(--color-text);
+    background-color: var(--color-text);
+    color: var(--color-bg);
+  }
+
+  :root:not([data-work-filter]) .work-filter-link[data-filter="all"] .work-filter-count,
+  :root[data-work-filter="web-systems"] .work-filter-link[data-filter="web-systems"] .work-filter-count,
+  :root[data-work-filter="campaigns"] .work-filter-link[data-filter="campaigns"] .work-filter-count,
+  :root[data-work-filter="video"] .work-filter-link[data-filter="video"] .work-filter-count,
+  :root[data-work-filter="creative"] .work-filter-link[data-filter="creative"] .work-filter-count {
+    color: var(--color-bg);
+  }
+
+  :root[data-work-filter="web-systems"] [data-work-item]:not([data-disciplines~="web-systems"]),
+  :root[data-work-filter="campaigns"] [data-work-item]:not([data-disciplines~="campaigns"]),
+  :root[data-work-filter="video"] [data-work-item]:not([data-disciplines~="video"]),
+  :root[data-work-filter="creative"] [data-work-item]:not([data-disciplines~="creative"]) {
+    display: none;
+  }
+}

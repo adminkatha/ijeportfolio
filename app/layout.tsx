@@ -7,6 +7,7 @@ import { SkipLink } from "@/components/layout/SkipLink";
 import { VercelInsights } from "@/components/layout/VercelInsights";
 import { MotionRoot } from "@/components/motion/MotionRoot";
 import { MotionScript } from "@/components/motion/MotionScript";
+import { disciplines } from "@/content/data/schema";
 import { rootMetadata } from "@/lib/seo";
 import "./globals.css";
 
@@ -27,6 +28,12 @@ const mono = JetBrains_Mono({
 
 export const metadata = rootMetadata;
 
+/**
+ * Applies the /work?d=… discipline filter before first paint (CSS hides the other rows), so a shared
+ * filtered link never flashes the full list or shifts the layout. WorkFilter keeps it in step afterwards.
+ */
+const WORK_FILTER_BOOT = `(function(){try{if(location.pathname==="/work"){var d=new URLSearchParams(location.search).get("d");if(d&&${JSON.stringify(disciplines)}.indexOf(d)>-1)document.documentElement.setAttribute("data-work-filter",d)}}catch(e){}})();`;
+
 export const viewport: Viewport = {
   themeColor: "#0a0a0b",
   colorScheme: "dark",
@@ -34,10 +41,12 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    // suppressHydrationWarning: MotionScript sets the saved motion preference on <html> before hydration.
+    // suppressHydrationWarning: the head scripts set attributes on <html> before hydration
+    // (MotionScript: the saved motion preference; WORK_FILTER_BOOT: the /work filter).
     <html lang="en" className={`${display.variable} ${GeistSans.variable} ${mono.variable}`} suppressHydrationWarning>
       <head>
         <MotionScript />
+        <script dangerouslySetInnerHTML={{ __html: WORK_FILTER_BOOT }} />
       </head>
       <body>
         <SkipLink />

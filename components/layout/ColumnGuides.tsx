@@ -1,9 +1,10 @@
 type ColumnGuidesProps = {
   /**
    * "page": the 12 columns of the 1280px container (use inside a full-bleed parent).
+   * "container": the 12 columns, inside an element that is already in the container.
    * "content": the homepage content column, which spans 9 of the 12 columns at ≥1024px.
    */
-  span: "page" | "content";
+  span: "page" | "container" | "content";
   className?: string;
 };
 
