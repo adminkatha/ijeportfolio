@@ -49,3 +49,6 @@ next-env.d.ts
 # playwright
 /test-results/
 /playwright-report/
+
+# content-collections output (regenerated on dev/build)
+/.content-collections/
