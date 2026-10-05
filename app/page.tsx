@@ -1,4 +1,5 @@
 import { MDXContent } from "@content-collections/mdx/react";
+import { HeroSeam } from "@/components/hero/HeroSeam";
 import { Container } from "@/components/layout/Grid";
 import { FillIn, Fillable } from "@/components/ui/FillIn";
 import { SectionLabel } from "@/components/ui/SectionLabel";
@@ -12,11 +13,10 @@ export default function Home() {
   const sections = getHomeSections();
   const caseStudy = getCaseStudy("sabbath-spa");
   return (
-    <main id="main" className="py-24">
-      <Container className="space-y-16">
+    <main id="main" className="pb-24">
+      <HeroSeam name={profile.name} title={profile.title} roleLine={profile.roleLine} cta={{ label: "See the work →", href: "#work" }} />
+      <Container className="space-y-16 pt-24">
         <header className="space-y-6">
-          <h1 className="type-display">{profile.name}</h1>
-          <p className="max-w-[48ch] text-lg text-text-2">{profile.roleLine}</p>
           <p className="text-text-2">
             Location: <Fillable value={profile.location} />
           </p>

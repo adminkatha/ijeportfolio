@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque, JetBrains_Mono } from "next/font/google";
 import { GeistSans } from "geist/font/sans";
 import { SkipLink } from "@/components/layout/SkipLink";
+import { MotionScript } from "@/components/motion/MotionScript";
 import "./globals.css";
 
 // Self-hosted at build time by next/font (no requests to Google from the browser),
@@ -33,7 +34,10 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${display.variable} ${GeistSans.variable} ${mono.variable}`}>
+    <html lang="en" className={`${display.variable} ${GeistSans.variable} ${mono.variable}`} suppressHydrationWarning>
+      <head>
+        <MotionScript />
+      </head>
       <body>
         <SkipLink />
         {children}
