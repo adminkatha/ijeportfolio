@@ -1,4 +1,5 @@
 import { MDXContent } from "@content-collections/mdx/react";
+import { ContactForm } from "@/components/contact/ContactForm";
 import { Container } from "@/components/layout/Grid";
 import { FillIn, Fillable } from "@/components/ui/FillIn";
 import { SectionLabel } from "@/components/ui/SectionLabel";
@@ -58,6 +59,12 @@ export default function Home() {
             <MDXContent code={caseStudy.body} components={{ FillIn }} />
           </article>
         ) : null}
+
+        {/* Testing mount for the contact agent (the site agent's Contact section replaces this at merge). */}
+        <section id="contact" aria-labelledby="contact-title" className="max-w-3xl space-y-8">
+          <SectionLabel number={sections.find((s) => s.id === "contact")!.number} title="Contact" id="contact-title" />
+          <ContactForm />
+        </section>
       </Container>
     </main>
   );
