@@ -1,10 +1,12 @@
 import { MDXContent } from "@content-collections/mdx/react";
 import { ContactForm } from "@/components/contact/ContactForm";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { Container } from "@/components/layout/Grid";
 import { FillIn, Fillable } from "@/components/ui/FillIn";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { disciplineLabels } from "@/content/data/schema";
 import { getCaseStudy, getHomeSections, getProfile, getProjects } from "@/lib/content";
+import { personJsonLd, websiteJsonLd } from "@/lib/jsonld";
 
 // Phase 2 content check: data, [FILL IN] rendering, computed section numbers, one compiled case study.
 // Replaced by the real homepage in later phases.
@@ -14,6 +16,8 @@ export default function Home() {
   const caseStudy = getCaseStudy("sabbath-spa");
   return (
     <main id="main" className="py-24">
+      {/* Testing mount for the SEO agent: structured data for the homepage. */}
+      <JsonLd data={[websiteJsonLd(), personJsonLd()]} />
       <Container className="space-y-16">
         <header className="space-y-6">
           <h1 className="type-display">{profile.name}</h1>

@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque, JetBrains_Mono } from "next/font/google";
 import { GeistSans } from "geist/font/sans";
 import { SkipLink } from "@/components/layout/SkipLink";
+import { rootMetadata } from "@/lib/seo";
 import "./globals.css";
 
 // Self-hosted at build time by next/font (no requests to Google from the browser),
@@ -19,12 +20,8 @@ const mono = JetBrains_Mono({
   display: "swap",
 });
 
-// Phase 1 placeholder. Real metadata comes from content/data (Phase 2) and lib/seo (Phase 10).
-export const metadata: Metadata = {
-  title: "Ehjay Lorenzo (in progress)",
-  description: "Portfolio in progress.",
-  robots: { index: false, follow: false },
-};
+// Testing mount for the SEO agent (the site agent's layout replaces this at merge).
+export const metadata: Metadata = rootMetadata;
 
 export const viewport: Viewport = {
   themeColor: "#0a0a0b",
