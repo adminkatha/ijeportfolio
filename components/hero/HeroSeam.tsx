@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { attachSeam } from "./controller";
+import { SEAM_MAX, SEAM_MIN, SEAM_REST, seamValueText } from "./seam";
 import s from "./HeroSeam.module.css";
 
 export type HeroSeamProps = {
@@ -70,6 +72,7 @@ function Measure({ name }: { name: string }) {
  */
 export function HeroSeam({ name, title, roleLine, cta }: HeroSeamProps) {
   const rootRef = useRef<HTMLElement>(null);
+  const knobRef = useRef<HTMLSpanElement>(null);
   const [view, setView] = useState<"creative" | "code">("creative");
   const parts = splitHighlight(roleLine);
 
@@ -92,25 +95,12 @@ export function HeroSeam({ name, title, roleLine, cta }: HeroSeamProps) {
       roleLine
     );
 
-  // The CSS intro plays once: when it ends (or if it isn't running at mount), mark it done,
-  // so a media query that flips later (a resize, a full-page screenshot) can't replay it.
+  // Pointer, drag, keys, modes and the rest of the intro (components/hero/controller.ts).
   useEffect(() => {
     const root = rootRef.current;
-    if (!root) return;
-    const done = () => {
-      root.dataset.intro = "done";
-    };
-    const intro = root.getAnimations().find((a) => (a as CSSAnimation).animationName?.includes("seamIntro"));
-    if (!intro) {
-      done();
-      return;
-    }
-    intro.addEventListener("finish", done, { once: true });
-    intro.addEventListener("cancel", done, { once: true });
-    return () => {
-      intro.removeEventListener("finish", done);
-      intro.removeEventListener("cancel", done);
-    };
+    const knob = knobRef.current;
+    if (!root || !knob) return;
+    return attachSeam(root, knob);
   }, []);
 
   // Print the live token values and the measured sizes into the CODE layer.
@@ -253,11 +243,27 @@ export function HeroSeam({ name, title, roleLine, cta }: HeroSeamProps) {
           </div>
         </div>
 
-        {/* The seam itself. */}
-        <div className={s.rail} aria-hidden="true">
-          <span className={s.line} />
-          <span className={`label-mono ${s.side} ${s.sideCreative}`}>Creative</span>
-          <span className={`label-mono ${s.side} ${s.sideCode}`}>Code</span>
+        {/* The seam itself: a full-width rail translated to --seam (transform only), carrying the handle. */}
+        <div className={s.rail}>
+          <span className={s.line} aria-hidden="true" />
+          <span className={`label-mono ${s.side} ${s.sideCreative}`} aria-hidden="true">
+            Creative
+          </span>
+          <span className={`label-mono ${s.side} ${s.sideCode}`} aria-hidden="true">
+            Code
+          </span>
+          <span
+            ref={knobRef}
+            className={s.knob}
+            role="slider"
+            tabIndex={0}
+            aria-label="Creative / Code seam"
+            aria-orientation="horizontal"
+            aria-valuemin={SEAM_MIN}
+            aria-valuemax={SEAM_MAX}
+            aria-valuenow={SEAM_REST}
+            aria-valuetext={seamValueText(SEAM_REST)}
+          />
         </div>
       </div>
 
