@@ -14,7 +14,7 @@ export function ContactForm() {
 
 function EmailInstead({ email }: { email: string }) {
   return (
-    <div className="space-y-3">
+    <div data-contact-fallback="" className="space-y-3">
       <p className="label-mono text-text-2">Email me instead</p>
       <a
         href={`mailto:${email}`}

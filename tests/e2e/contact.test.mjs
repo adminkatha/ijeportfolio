@@ -154,8 +154,9 @@ async function main() {
         const { context, page } = await newWatchedPage(browser, problems);
         await page.goto(`${BASE}/`, { waitUntil: "networkidle" });
         const hasForm = await form(page).count();
-        const text = await page.locator("#contact").innerText();
-        const mailto = await page.locator(`#contact a[href="mailto:${EMAIL}"]`).count();
+        const fallback = page.locator("[data-contact-fallback]");
+        const text = (await fallback.count()) ? await fallback.innerText() : "";
+        const mailto = await fallback.locator(`a[href="mailto:${EMAIL}"]`).count();
         check("renders “Email me instead” with a mailto link and no form", hasForm === 0 && /email me instead/i.test(text) && mailto === 1, `form=${hasForm} mailto=${mailto} text=${text.slice(0, 200)}`);
         check("no console errors or failed requests (unconfigured)", problems.length === 0, problems.join("\n      "));
         await context.close();
