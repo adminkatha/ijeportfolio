@@ -11,7 +11,11 @@
     "screens": "node scripts/screenshots.mjs",
     "analyze": "next experimental-analyze",
     "check:push": "node scripts/prepush-check.mjs",
-    "grain": "node scripts/grain.mjs"
+    "grain": "node scripts/grain.mjs",
+    "budget": "node scripts/budget.mjs",
+    "a11y": "node scripts/a11y.mjs",
+    "lighthouse": "node scripts/lighthouse.mjs",
+    "inp": "node scripts/inp.mjs"
   },
   "dependencies": {
     "@content-collections/core": "0.15.3",

@@ -20,7 +20,9 @@ const flag = (name, fallback) => {
 };
 
 const phase = flag("phase", "latest");
-const routes = flag("routes", "/").split(",").map((r) => r.trim()).filter(Boolean);
+// Git Bash (MSYS) rewrites "/work" into "C:/Program Files/Git/work"; undo that.
+const unmangle = (r) => r.replace(/^[A-Za-z]:[\\/].*?[\\/]Git(?=[\\/]|$)/, "").replace(/\\/g, "/") || "/";
+const routes = flag("routes", "/").split(",").map((r) => unmangle(r.trim())).filter(Boolean);
 const externalUrl = flag("url", null);
 const port = Number(flag("port", "3100"));
 const baseUrl = externalUrl ?? `http://localhost:${port}`;

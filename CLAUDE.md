@@ -16,6 +16,8 @@ This Next.js version has breaking changes: read the relevant guide in `node_modu
 - **Sample campaigns** are labelled "Sample campaign" everywhere: cards, case pages, palette, OG images, llms.txt. Results are real numbers only.
 - **Clients** are named only with permission (`client` field).
 - **CRM/dashboard screenshots** must show no real customer or client data. Review each one before committing it and log the review in DECISIONS.md.
+- **Client business figures** (revenue, spend, leads, ROAS…) appear only if a `notes.txt` grants permission (none does yet): blurred in images, never quoted. The live dashboard demos use labelled sample data, the only place sample numbers may appear.
+- **The reporting app's own brand** never appears in the site or the repo (DECISIONS 2026-10-06); `pnpm check:push` enforces it.
 - **Content lives in `content/`**, never in components: `content/data/*.ts` (zod-validated), `content/work/<slug>.mdx`, `content/writing/*.mdx`.
 - **No dependency outside `docs/PLAN.md` §7** without asking first. Re-check versions with `pnpm view <pkg> version` before installing.
 - **Reference sites are patterns only.** Never fetch, copy or adapt their code, assets or text.
@@ -27,7 +29,7 @@ This Next.js version has breaking changes: read the relevant guide in `node_modu
 - **Media:**
   - Copy files from his asset folder into the project only when a phase needs them, and resize large images first.
   - Video is poster-first, with nothing loaded until play.
-  - Video hosting needs approval (PLAN §5) before any video is added.
+  - Video hosting: Option A (compressed MP4 in the repo), approved 2026-10-06; limits in PLAN §5.
 
 ## Stack (pinned in PLAN §7)
 - next 16.3.8 (App Router, Turbopack) with react 19.2.8, TypeScript 6.0.3 (strict), and Tailwind 4.3 with `@theme` tokens (no `tailwind.config.js`).
@@ -107,4 +109,5 @@ This Next.js version has breaking changes: read the relevant guide in `node_modu
   3. run `pnpm screens` (1440/768/390 into `.screenshots/phase-N/`; it fails on console errors or 4xx/5xx responses)
   4. summarize what changed and what's left
   5. **stop and wait for approval**
-- Never commit secrets. Ask before pushing to a remote or deploying.
+- Never commit secrets. Run `pnpm check:push` before every push. Ask before deploying.
+- Progress and the resume point live in `docs/PROGRESS.md`.
