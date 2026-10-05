@@ -99,8 +99,8 @@ The site already includes both (they load only on Vercel). In the project:
   publishes it automatically. Other branches get their own preview URL, which search engines are told not to index.
 - **Undo a bad deploy:** **Deployments** → pick the last good one → **⋯ → Promote to Production** (Instant Rollback).
 - **Run it on this PC:** double-click `run-local.bat` (installs if needed, builds, starts and opens
-  http://localhost:3000; another port: `run-local.bat 3001`).
+  http://localhost:3000, or the next free port if another program uses 3000; a specific port: `run-local.bat 3001`).
 
 ## Checked before handing over
-A fresh clone of the repository, with no `.env` files, installs with `pnpm install --frozen-lockfile` and
-builds with `pnpm build` (the result is in the deploy agent's report).
+On 2026-10-06 a fresh clone of the repository, with no `.env` files, installed with `pnpm install --frozen-lockfile`
+(15 s) and built with `pnpm build` (65 s), both without errors. That is what Vercel runs.

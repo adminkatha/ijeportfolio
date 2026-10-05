@@ -1,10 +1,14 @@
+---
+lede: One app with two doors, a guest portal and a staff back office, for a spa with two branches.
+---
+
 ## Problem
 
-<FillIn>what problem this solved for the client</FillIn>
+<FillIn>what wasn't working before (e.g. bookings, waivers or payments tracked by hand?)</FillIn>
 
 ## Context
 
-<FillIn>who it was for and how it fits their business</FillIn>
+Sabbath Spa & Wellness Hub runs two branches, and the same back office also covers a nail brand, Le Nails. Guests and staff use one system from two entry points: a guest portal and a staff portal.
 
 ## Constraints
 
@@ -12,11 +16,23 @@
 
 ## Architecture
 
-<FillIn>how it is built (stack, data, hosting)</FillIn>
+The portal is a Next.js app. Guests get booking, waivers, memberships and in-room ordering; staff sign in to a management back office.
+
+<FillIn>database, hosting and authentication</FillIn>
 
 ## Implementation
 
-<FillIn>the main parts you built</FillIn>
+**For guests**
+
+- **Book a Session:** reserve an appointment and choose the service and the therapist.
+- **Digital Waiver:** a health intake form and a liability waiver.
+- **Membership:** discounts, VIP packages and priority booking.
+- **Sabasu:** order coffee, pasta and pastries to the room.
+
+**For staff**
+
+- **Bookings ledger:** every booking per branch, filtered by brand (Sabbath or Le Nails), searchable by customer, date or service, with CSV export.
+- **Clients, Staff, Payments and Waivers**, plus **Audit Logs**.
 
 ## Key technical decision
 
@@ -24,7 +40,7 @@
 
 ## Result
 
-<FillIn>a real outcome (no client figures without permission)</FillIn>
+<FillIn>a real outcome the client is happy to share</FillIn>
 
 ## What I learned
 

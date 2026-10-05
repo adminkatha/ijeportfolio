@@ -15,7 +15,8 @@
     "budget": "node scripts/budget.mjs",
     "a11y": "node scripts/a11y.mjs",
     "lighthouse": "node scripts/lighthouse.mjs",
-    "inp": "node scripts/inp.mjs"
+    "inp": "node scripts/inp.mjs",
+    "fill-ins": "node scripts/fill-ins.mjs"
   },
   "dependencies": {
     "@content-collections/core": "0.15.3",
