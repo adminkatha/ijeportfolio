@@ -1,16 +1,15 @@
 @echo off
 rem Ehjay Lorenzo portfolio: build the site and run it on this PC.
 rem Double-click this file. The first time it installs what the site needs; every time it builds the site,
-rem starts it and opens http://localhost:3000 in your browser. Close this window (or press Ctrl+C) to stop.
-rem Another port:  run-local.bat 3001
-rem (No labels or GOTO on purpose: the repository stores this file with LF line endings.)
+rem starts it and opens http://localhost:3000 in your browser (or the next free port, 3001 to 3010, when another
+rem program already uses 3000). Close this window (or press Ctrl+C) to stop.
+rem A specific port:  run-local.bat 3001
+rem (No labels or GOTO on purpose, so it also runs correctly if the file ever ends up with LF line endings.)
 
 setlocal EnableExtensions
 cd /d "%~dp0"
 title Ehjay Lorenzo portfolio
 set "PORT=%~1"
-if "%PORT%"=="" set "PORT=3000"
-set "URL=http://localhost:%PORT%"
 
 echo.
 echo   Ehjay Lorenzo portfolio - local preview
@@ -101,7 +100,20 @@ if errorlevel 1 (
 echo.
 echo   [ok] Built
 
-rem --- 6. Start, and open the browser once the site answers ---------------------------------
+rem --- 6. Port: the one given, else 3000, else the next free one up to 3010 --------------------
+if "%~1"=="" (
+  for /l %%p in (3000,1,3010) do (
+    if not defined PORT (
+      netstat -ano | findstr /r /c:":%%p .*LISTENING" >nul || set "PORT=%%p"
+    )
+  )
+)
+if "%PORT%"=="" (
+  echo   [X] Ports 3000 to 3010 are all in use. Close a program, or choose a port:  run-local.bat 3100
+  echo.
+  pause
+  exit /b 1
+)
 netstat -ano | findstr /r /c:":%PORT% .*LISTENING" >nul
 if not errorlevel 1 (
   echo   [X] Port %PORT% is already in use by another program.
@@ -110,6 +122,12 @@ if not errorlevel 1 (
   pause
   exit /b 1
 )
+if "%~1"=="" if not "%PORT%"=="3000" (
+  echo   [i] Port 3000 is already used by another program, so the site starts on port %PORT% instead.
+)
+set "URL=http://localhost:%PORT%"
+
+rem --- 7. Start, and open the browser once the site answers ---------------------------------
 echo.
 echo   Starting the site at %URL%
 echo   It opens in your browser when it's ready. To stop it, close this window or press Ctrl+C.
