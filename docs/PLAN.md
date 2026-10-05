@@ -9,7 +9,7 @@ Facts come only from `docs/INTAKE.md`. Anything unanswered renders as a visible 
   - Role line (default): **"I make the ads, and I build the systems that measure them."**
 - **Site:** dark, typographic, restrained, original. Next.js 16.3 App Router, TS strict, Tailwind 4 `@theme` tokens, pnpm, Vercel.
 - **Hero:** one memorable moment, a **CREATIVE | CODE** seam over the hero headline. It eases toward the cursor on desktop, drags on touch, and becomes a Creative / Code toggle under 768px. No 3D, and his face is never split.
-- **Work:** four disciplines (Web & Systems, Campaigns, Video, Creative). The homepage shows the 4 strongest pieces, ideally one per discipline. `/work` lists everything with a discipline filter; `/work/[slug]` is one page per piece with a template per discipline.
+- **Work:** four disciplines (Web & Systems = websites, CRMs and dashboards; Campaigns; Video; Creative). Files are grouped by client when a client appears in several folders. The homepage shows the 4 strongest pieces, ideally one per discipline. `/work` lists everything with a discipline filter; `/work/[slug]` is one page per piece with a template per discipline.
 - **Honesty:**
   - Sample campaigns are labelled "Sample campaign" everywhere, and results are real numbers only.
   - Clients are named only with permission.
@@ -26,6 +26,7 @@ Facts come only from `docs/INTAKE.md`. Anything unanswered renders as a visible 
   - Core Web Vitals: LCP ≤ 2.5s (hero text), CLS ≤ 0.1, INP ≤ 200ms.
   - JS: ≤ 170KB gzipped up front.
 - **Process:** one phase at a time. Each phase ends with typecheck, lint and build, a `phase-N: …` commit, screenshots at 1440/768/390, a summary, then a stop.
+  - **2026-10-06 run:** no stops between phases; phases built in parallel by subagents in git worktrees and merged into `main`, which is pushed (after `pnpm check:push`) after each finished phase. Progress: `docs/PROGRESS.md`.
 
 ## 2. The hero: CREATIVE | CODE seam
 **Subject A: the headline** ("EHJAY LORENZO" + role line), rendered twice and split by a vertical seam.
@@ -94,8 +95,10 @@ Facts come only from `docs/INTAKE.md`. Anything unanswered renders as a visible 
 - liveUrl?, githubUrl?
 - client? { name } (only with permission)
 - cover? { src, alt } (missing → typographic cover)
-- gallery[] { src, alt, caption? }
-- video? { source, poster, aspectRatio: `"9:16" | "16:9" | "1:1" | "4:5"` }
+- gallery[] { src, width, height, alt, caption?, group? }
+- videos[] { src, poster, width, height, title, description?, durationSec?, captions? } *(2026-10-06: several per project; width/height replace the aspect-ratio enum because screen recordings are ~2.2:1)*
+- demos[] { slug, client, title, src: `/demos/<slug>/index.html`, preview, sampleData: true, note? } *(live dashboard demos; the schema requires a sample-data disclosure)*
+- alsoIn[] (extra disciplines for the /work filter), disclosures[] (privacy notes shown on the page), related[] (slugs)
 - isSample (boolean), featured, order, status `"shipped" | "in-progress"`, year?
 - A validation rule: `isSample` work can't carry a client name, and metrics on samples must be labelled as sample data.
 
@@ -105,7 +108,7 @@ Facts come only from `docs/INTAKE.md`. Anything unanswered renders as a visible 
 - **Now:** { building[{ name, description, url? }], learning[], updatedAt }
 - **PlaygroundItem:** { title, description, href, media? }
 
-**Case studies** (`content/work/<slug>.mdx`). A build-time check enforces each discipline's required H2s:
+**Case studies** (`content/work/<slug>.mdx`). A build-time check (in `lib/content.ts`) enforces each discipline's required H2s, in order:
 - **Web & Systems:** Problem, Context, Constraints, Architecture, Implementation, Key technical decision, Result, What I learned
 - **Campaigns:** Objective, Audience, Creative approach, Setup, Results, What I learned
 - **Video / Creative:** a short brief, plus the gallery or video grid from the data file. MDX is optional.
@@ -126,12 +129,15 @@ Facts come only from `docs/INTAKE.md`. Anything unanswered renders as a visible 
   | C. YouTube (unlisted) / Vimeo with click-to-load facade | Free hosting, adaptive streaming, good for long-form | Third-party player and cookies; the embed is heavy (the facade keeps it off the critical path); less design control |
 
   - Recommendation: **A** for short-form, switching to **B** if total video passes about 80MB. **C** only for long-form pieces.
+  - **Decided 2026-10-06: A.** H.264 MP4, ≤1080p (720p for screen recordings), each < ~15 MB, total < ~80 MB, poster per video. Website recordings: audio stripped. Social videos: muted unless a note says the music is licensed or original (none does).
+- **Privacy (2026-10-06):** customer names, emails, phones, addresses, appointment details, ad account IDs, keys and tokens are always removed. Client business figures appear only with written permission in a `notes.txt` (none exists): blurred in images, never quoted, and replaced with labelled sample values in the live demos (the only place sample numbers may appear). Files that can't be cleaned are left out and listed.
+- **Live dashboards:** static offline demos in `public/demos/<slug>/` (no scripts from the original, no trackers, API calls, log-in links or forms; noindex), shown on project pages in a lazy sandboxed iframe with "Open full screen"; never loaded on the homepage.
 
 ## 6. File tree (target)
 ```
 C:\Users\Client\LPT\assets
 ├─ CLAUDE.md (imports AGENTS.md) · AGENTS.md (Next.js agent rules, managed by next)
-├─ docs/            PLAN.md · INTAKE.md · DECISIONS.md
+├─ docs/            PLAN.md · INTAKE.md · DECISIONS.md · PROGRESS.md · ASSETS.md · CONTACT-SETUP.md · DEPLOY.md · contact/apps-script.gs
 ├─ app/
 │  ├─ layout.tsx · globals.css (@theme) · page.tsx · not-found.tsx
 │  ├─ opengraph-image.tsx · sitemap.ts · robots.ts · llms.txt/route.ts
@@ -153,8 +159,10 @@ C:\Users\Client\LPT\assets
 │  └─ writing/     (empty)
 ├─ content-collections.ts
 ├─ lib/            site.ts (SITE_URL) · seo.ts · og.tsx · format.ts
-├─ public/         media/{img,video,poster}/ · resume.pdf · fonts/LICENSES/ · grain.png
-├─ scripts/        screenshots.mjs · budget.mjs · grain.mjs
+├─ public/         media/{img,video,poster}/ · demos/<slug>/ (live dashboard demos) · resume.pdf · fonts/LICENSES/ · grain.png
+├─ content/media/  manifest.json · demos.json (generated by the media and demo pipelines)
+├─ scripts/        screenshots.mjs · budget.mjs · grain.mjs · prepush-check.mjs · media/ · demos/
+├─ run-local.bat   install if needed → build → start → open http://localhost:3000
 ├─ tests/e2e/      seam.spec.ts · smoke.spec.ts
 └─ next.config.ts · tsconfig.json · eslint.config.mjs · postcss.config.mjs · .env.example · package.json
 ```
@@ -196,7 +204,8 @@ Every phase ends with: `pnpm typecheck` + `pnpm lint` + `pnpm build` → commit 
 | 5 | Selected Work | 4 featured pieces (one per discipline where possible), cards with label, title, summary, metric, stack, links; real covers (resized) or typographic fallback; Sample tags | data-driven; samples labelled; a missing metric hides cleanly |
 | 6 | Capabilities + Experience | Creative / Marketing / Web groups with evidence lines; numbered timeline | every item has evidence or `[FILL IN]`; semantic lists and headings |
 | 7 | Now + Contact (+ hidden sections) | Now (updatedAt) + `/now`; Contact "LET'S BUILD SOMETHING USEFUL." (email, links, résumé; no phone); Playground/Writing components that hide with their nav links while empty | empty sections are absent from DOM, nav and sitemap; section numbers have no gaps |
-| 8 | Media | image pipeline, Gallery, poster-first 9:16 VideoPlayer, hosting per the approved option, privacy review of system screenshots | no video bytes before play; posters sized (no CLS); every screenshot reviewed and logged |
+| 7a | Contact form → Google Sheets *(added 2026-10-06)* | form (name, email, company?, inquiry type, message), "Hire me" header button, server action → Apps Script web app (`CONTACT_WEBHOOK_URL`, `CONTACT_SECRET`), honeypot + min fill time + zod + length limits, Apps Script (secret check, formula escaping, header row, email notification), setup doc | accessible labels, inline errors, success message, privacy line; works without JS; "Email me instead" when env vars are missing; no secrets in the repo |
+| 8 | Media | image pipeline, Gallery, poster-first VideoPlayer, hosting per the approved option (A), privacy review of every file; *(2026-10-06)* the dashboards as live offline demos, the privacy checks and the video compression | no video bytes before play; posters sized (no CLS); every file reviewed and logged in `docs/ASSETS.md`; videos < 15 MB each, < 80 MB total; demos make zero external requests and carry noindex |
 | 9 | Work pages | `/work` with progressive-enhancement discipline filter (no-JS shows all; state in the URL); `/work/[slug]` with 3 templates; prev/next; writing/playground routes `notFound()` while empty | all slugs statically generated; unknown slug → 404; heading outline valid; filter keyboard-operable |
 | 10 | SEO | per-route metadata, next/og image per page, sitemap, robots, llms.txt, JSON-LD (Person + CreativeWork), canonical from `SITE_URL` | every route has title, description, canonical and OG; local Lighthouse SEO 100 |
 | 11 | **Seam interaction** | rAF easing, clamps, matchMedia modes, drag, keyboard slider, toggle, reduced motion, ≤ 800ms intro | zero rAF callbacks once settled; resize 390↔1440 switches modes both ways; keys update `aria-valuenow`; correct at 2560; seam always 8–92, opacities 0–1; INP ≤ 200ms while dragging |
@@ -204,7 +213,7 @@ Every phase ends with: `pnpm typecheck` + `pnpm lint` + `pnpm build` → commit 
 | 13 | *(Deferred)* Developer Mode | skipped for now; number kept so later prompts line up | - |
 | 14 | Motion polish | reveals once, Lenis desktop-only (manual raf, idle stop), motion toggle persisted, reduced-motion path | no Lenis on touch or under reduced motion; content visible without JS; zero idle frames |
 | 15 | QA | Lighthouse mobile (home + one case study), CWV, JS budget, axe, keyboard pass, console/404/hydration sweep, 2560 | 90/100/100/100; LCP ≤ 2.5s, CLS ≤ 0.1, INP ≤ 200ms; ≤ 170KB gz; zero errors |
-| 16 | Deploy | Vercel project, `SITE_URL`, domain, Analytics + Speed Insights; rerun Phase 15 on the live URL | live URL passes Phase 15 |
+| 16 | Deploy | *(2026-10-06: prep only)* GitHub origin + pushes, `run-local.bat`, `docs/DEPLOY.md` (import, env vars, domain), Analytics + Speed Insights rendered only on Vercel, clean-clone build. Later: the Vercel project, domain, rerun Phase 15 on the live URL | repo pushed; clean clone builds with no env; live URL passes Phase 15 (later) |
 
 ## 9. Decisions (2026-10-05)
 - **Subject:** the site is for **Ehjay Lorenzo**. GrowthTrack is dropped unless he confirms it is his.
@@ -213,3 +222,5 @@ Every phase ends with: `pnpm typecheck` + `pnpm lint` + `pnpm build` → commit 
 - **Developer Mode** deferred. The command palette is kept.
 - **Playground and Writing** hidden with their nav links while empty.
 - **Domain:** from the `SITE_URL` env variable; `[FILL IN]` until decided. Deploy answers at Phase 16.
+
+**2026-10-06** (details in DECISIONS.md): his files found in `ehjay-files/`; no `notes.txt` (so no client figures, muted social videos); portrait approved; client names allowed; the reporting app's brand removed everywhere; video Option A; live offline dashboard demos with sample data; contact form → Google Sheets (phase 7a); GitHub `adminkatha/ijeportfolio`; Vercel later; parallel build with subagents.
