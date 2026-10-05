@@ -1,13 +1,15 @@
-import { ContactForm } from "@/components/contact/ContactForm";
+import type { ReactNode } from "react";
 import { HeroSeam } from "@/components/hero/HeroSeam";
 import { IdentityColumn } from "@/components/layout/IdentityColumn";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Capabilities } from "@/components/sections/Capabilities";
+import { Contact } from "@/components/sections/Contact";
 import { Experience } from "@/components/sections/Experience";
-import { Section } from "@/components/sections/Section";
+import { Now } from "@/components/sections/Now";
+import { PlaygroundPreview } from "@/components/sections/PlaygroundPreview";
 import { SelectedWork } from "@/components/sections/SelectedWork";
-import { Fillable } from "@/components/ui/FillIn";
-import { getHomeSections, getNow, getProfile, type HomeSectionId } from "@/lib/content";
+import { Writing } from "@/components/sections/Writing";
+import { getHomeSections, getProfile, type HomeSectionId } from "@/lib/content";
 import { personJsonLd } from "@/lib/jsonld";
 import { pageMetadata } from "@/lib/seo";
 
@@ -17,14 +19,23 @@ export const metadata = pageMetadata({
   path: "/",
 });
 
-// Now and Contact are plain here; they get their designs in phase 7.
+const SECTIONS: Record<HomeSectionId, (props: { number: number }) => ReactNode> = {
+  work: SelectedWork,
+  capabilities: Capabilities,
+  experience: Experience,
+  now: Now,
+  playground: PlaygroundPreview,
+  writing: Writing,
+  contact: Contact,
+};
+
+/**
+ * Hero (full-bleed), then the identity column beside the sections. Only visible sections render
+ * (getHomeSections() drops empty Playground/Writing), so numbers have no gaps.
+ */
 export default function Home() {
   const profile = getProfile();
   const sections = getHomeSections();
-  const numberOf = (id: HomeSectionId) => sections.find((s) => s.id === id)?.number;
-  const show = (id: HomeSectionId) => numberOf(id) !== undefined;
-  const now = getNow();
-
   return (
     <main id="main">
       <JsonLd data={personJsonLd()} />
@@ -32,30 +43,10 @@ export default function Home() {
       <div className="container-site lg:grid-12">
         <IdentityColumn sections={sections} />
         <div className="divide-y divide-line lg:relative lg:col-span-9 lg:before:absolute lg:before:inset-y-0 lg:before:left-[calc(var(--gutter)/-2)] lg:before:w-px lg:before:bg-line">
-          {show("work") ? <SelectedWork number={numberOf("work")!} /> : null}
-          {show("capabilities") ? <Capabilities number={numberOf("capabilities")!} /> : null}
-          {show("experience") ? <Experience number={numberOf("experience")!} /> : null}
-          {show("now") ? (
-            <Section id="now" number={numberOf("now")!} title="Now">
-              <ul className="mt-10 space-y-3">
-                {now.building.map((b, i) => (
-                  <li key={i}>
-                    <Fillable value={b.name} />
-                  </li>
-                ))}
-              </ul>
-            </Section>
-          ) : null}
-          {show("contact") ? (
-            <Section id="contact" number={numberOf("contact")!} title="Contact" headingId="contact-heading">
-              <h2 id="contact-heading" className="type-display-md mt-10">
-                Let&rsquo;s build something useful.
-              </h2>
-              <div className="mt-10">
-                <ContactForm />
-              </div>
-            </Section>
-          ) : null}
+          {sections.map((s) => {
+            const Component = SECTIONS[s.id];
+            return <Component key={s.id} number={s.number} />;
+          })}
         </div>
       </div>
     </main>
