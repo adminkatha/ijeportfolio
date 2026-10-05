@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque, JetBrains_Mono } from "next/font/google";
 import { GeistSans } from "geist/font/sans";
 import { SkipLink } from "@/components/layout/SkipLink";
+import { VercelInsights } from "@/components/layout/VercelInsights";
 import { rootMetadata } from "@/lib/seo";
 import "./globals.css";
 
@@ -34,6 +35,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body>
         <SkipLink />
         {children}
+        {/* Testing mount for the deploy agent: renders nothing unless VERCEL=1. */}
+        <VercelInsights />
       </body>
     </html>
   );
