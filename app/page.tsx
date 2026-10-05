@@ -1,11 +1,11 @@
-import Link from "next/link";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { HeroSeam } from "@/components/hero/HeroSeam";
 import { IdentityColumn } from "@/components/layout/IdentityColumn";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Section } from "@/components/sections/Section";
+import { SelectedWork } from "@/components/sections/SelectedWork";
 import { Fillable } from "@/components/ui/FillIn";
-import { getCapabilities, getExperience, getFeaturedProjects, getHomeSections, getNow, getProfile, type HomeSectionId } from "@/lib/content";
+import { getCapabilities, getExperience, getHomeSections, getNow, getProfile, type HomeSectionId } from "@/lib/content";
 import { personJsonLd } from "@/lib/jsonld";
 import { pageMetadata } from "@/lib/seo";
 
@@ -15,7 +15,7 @@ export const metadata = pageMetadata({
   path: "/",
 });
 
-// Phase 3: the shell around the homepage. Sections are plain here; they get their designs in phases 5–7.
+// Sections not yet designed are plain here; they get their designs in phases 6–7.
 export default function Home() {
   const profile = getProfile();
   const sections = getHomeSections();
@@ -30,19 +30,7 @@ export default function Home() {
       <div className="container-site lg:grid-12">
         <IdentityColumn sections={sections} />
         <div className="divide-y divide-line lg:relative lg:col-span-9 lg:before:absolute lg:before:inset-y-0 lg:before:left-[calc(var(--gutter)/-2)] lg:before:w-px lg:before:bg-line">
-          {show("work") ? (
-            <Section id="work" number={numberOf("work")!} title="Selected work">
-              <ul className="mt-10 space-y-3">
-                {getFeaturedProjects().map((p) => (
-                  <li key={p.slug}>
-                    <Link href={`/work/${p.slug}`} className="link">
-                      {p.title}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </Section>
-          ) : null}
+          {show("work") ? <SelectedWork number={numberOf("work")!} /> : null}
           {show("capabilities") ? (
             <Section id="capabilities" number={numberOf("capabilities")!} title="Capabilities">
               <ul className="mt-10 space-y-3">

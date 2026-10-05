@@ -1,4 +1,5 @@
-// Deterministic date formatting (no locale APIs, so server and client always agree).
+// Deterministic date formatting (no locale APIs, so server and client always agree), and link helpers.
+// No imports: this file is also used by client components, and content/data/schema.ts would pull zod in.
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"] as const;
 
@@ -20,3 +21,9 @@ export function formatDate(value: string): string {
 
 /** Zero-padded two-digit index: 1 → "01". */
 export const pad2 = (n: number) => String(n).padStart(2, "0");
+
+/** Same pattern as FILL_IN_RE in content/data/schema.ts. */
+const FILL_IN_RE = /^\[FILL IN: .+\]$/;
+
+/** The value when it is a real URL or path; undefined when missing or still a fillIn("…") placeholder. */
+export const realLink = (value: string | undefined): string | undefined => (value && !FILL_IN_RE.test(value) ? value : undefined);
