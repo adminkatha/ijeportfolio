@@ -1,5 +1,14 @@
-// STUB (owned by the SEO agent; replaced in phase 10). Keep this export name and input type.
+// STUB (owned by the SEO agent; replaced in phase 10). Keep these export names and the input type.
 import type { Metadata } from "next";
+import { profile } from "@/content/data/profile";
+import { siteUrl } from "@/lib/site";
+
+/** Root-layout metadata: metadataBase, title template, default description, Open Graph/Twitter defaults, icons. */
+export const rootMetadata: Metadata = {
+  metadataBase: siteUrl,
+  title: { default: `${profile.name}, ${profile.title}`, template: `%s · ${profile.name}` },
+  description: profile.positioning,
+};
 
 export type PageMetadataInput = {
   title: string;
