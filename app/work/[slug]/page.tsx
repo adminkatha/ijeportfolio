@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: PageProps<"/work/[slug]">) {
   const { slug } = await params;
   const project = getProject(slug);
   if (!project) notFound();
-  return pageMetadata({ title: project.title, description: project.summary, path: `/work/${project.slug}` });
+  return pageMetadata({ title: project.title, description: project.summary, path: `/work/${project.slug}`, type: "article" });
 }
 
 /** One page per project; the primary discipline picks the template. */

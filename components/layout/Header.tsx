@@ -2,6 +2,7 @@ import Link from "next/link";
 import { CommandButton } from "@/components/command/CommandButton";
 import { getCommandItems } from "@/lib/commands";
 import { getProfile } from "@/lib/content";
+import { HireLink } from "./HireLink";
 import { MobileMenu } from "./MobileMenu";
 import { NavLinks } from "./NavLinks";
 import { getNavItems } from "./nav";
@@ -27,15 +28,12 @@ export function Header() {
         {/* Before ⌘K in DOM and visual order under 768px (wordmark · Menu · ⌘K). */}
         <MobileMenu items={items} />
         <CommandButton items={getCommandItems()} />
-        <Link
-          href="/#contact"
-          className="group label-mono hidden h-10 items-center gap-2 bg-accent px-4 text-accent-ink md:inline-flex"
-        >
+        <HireLink className="group label-mono hidden h-10 items-center gap-2 bg-accent px-4 text-accent-ink md:inline-flex">
           Hire me
           <span aria-hidden="true" className="transition-transform duration-(--dur-1) ease-out group-hover:translate-x-0.5">
             →
           </span>
-        </Link>
+        </HireLink>
       </div>
     </header>
   );

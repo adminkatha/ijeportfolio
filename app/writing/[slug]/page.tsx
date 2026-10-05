@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: PageProps<"/writing/[slug]">)
   const { slug } = await params;
   const post = postOf(slug);
   if (!post) notFound();
-  return pageMetadata({ title: post.title, description: post.summary, path: `/writing/${post.slug}` });
+  return pageMetadata({ title: post.title, description: post.summary, path: `/writing/${post.slug}`, type: "article" });
 }
 
 /** A post. Unknown slugs (and every slug while there are no posts) are a 404. */

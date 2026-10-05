@@ -10,13 +10,16 @@ import { PlaygroundPreview } from "@/components/sections/PlaygroundPreview";
 import { SelectedWork } from "@/components/sections/SelectedWork";
 import { Writing } from "@/components/sections/Writing";
 import { getHomeSections, getProfile, type HomeSectionId } from "@/lib/content";
-import { personJsonLd } from "@/lib/jsonld";
+import { personJsonLd, websiteJsonLd } from "@/lib/jsonld";
 import { pageMetadata } from "@/lib/seo";
 
+const profile = getProfile();
+
 export const metadata = pageMetadata({
-  title: getProfile().title,
-  description: getProfile().positioning,
+  title: `${profile.name}, ${profile.title}`,
+  description: profile.positioning,
   path: "/",
+  absoluteTitle: true,
 });
 
 const SECTIONS: Record<HomeSectionId, (props: { number: number }) => ReactNode> = {
@@ -34,11 +37,10 @@ const SECTIONS: Record<HomeSectionId, (props: { number: number }) => ReactNode> 
  * (getHomeSections() drops empty Playground/Writing), so numbers have no gaps.
  */
 export default function Home() {
-  const profile = getProfile();
   const sections = getHomeSections();
   return (
     <main id="main">
-      <JsonLd data={personJsonLd()} />
+      <JsonLd data={[websiteJsonLd(), personJsonLd()]} />
       <HeroSeam name={profile.name} title={profile.title} roleLine={profile.roleLine} cta={{ label: "See the work →", href: "#work" }} />
       <div className="container-site lg:grid-12">
         <IdentityColumn sections={sections} />

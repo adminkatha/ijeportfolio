@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, type FocusEvent, type MouseEvent } from "react";
+import { hireHref } from "./HireLink";
 import type { NavItem } from "./nav";
 import { NavLinks } from "./NavLinks";
 
@@ -80,7 +81,7 @@ export function MobileMenu({ items }: { items: NavItem[] }) {
       >
         <nav aria-label="Main" className="container-site pt-4 pb-6">
           <NavLinks items={items} variant="panel" />
-          <Link href="/#contact" className="label-mono mt-6 flex h-12 items-center justify-between bg-accent px-4 text-accent-ink">
+          <Link href={hireHref(pathname)} className="label-mono mt-6 flex h-12 items-center justify-between bg-accent px-4 text-accent-ink">
             Hire me
             <span aria-hidden="true">→</span>
           </Link>

@@ -49,7 +49,8 @@ function LiveFilter({ options }: { options: FilterOption[] }) {
   const params = useSearchParams();
   const d = params.get("d");
   const filter = d && options.some((o) => o.id === d) ? d : "all";
-  const [announce, setAnnounce] = useState(false);
+  // The last filter chosen here, for the announcement (the URL, and so `filter`, follows a frame later).
+  const [announced, setAnnounced] = useState<string | null>(null);
 
   // Keep <html data-work-filter> in step with the URL (also after soft navigations); clear it on leave.
   useLayoutEffect(() => {
@@ -60,17 +61,18 @@ function LiveFilter({ options }: { options: FilterOption[] }) {
   const choose = (e: MouseEvent<HTMLAnchorElement>, id: string) => {
     if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return; // new tab/window: let it through
     e.preventDefault();
+    // The rows change on the next paint (CSS keyed off <html>)…
     applyFilter(id);
-    // replaceState is integrated with the Next.js router, so useSearchParams() follows it.
-    window.history.replaceState(null, "", hrefOf(id));
-    setAnnounce(true);
+    setAnnounced(id);
+    // …and the URL follows after it: replaceState is integrated with the Next.js router (useSearchParams
+    // follows it, which updates aria-current and the announcement), so it stays out of this interaction.
+    requestAnimationFrame(() => setTimeout(() => window.history.replaceState(null, "", hrefOf(id)), 0));
   };
 
-  const chosen = options.find((o) => o.id === filter) ?? options[0];
-  const message =
-    announce && chosen
-      ? `Showing ${chosen.count} ${chosen.count === 1 ? "project" : "projects"}${chosen.id === "all" ? "" : ` in ${chosen.label}`}.`
-      : "";
+  const chosen = announced ? options.find((o) => o.id === announced) : undefined;
+  const message = chosen
+    ? `Showing ${chosen.count} ${chosen.count === 1 ? "project" : "projects"}${chosen.id === "all" ? "" : ` in ${chosen.label}`}.`
+    : "";
 
   return (
     <>
