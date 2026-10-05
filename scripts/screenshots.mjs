@@ -96,6 +96,13 @@ try {
       page.on("requestfailed", (req) => {
         issues.push({ where, kind: "requestfailed", text: `${req.url()} (${req.failure()?.errorText ?? "unknown"})` });
       });
+      // Everything (fonts included) is self-hosted, so any third-party request is a bug.
+      page.on("request", (req) => {
+        const url = new URL(req.url());
+        if (/^https?:$/.test(url.protocol) && url.host !== new URL(baseUrl).host) {
+          issues.push({ where, kind: "external request", text: req.url() });
+        }
+      });
 
       await page.goto(new URL(route, baseUrl).toString(), { waitUntil: "networkidle" });
       // Scroll through once so lazy content and reveal-once sections are in their final state.

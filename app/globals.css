@@ -1,1 +1,153 @@
 @import "tailwindcss";
+
+/*
+ * Design tokens (CLAUDE.md → "Design tokens"; PLAN §3).
+ * Utilities: bg-bg, bg-surface, text-text-2, border-line, text-accent, font-display, text-display, text-label …
+ * Contrast on bg / surface / surface-2: text 18/17/16:1 · text-2 6.0/5.6/5.3:1 · accent 15.9/15.0/14.1:1.
+ * text-3 is 3.4–3.8:1, so it is for decorative marks or text ≥ 24px only.
+ * line is 1.3:1: dividers only, never the sole boundary of a form control (use text-3 or text-2).
+ */
+@theme {
+  --color-bg: #0a0a0b;
+  --color-surface: #111214;
+  --color-surface-2: #18191c;
+  --color-line: #232428;
+  --color-text: #f4f4f2;
+  --color-text-2: #8b8d91;
+  --color-text-3: #6b6d71;
+  --color-accent: #c5f82a;
+  --color-accent-ink: #0a0a0b;
+
+  --text-display: clamp(3.25rem, 2rem + 6vw, 8.5rem);
+  --text-display--line-height: 0.92;
+  --text-display--letter-spacing: -0.04em;
+  --text-label: 0.75rem;
+  --text-label--line-height: 1.4;
+  --text-label--letter-spacing: 0.08em;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* next/font exposes these variables on <html> (see app/layout.tsx). */
+@theme inline {
+  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+:root {
+  color-scheme: dark;
+  /* Motion tokens: hover, small UI, reveals, the hero intro. Only transform, opacity and --seam animate. */
+  --dur-1: 150ms;
+  --dur-2: 250ms;
+  --dur-3: 450ms;
+  --dur-4: 800ms;
+  /* Layout: 12 columns, 1280px max, 24px gutters (16px under 768px). */
+  --site-max: 1280px;
+  --gutter: 16px;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --gutter: 24px;
+  }
+}
+
+@layer base {
+  html {
+    background-color: var(--color-bg);
+    /* One static noise tile; its ~4.5% alpha is baked in by scripts/grain.mjs. Never animated. */
+    background-image: url("/grain.png");
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    min-height: 100dvh;
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  ::selection {
+    background-color: var(--color-accent);
+    color: var(--color-accent-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+
+  a {
+    text-underline-offset: 0.2em;
+    text-decoration-thickness: 1px;
+  }
+
+  img,
+  video,
+  svg {
+    display: block;
+    max-width: 100%;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* Centred 1280px column with the responsive gutter. */
+@utility container-site {
+  width: 100%;
+  max-width: calc(var(--site-max) + 2 * var(--gutter));
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* The 12-column grid. */
+@utility grid-12 {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gutter);
+}
+
+/* Labels: 0.75rem mono, uppercase, letter-spacing 0.08em. */
+@utility label-mono {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  line-height: var(--text-label--line-height);
+  letter-spacing: var(--text-label--letter-spacing);
+  text-transform: uppercase;
+}
+
+/* Display type: Bricolage Grotesque, huge, tight, uppercase. */
+@utility type-display {
+  font-family: var(--font-display);
+  font-size: var(--text-display);
+  line-height: var(--text-display--line-height);
+  letter-spacing: var(--text-display--letter-spacing);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-optical-sizing: auto;
+}
