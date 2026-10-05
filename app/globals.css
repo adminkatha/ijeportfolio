@@ -151,3 +151,80 @@
   text-transform: uppercase;
   font-optical-sizing: auto;
 }
+
+/* ── Shell (phase 3) ─────────────────────────────────────────────────────────── */
+
+:root {
+  /* Sticky header height; anchors and the sticky identity column clear it. */
+  --header-h: 3.5rem;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --header-h: 4rem;
+  }
+}
+
+@layer base {
+  html {
+    /* /#contact and the section index land below the sticky header. */
+    scroll-padding-top: calc(var(--header-h) + 1.25rem);
+  }
+
+  /* <details> disclosure markers are drawn by the components themselves. */
+  summary {
+    list-style: none;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+}
+
+/* Section-scale display type: the Contact heading, the 404 headline. */
+@utility type-display-md {
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 0.9rem + 6.2vw, 6.25rem);
+  line-height: 0.94;
+  letter-spacing: -0.035em;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-optical-sizing: auto;
+}
+
+/* Titles: page titles on inner pages, cards, timeline roles. */
+@utility type-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.06;
+  letter-spacing: -0.022em;
+  font-optical-sizing: auto;
+}
+
+/* A text link: hairline underline, accent on hover (colour changes are instant; only transform/opacity animate). */
+@utility link {
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--color-text-3);
+  text-underline-offset: 0.22em;
+
+  &:hover {
+    color: var(--color-accent);
+    text-decoration-color: currentColor;
+  }
+}
+
+/* Same, without the resting underline (navigation, lists of links). */
+@utility link-quiet {
+  text-decoration-line: none;
+
+  &:hover {
+    color: var(--color-accent);
+  }
+}
+
+/* Thin, quiet scrollbar for the rare inner scroll (the identity column on short screens). */
+@utility scrollbar-quiet {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-line) transparent;
+}

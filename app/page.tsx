@@ -1,64 +1,93 @@
-import { MDXContent } from "@content-collections/mdx/react";
-import { Container } from "@/components/layout/Grid";
-import { FillIn, Fillable } from "@/components/ui/FillIn";
-import { SectionLabel } from "@/components/ui/SectionLabel";
-import { disciplineLabels } from "@/content/data/schema";
-import { getCaseStudy, getHomeSections, getProfile, getProjects } from "@/lib/content";
+import Link from "next/link";
+import { ContactForm } from "@/components/contact/ContactForm";
+import { HeroSeam } from "@/components/hero/HeroSeam";
+import { IdentityColumn } from "@/components/layout/IdentityColumn";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { Section } from "@/components/sections/Section";
+import { Fillable } from "@/components/ui/FillIn";
+import { getCapabilities, getExperience, getFeaturedProjects, getHomeSections, getNow, getProfile, type HomeSectionId } from "@/lib/content";
+import { personJsonLd } from "@/lib/jsonld";
+import { pageMetadata } from "@/lib/seo";
 
-// Phase 2 content check: data, [FILL IN] rendering, computed section numbers, one compiled case study.
-// Replaced by the real homepage in later phases.
+export const metadata = pageMetadata({
+  title: getProfile().title,
+  description: getProfile().positioning,
+  path: "/",
+});
+
+// Phase 3: the shell around the homepage. Sections are plain here; they get their designs in phases 5–7.
 export default function Home() {
   const profile = getProfile();
   const sections = getHomeSections();
-  const caseStudy = getCaseStudy("sabbath-spa");
+  const numberOf = (id: HomeSectionId) => sections.find((s) => s.id === id)?.number;
+  const show = (id: HomeSectionId) => numberOf(id) !== undefined;
+  const now = getNow();
+
   return (
-    <main id="main" className="py-24">
-      <Container className="space-y-16">
-        <header className="space-y-6">
-          <h1 className="type-display">{profile.name}</h1>
-          <p className="max-w-[48ch] text-lg text-text-2">{profile.roleLine}</p>
-          <p className="text-text-2">
-            Location: <Fillable value={profile.location} />
-          </p>
-        </header>
-
-        <section aria-labelledby="work" className="space-y-6">
-          <SectionLabel number={sections[0]!.number} title="Work (content check)" id="work" note={`${getProjects().length} projects`} />
-          <ul className="divide-y divide-line border-y border-line">
-            {getProjects().map((p) => (
-              <li key={p.slug} className="grid gap-1 py-4 sm:grid-cols-[12rem_1fr]">
-                <span className="label-mono text-text-2">{disciplineLabels[p.discipline]}</span>
-                <span>
-                  <span className="font-medium">{p.title}</span>
-                  <span className="text-text-2"> — {p.summary}</span>
-                  {p.liveUrl ? (
-                    <span className="block text-sm text-text-2">
-                      Live: <Fillable value={p.liveUrl} />
-                    </span>
-                  ) : null}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        <section aria-labelledby="sections" className="space-y-4">
-          <SectionLabel number={sections[1]!.number} title="Visible sections" id="sections" />
-          <ol className="label-mono space-y-1 text-text-2">
-            {sections.map((s) => (
-              <li key={s.id}>
-                [{String(s.number).padStart(2, "0")}] {s.title}
-              </li>
-            ))}
-          </ol>
-        </section>
-
-        {caseStudy ? (
-          <article aria-label="Case study check" className="max-w-[65ch] space-y-4 text-text-2 [&_h2]:font-display [&_h2]:text-2xl [&_h2]:text-text">
-            <MDXContent code={caseStudy.body} components={{ FillIn }} />
-          </article>
-        ) : null}
-      </Container>
+    <main id="main">
+      <JsonLd data={personJsonLd()} />
+      <HeroSeam name={profile.name} title={profile.title} roleLine={profile.roleLine} cta={{ label: "See the work →", href: "#work" }} />
+      <div className="container-site lg:grid-12">
+        <IdentityColumn sections={sections} />
+        <div className="divide-y divide-line lg:relative lg:col-span-9 lg:before:absolute lg:before:inset-y-0 lg:before:left-[calc(var(--gutter)/-2)] lg:before:w-px lg:before:bg-line">
+          {show("work") ? (
+            <Section id="work" number={numberOf("work")!} title="Selected work">
+              <ul className="mt-10 space-y-3">
+                {getFeaturedProjects().map((p) => (
+                  <li key={p.slug}>
+                    <Link href={`/work/${p.slug}`} className="link">
+                      {p.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </Section>
+          ) : null}
+          {show("capabilities") ? (
+            <Section id="capabilities" number={numberOf("capabilities")!} title="Capabilities">
+              <ul className="mt-10 space-y-3">
+                {getCapabilities().map((g) => (
+                  <li key={g.group}>
+                    {g.group}: {g.items.map((i) => i.name).join(", ")}
+                  </li>
+                ))}
+              </ul>
+            </Section>
+          ) : null}
+          {show("experience") ? (
+            <Section id="experience" number={numberOf("experience")!} title="Experience">
+              <ul className="mt-10 space-y-3">
+                {getExperience().map((e, i) => (
+                  <li key={i}>
+                    {e.role}, <Fillable value={e.company} />
+                  </li>
+                ))}
+              </ul>
+            </Section>
+          ) : null}
+          {show("now") ? (
+            <Section id="now" number={numberOf("now")!} title="Now">
+              <ul className="mt-10 space-y-3">
+                {now.building.map((b, i) => (
+                  <li key={i}>
+                    <Fillable value={b.name} />
+                  </li>
+                ))}
+              </ul>
+            </Section>
+          ) : null}
+          {show("contact") ? (
+            <Section id="contact" number={numberOf("contact")!} title="Contact" headingId="contact-heading">
+              <h2 id="contact-heading" className="type-display-md mt-10">
+                Let&rsquo;s build something useful.
+              </h2>
+              <div className="mt-10">
+                <ContactForm />
+              </div>
+            </Section>
+          ) : null}
+        </div>
+      </div>
     </main>
   );
 }
