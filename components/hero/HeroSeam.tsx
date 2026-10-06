@@ -131,7 +131,7 @@ export function HeroSeam({ name, title, roleLine, cta }: HeroSeamProps) {
       write('[data-measure="frame"]', content < max - 0.5 ? ` · ${px(content)}` : "");
       write('[data-measure="hero"]', `${Math.round(root.offsetWidth)} × ${Math.round(root.offsetHeight)}`);
     };
-    fill();
+    // The observer's first callback runs right after layout, so nothing here forces a reflow.
     const ro = new ResizeObserver(fill);
     ro.observe(root);
     return () => ro.disconnect();

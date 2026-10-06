@@ -160,14 +160,18 @@ export function attachSeam(root: HTMLElement, knob: HTMLElement): () => void {
 
   // ── Intro: the CSS intro runs from first paint; once hydrated, the rest of it goes through setSeam ──
 
+  // Read before anything is written (no forced style/layout work at mount).
+  const intro = root.getAnimations().find((a) => (a as CSSAnimation).animationName?.includes("seamIntro"));
+  const introElapsed = Number(intro?.currentTime ?? 0);
+  const startSeam = parseFloat(getComputedStyle(root).getPropertyValue("--seam"));
+
   const adoptIntro = () => {
-    const intro = root.getAnimations().find((a) => (a as CSSAnimation).animationName?.includes("seamIntro"));
     if (!intro) {
       root.dataset.intro = "done";
       return;
     }
-    const elapsed = Number(intro.currentTime ?? 0);
-    seam = clampSeam(parseFloat(getComputedStyle(root).getPropertyValue("--seam")));
+    const elapsed = introElapsed;
+    seam = clampSeam(startSeam);
     render(); // hold the animated value inline…
     root.dataset.intro = "done"; // …as the CSS animation is removed
     const span = Math.abs(SEAM_REST - seam);
@@ -224,7 +228,6 @@ export function attachSeam(root: HTMLElement, knob: HTMLElement): () => void {
 
   // ── Wiring (once) ───────────────────────────────────────────────────────────
 
-  measure();
   update();
   if (mode !== "toggle" && !reduced) {
     adoptIntro();
@@ -232,12 +235,12 @@ export function attachSeam(root: HTMLElement, knob: HTMLElement): () => void {
     root.dataset.intro = "done";
   }
   // A remount (e.g. React StrictMode in dev) picks up wherever the seam was left.
-  if (!raf) {
-    const current = parseFloat(getComputedStyle(root).getPropertyValue("--seam"));
-    if (Number.isFinite(current)) seam = target = clampSeam(current);
+  if (!raf && !intro) {
+    if (Number.isFinite(startSeam)) seam = target = clampSeam(startSeam);
     setSeam(SEAM_REST, TAU_INTRO);
   }
 
+  // The box is measured by the observer's first callback (right after layout) and on every resize.
   const ro = new ResizeObserver(measure);
   ro.observe(root);
   const mo = new MutationObserver(update);

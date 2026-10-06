@@ -313,6 +313,13 @@
   paint-order: stroke fill;
 }
 
+/* Opaque (page-coloured) boxes, so contrast checkers that ignore clip-path don't read this text against
+   the CREATIVE layer's accent button and highlight underneath. No visual change. */
+.code .cta,
+.code .mark {
+  background: var(--color-bg);
+}
+
 .code .cta {
   border: 1px dashed var(--c-box);
   color: var(--color-text-2);
@@ -350,7 +357,7 @@
 
 .note i {
   font-style: normal;
-  color: var(--color-text-3);
+  color: var(--color-text-2);
 }
 
 .note em {
