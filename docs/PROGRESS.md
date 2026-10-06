@@ -18,7 +18,7 @@ Run order for this build (user, 2026-10-06): finish the whole site without stopp
 | 7a Contact form → Google Sheets | ✅ merged + pushed (38/38 form tests, 20/20 Apps Script tests) | main |
 | 8 Media (components) | 🔄 site agent | `agent/site` |
 | 8 Media: live dashboard demos | ✅ reviewed, committed + pushed | main |
-| 8 Media: images + videos | 🔄 media agent → orchestrator review | main tree, untracked until reviewed |
+| 8 Media: images + videos | ✅ reviewed, committed + pushed (41 images, 16 videos = 74.6 MB) | main |
 | 9 Work pages | 🔄 site agent | `agent/site` |
 | 10 SEO | ✅ merged + pushed (Lighthouse SEO 100) | main |
 | 11 Seam interaction | 🔄 hero agent | `agent/hero` |
@@ -36,7 +36,7 @@ Run order for this build (user, 2026-10-06): finish the whole site without stopp
 - Media: `public/media/**`, `public/demos/**`, `content/media/*.json` and `docs/ASSETS.*.md` are produced in the main tree and committed only after the privacy review (every image looked at; demos grepped for names, emails, phones, IDs, tokens and real figures).
 
 ## Next steps
-1. When the media agent finishes (dashboards are done): review every output (contact sheets + demo screenshots + scans), merge `docs/ASSETS.*.md` into `docs/ASSETS.md`, fill `content/data/projects.ts` (gallery, videos, demos, covers, disclosures, brand spellings, live URLs), write the case studies from the evidence, update `docs/INTAKE.md`, commit `phase-8`, push, and tell the site agent to `git merge main`.
+1. ✅ Done: media + demos reviewed and committed, projects.ts filled from `content/media/manifest.json` (regenerate with the scratch generator or edit by hand), case studies written from evidence, INTAKE.md rewritten, ASSETS.md merged. The site agent was told to `git merge main`.
 2. Merge `agent/site`, `agent/hero`, `agent/contact` into `main` (resolving page/layout conflicts toward the site agent), re-run all checks, push after each.
 3. Phase 15 QA on `main`: Lighthouse mobile (home + one case study), CWV, JS budget, axe, keyboard pass, 2560, console/404 sweep.
 4. Final report: local run, GitHub link + last commit, results, every [FILL IN] with its question, every excluded file, the user's to-do (CONTACT-SETUP.md, DEPLOY.md).
