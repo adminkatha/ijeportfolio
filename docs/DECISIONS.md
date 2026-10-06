@@ -106,3 +106,10 @@ Source: the bo-teardown at `C:\Users\Nico\teardowns\2026-10-05-adhamdannaway-com
 - **Analytics:** on Vercel, clicks on `[data-event]` elements (the hero CTA) are sent as custom events (`components/layout/TrackEvents.tsx`), so the CTA really is the tracked link the CODE side shows.
 - **Contact form:** the spam timer's signed start time is issued when a visitor first focuses the form (the page is static, so a timestamp in the HTML would be the build time); without JavaScript the first Send gets one. The form-or-fallback choice is made at build time, so changing the env vars needs a rebuild/redeploy. OG images are prerendered per route; JSON-LD escaping fixed; OG fonts are static TTF cuts (OFL).
 - **Demos in iframes:** `/demos/*` sends `Access-Control-Allow-Origin: *` because the sandboxed iframe has an opaque origin and its self-hosted fonts are cross-origin requests. Phones get the preview image and "Open full screen" instead of an iframe.
+
+### 2026-10-06: first production deploy (user request, deadline 2 PM)
+- Remaining QA paused; everything ready was committed and pushed first (pre-push check passed).
+- Vercel project **ehjay-lorenzo** created with the CLI (`vercel link --project ehjay-lorenzo`) under `agustinnico228-2616`; production deploy with `vercel deploy --prod`, built by Vercel with `ENABLE_EXPERIMENTAL_COREPACK=1` (pnpm 12.9.1). Live at https://ehjay-lorenzo.vercel.app.
+- The CLI's automatic GitHub link failed (that Vercel account has no GitHub login connection yet): auto-deploys come later. Contact env vars intentionally not set ("Email me instead").
+- Analytics/Speed Insights are opt-in env flags (`ENABLE_VERCEL_ANALYTICS`, `ENABLE_SPEED_INSIGHTS`), because Vercel serves their scripts only after each is enabled in the dashboard; until then they would 404 in the console.
+- The CLI wrote a `.env.local` (Vercel OIDC token for local dev) and appended to `.gitignore`; the `.gitignore` edit was reverted (already covered), and `.env.local` stays ignored by git and by `.vercelignore`.

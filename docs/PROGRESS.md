@@ -27,7 +27,8 @@ Run order for this build (user, 2026-10-06): finish the whole site without stopp
 | 14 Motion polish | ✅ merged + pushed (motion 10/10) | main |
 | Ehjay's answers (LinkedIn, tools, Latte, results, sound, listing ads) | ✅ applied after the hero merge, pushed | main |
 | 15 QA | 🔄 in progress (keyboard pass clean, axe 0 on the site); waiting for the demos' in-place accessibility fixes | main |
-| 16 Deploy prep (GitHub + Vercel docs, run-local.bat) | ✅ merged + pushed; run-local.bat tested (falls back to :3001 when :3000 is busy); no Vercel deploy yet | main |
+| 16 Deploy prep (GitHub + Vercel docs, run-local.bat) | ✅ merged + pushed; run-local.bat tested (falls back to :3001 when :3000 is busy) | main |
+| 16 Deploy | ✅ **live 2026-10-06 13:40: https://ehjay-lorenzo.vercel.app** (CLI deploy, Vercel build with corepack). Later: GitHub auto-deploys, domain + `SITE_URL`, contact env vars, Analytics | Vercel |
 
 ## How the parallel build works
 - Phases 1–2 were built first on `main`; they define the tokens, the content API (`lib/content.ts`) and **interface stubs** (files marked `STUB`) so every branch compiles on its own.
@@ -39,6 +40,6 @@ Run order for this build (user, 2026-10-06): finish the whole site without stopp
 ## Next steps
 1. ✅ Done: media + demos reviewed and committed, projects.ts filled from `content/media/manifest.json` (regenerate with the scratch generator or edit by hand), case studies written from evidence, INTAKE.md rewritten, ASSETS.md merged. The site agent was told to `git merge main`.
 2. ✅ Done: all three branches merged; Ehjay's answers applied.
-3. Phase 15 QA on `main`: Lighthouse mobile (home + one case study), CWV, JS budget, axe, keyboard pass, 2560, console/404 sweep.
+3. Phase 15 QA (paused for the deploy; finish on the live URL and an idle machine): Lighthouse mobile (home + one case study), CWV, JS budget, axe, keyboard pass, 2560, console/404 sweep.
 4. Final report: local run, GitHub link + last commit, results, every [FILL IN] with its question, every excluded file, the user's to-do (CONTACT-SETUP.md, DEPLOY.md).
 5. Remove the worktrees (`git worktree remove ../wt-*`) and delete the merged `agent/*` branches.

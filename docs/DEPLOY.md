@@ -1,5 +1,17 @@
 # Deploying to Vercel
 
+## Current deployment (2026-10-06)
+- **Production:** https://ehjay-lorenzo.vercel.app (Vercel project **ehjay-lorenzo**, account `agustinnico228-2616`).
+- Deployed from this PC with the Vercel CLI: `npx vercel@latest deploy --prod` in the project folder (Vercel builds it). Redeploy the same way after changes.
+- Set: `ENABLE_EXPERIMENTAL_COREPACK=1` (Production + Preview), so Vercel uses pnpm 12.9.1. The build worked first time.
+- **Not yet:** GitHub auto-deploys (Vercel needs a GitHub login connection on that Vercel account first: Account Settings → Authentication → Connect GitHub, then project **Settings → Git → Connect Git Repository** → adminkatha/ijeportfolio), a custom domain (§4), `SITE_URL` (until then canonical URLs use ehjay-lorenzo.vercel.app), the contact form's two variables (the site shows "Email me instead"), Analytics/Speed Insights (§5).
+- Checked live: the homepage, /work, a project page and a dashboard demo return 200 with no console errors, no failed requests and no third-party requests; demos send `noindex`.
+
+---
+
+The guide below is the full click-by-click setup (from the Vercel dashboard).
+
+
 The site is a standard Next.js 16 app that builds with **no environment variables at all** (it then uses the
 Vercel domain and shows "Email me instead" instead of the contact form). Everything below is click by click.
 Nothing here has been deployed yet: this is the guide for doing it.
