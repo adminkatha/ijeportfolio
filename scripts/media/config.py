@@ -187,7 +187,7 @@ IMAGES = [
          alt="Feed preview of the RoomingHouse.Expert ad: an illustrated man in front of a house with '8 Rooms. $2,200/week! Convert Your Property Into a Rooming House! Download The Guide Here!', the primary text 'Turn 1 Property into 2-3x Rental Income - See If Yours Qualifies!', the headline 'Convert. Rent. Repeat.' and a Sign up button."),
 
     # ---- Portrait ----
-    dict(project="profile", src="PORTRAIT", out="ehjay-lorenzo.jpg", alt="Portrait of Ehjay Lorenzo"),
+    dict(project="profile", src="PORTRAIT", out="ehjay-lorenzo-portrait.jpg", alt="Portrait of Ehjay Lorenzo"),
 ]
 
 # --------------------------------------------------------------------------------------------
@@ -342,7 +342,6 @@ EXCLUDED = [
     dict(source="campaigns/URHCG_Campaign_Dashboard_Aug1-Sep1_2026.xlsx",
          reason="Campaign report spreadsheet, not a visual asset. The media pipeline does not publish it or quote any figure from it; using its figures in case studies is a content decision."),
     # Portrait
-    dict(source="photo/ehjay.jpeg", reason="A different, smaller photo (420x525); the approved 768x1024 portrait is used instead."),
 ]
 
 # --------------------------------------------------------------------------------------------

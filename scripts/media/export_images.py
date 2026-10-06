@@ -6,7 +6,7 @@ Usage (from the repo root):  python scripts/media/export_images.py
 For each entry in config.IMAGES: open the source, normalise to sRGB RGB, apply the listed redactions
 (`fill`, `obscure`) and `crop`, cap the long edge at 2400 px, and save a progressive JPEG (quality 82)
 with no EXIF/XMP/ICC metadata to public/media/img/<project>/<name>.jpg. The portrait goes to
-public/media/img/ehjay-lorenzo.jpg.
+public/media/img/ehjay-lorenzo-portrait.jpg.
 """
 from __future__ import annotations
 

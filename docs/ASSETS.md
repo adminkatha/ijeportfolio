@@ -18,7 +18,7 @@ Privacy rules and decisions: `docs/DECISIONS.md` (2026-10-06). Every file was re
 | HydRate Medbar | website recording (testimonial name and contacts blurred) | nothing |
 | Latte with Lata | website recording (address blurred, browser bar cropped) | nothing |
 | MeloYelo, The Contract Shop | live dashboard demos | nothing |
-| Ehjay | portrait (`Downloads\Ehjay.webp`, 768×1024) | `photo\ehjay.jpeg` (a different, smaller photo) |
+| Ehjay | portrait (`photo\ehjay.jpeg`, 420×525, chosen by the owner 2026-10-06) | the earlier studio portrait (`Downloads\Ehjay.webp`), replaced |
 
 Totals: 47 images (8.0 MB) + the campaign's winning ad (copied from the demo's public creative), 16 videos (77.05 MB, each under 9 MB: the 12 social videos with their licensed soundtrack, the 4 website recordings silent), 16 posters, 5 demos (3.3 MB).
 
@@ -67,7 +67,7 @@ python scripts/media/encode_videos.py    # videos and posters -> public/media/vi
 python scripts/media/build_manifest.py   # -> content/media/manifest.json
 python scripts/media/review_sheets.py    # contact sheets for the privacy review (temp folder, not the repo)
 ```
-Needs Python 3.12 with Pillow, and ffmpeg/ffprobe on PATH. The source folder is `EHJAY_FILES` (default `../ehjay-files`) and the portrait is `EHJAY_PORTRAIT` (default `~/Downloads/Ehjay.webp`). Every decision (crops, blur boxes, cuts, poster times, alt text, exclusions) lives in `scripts/media/config.py`.
+Needs Python 3.12 with Pillow, and ffmpeg/ffprobe on PATH. The source folder is `EHJAY_FILES` (default `../ehjay-files`) and the portrait is `EHJAY_PORTRAIT` (default `<EHJAY_FILES>/photo/ehjay.jpeg`). Every decision (crops, blur boxes, cuts, poster times, alt text, exclusions) lives in `scripts/media/config.py`.
 
 ### Rules applied
 - **There is no `notes.txt` and no résumé.** As a result:
@@ -245,8 +245,8 @@ Angle 1–3 were found in the Super Cashflow video folder, but they are Rooming 
 ### Portrait
 | Source | What it shows | Decision | Notes |
 |---|---|---|---|
-| `Downloads\Ehjay.webp` (outside `ehjay-files`) | The approved studio portrait, 768×1024 | **Kept** → `img/ehjay-lorenzo.jpg` (768×1024) | Alt text: "Portrait of Ehjay Lorenzo" |
-| `photo/ehjay.jpeg` | A different, smaller photo (420×525) | Left out | The approved portrait is larger and sharper |
+| `Downloads\Ehjay.webp` (outside `ehjay-files`) | The earlier studio portrait, 768×1024 | Replaced on 2026-10-06 by the owner's choice below | |
+| `photo/ehjay.jpeg` | Ehjay in a beige sweatshirt on a light background, 420×525 | **Kept** → `img/ehjay-lorenzo-portrait.jpg` (420×525, metadata stripped) | The owner chose it on 2026-10-06; it is the site portrait. Alt text: "Portrait of Ehjay Lorenzo" |
 
 ### Posters (output timeline)
 | Video | Poster time | Frame |

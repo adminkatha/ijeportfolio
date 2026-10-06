@@ -46,7 +46,7 @@ def main() -> int:
             item["group"] = e["group"]
         if e.get("caption"):
             item["caption"] = e["caption"]
-        item["source"] = ("Ehjay.webp (approved portrait, supplied separately; not in ehjay-files)"
+        item["source"] = ("photo/ehjay.jpeg (the portrait the owner chose on 2026-10-06)"
                           if e["src"] == "PORTRAIT" else e["src"])
         images.append(item)
 

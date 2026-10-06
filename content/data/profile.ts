@@ -22,9 +22,9 @@ export const profile = validate("content/data/profile.ts", profileSchema, {
     other: [],
   },
   photo: {
-    src: "/media/img/ehjay-lorenzo.jpg",
-    width: 768,
-    height: 1024,
+    src: "/media/img/ehjay-lorenzo-portrait.jpg",
+    width: 420,
+    height: 525,
     alt: "Portrait of Ehjay Lorenzo",
   },
 });

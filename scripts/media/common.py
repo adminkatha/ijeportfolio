@@ -2,7 +2,7 @@
 
 Paths can be overridden with environment variables:
   EHJAY_FILES     folder with his original files (default: ../ehjay-files next to the repo)
-  EHJAY_PORTRAIT  the approved portrait (default: ~/Downloads/Ehjay.webp)
+  EHJAY_PORTRAIT  the approved portrait (default: <EHJAY_FILES>/photo/ehjay.jpeg, chosen by the owner 2026-10-06)
   MEDIA_TMP       scratch folder for probes, pass logs and review sheets (default: <system temp>/ehjay-media)
   FFMPEG, FFPROBE executables (default: found on PATH)
 
@@ -21,7 +21,7 @@ from PIL import Image, ImageCms, ImageFilter, ImageOps
 
 REPO = Path(__file__).resolve().parents[2]
 SRC = Path(os.environ.get("EHJAY_FILES", REPO.parent / "ehjay-files"))
-PORTRAIT_SRC = Path(os.environ.get("EHJAY_PORTRAIT", Path.home() / "Downloads" / "Ehjay.webp"))
+PORTRAIT_SRC = Path(os.environ.get("EHJAY_PORTRAIT", SRC / "photo" / "ehjay.jpeg"))
 TMP = Path(os.environ.get("MEDIA_TMP", Path(tempfile.gettempdir()) / "ehjay-media"))
 PUBLIC_MEDIA = REPO / "public" / "media"
 IMG_DIR = PUBLIC_MEDIA / "img"

@@ -14,7 +14,7 @@ Updated 2026-10-06 (his CV and answers of the same day). ✅ = confirmed (his CV
 | His files | ✅ `C:\Users\Client\LPT\ehjay-files\` (outside the repo). What each file shows and what was done with it: `docs/ASSETS.md`. |
 | CV | ✅ `ehjay-files/ehjay-cv-original.pdf` (read 2026-10-06). |
 | Résumé | ✅ New one made from the CV + the portfolio: public `public/resume.pdf` (no phone, no street address), linked from the header, the identity column, the contact section, the footer and the command palette; private version with his phone at `ehjay-files/ehjay-resume-full.pdf` (outside the repo). Rebuild: `scripts/resume/`. |
-| Portrait | ✅ `Downloads\Ehjay.webp` (768×1024) → `/media/img/ehjay-lorenzo.jpg`. Alt: "Portrait of Ehjay Lorenzo". |
+| Portrait | ✅ `ehjay-files/photo/ehjay.jpeg` (420×525, the owner's choice on 2026-10-06) → `/media/img/ehjay-lorenzo-portrait.jpg`. Alt: "Portrait of Ehjay Lorenzo". The résumé keeps the photo from his CV. |
 | Client names, results, music, listing addresses | ✅ Allowed (2026-10-06). Still out: the Sabbath CRM demo video and every blur or cut that hides customers' data. The dashboard demos stay on sample data. |
 
 ## 1. Profile ✅ → `content/data/profile.ts`
