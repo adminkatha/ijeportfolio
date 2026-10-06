@@ -52,3 +52,6 @@ next-env.d.ts
 
 # content-collections output (regenerated on dev/build)
 /.content-collections/
+
+# Python caches (media/demo scripts)
+__pycache__/
