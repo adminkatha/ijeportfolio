@@ -24,6 +24,13 @@ export function coverOf(project: Project): CoverImage | null {
   return null;
 }
 
-/** Tall pieces (ads, vertical video) sit whole on a mat; wide ones (screens, dashboards) fill the frame. */
-export const fitOf = (image: { width: number; height: number }, frameRatio = 4 / 3): "cover" | "contain" =>
-  image.width / image.height >= frameRatio * 0.9 ? "cover" : "contain";
+/**
+ * How a cover sits in the 4:3 frame. Near-4:3 images (screens, dashboards: ~1.2–1.7) fill it, anchored to the
+ * top (top-left for dashboard previews, so the logo and title stay in view). Everything else (tall ads,
+ * square posts, 2.2:1 website recordings) sits whole on a mat: never cropped.
+ */
+export function coverFit(image: CoverImage): string {
+  const ratio = image.width / image.height;
+  if (ratio < 1.2 || ratio > 1.7) return "object-contain p-[7%]";
+  return image.source === "demo" ? "object-cover object-left-top" : "object-cover object-top";
+}

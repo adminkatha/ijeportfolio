@@ -6,7 +6,7 @@ import { Sep } from "@/components/ui/Sep";
 import { pad2 } from "@/components/ui/format";
 import { disciplineLabels, type Project } from "@/content/data/schema";
 import { disciplinesOf } from "@/lib/content";
-import { coverOf, fitOf } from "./cover";
+import { coverFit, coverOf } from "./cover";
 import { projectLinkLabel } from "./ProjectCard";
 
 const ROW_COVER_SIZES = "(min-width: 1328px) 302px, (min-width: 1024px) 23vw, (min-width: 768px) 31vw, calc(100vw - 32px)";
@@ -66,7 +66,7 @@ export function ProjectRow({ project: p, number }: { project: Project; number: n
               alt={cover.alt}
               fill
               sizes={ROW_COVER_SIZES}
-              className={`transition-transform duration-(--dur-1) ease-out group-hover:scale-[1.02] ${fitOf(cover) === "cover" ? "object-cover" : "object-contain p-[7%]"}`}
+              className={`transition-transform duration-(--dur-1) ease-out group-hover:scale-[1.02] ${coverFit(cover)}`}
             />
           ) : (
             <TypographicCover title={p.title} discipline={p.discipline} number={number} />

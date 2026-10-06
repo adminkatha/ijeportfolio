@@ -6,7 +6,7 @@ import { SampleTag } from "@/components/ui/SampleTag";
 import { Sep } from "@/components/ui/Sep";
 import { pad2, realLink } from "@/components/ui/format";
 import { disciplineLabels, type Project } from "@/content/data/schema";
-import { coverOf, fitOf } from "./cover";
+import { coverFit, coverOf } from "./cover";
 
 type ProjectCardProps = {
   project: Project;
@@ -39,7 +39,7 @@ export function ProjectCard({ project: p, number, sizes, headingLevel: H = "h3" 
             alt={cover.alt}
             fill
             sizes={sizes}
-            className={`transition-transform duration-(--dur-1) ease-out group-hover:scale-[1.02] ${fitOf(cover) === "cover" ? "object-cover" : "object-contain p-[7%]"}`}
+            className={`transition-transform duration-(--dur-1) ease-out group-hover:scale-[1.02] ${coverFit(cover)}`}
           />
         ) : (
           <TypographicCover title={p.title} discipline={p.discipline} number={number} />
