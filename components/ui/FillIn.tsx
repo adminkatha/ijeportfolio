@@ -3,7 +3,7 @@ import { isFillIn } from "@/content/data/schema";
 /** A visible gap: `[FILL IN: question]`. Every one is listed in docs/INTAKE.md. */
 export function FillIn({ children }: { children: string }) {
   return (
-    <mark className="rounded-[2px] border border-dashed border-accent/70 bg-transparent px-1 font-mono text-[0.8em] text-accent [overflow-wrap:anywhere]">
+    <mark className="rounded-[2px] border border-dashed border-accent/70 bg-transparent px-1 font-mono text-[max(0.8em,0.75rem)] tracking-normal text-accent normal-case [overflow-wrap:anywhere]">
       [FILL IN: {children}]
     </mark>
   );
