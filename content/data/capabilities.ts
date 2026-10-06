@@ -11,13 +11,13 @@ export const capabilities = validate("content/data/capabilities.ts", capabilitie
     items: [
       {
         name: "Short-form video editing",
-        evidence: "Vertical product and property videos for Honey Tribe, Super Cashflow Developments and Riverdance RV Resort.",
-        projectSlug: "super-cashflow-developments",
+        evidence: "Vertical product videos for Honey Tribe, talking-head ads for Super Cashflow Developments and Rooming House Expert, and resort videos for Riverdance RV Resort.",
+        projectSlug: "honey-tribe",
       },
       {
         name: "Static ads and carousels",
-        evidence: "Product carousels for Honey Tribe and offer ads for Riverdance RV Resort and Super Cashflow Developments.",
-        projectSlug: "honey-tribe",
+        evidence: "A five-angle ad set, an extended-stay carousel and seasonal offers for Riverdance RV Resort; product carousels for Honey Tribe; listing ads for Super Cashflow Developments.",
+        projectSlug: "riverdance-rv-resort",
       },
     ],
   },
@@ -26,7 +26,7 @@ export const capabilities = validate("content/data/capabilities.ts", capabilitie
     items: [
       {
         name: "Meta lead campaigns",
-        evidence: "A lead campaign with an instant form for Rooming House Expert's guide.",
+        evidence: "A lead campaign with an instant form for Rooming House Expert's free conversion guide.",
         projectSlug: "rooming-house-expert-campaign",
       },
       {
@@ -46,7 +46,7 @@ export const capabilities = validate("content/data/capabilities.ts", capabilitie
       },
       {
         name: "Reporting dashboards",
-        evidence: "Client dashboards, shown as live demos with sample data.",
+        evidence: "One reporting system for five clients, shown as live demos with sample data.",
         projectSlug: "client-reporting-dashboards",
       },
       {

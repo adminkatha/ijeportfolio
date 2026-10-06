@@ -9,7 +9,7 @@ export const profile = validate("content/data/profile.ts", profileSchema, {
   positioning: "Ad creative, Meta campaigns, and the websites, CRMs and dashboards behind them.",
   bio: [
     "Ehjay works across the whole funnel. He edits short-form video, designs static ads and carousels, runs Meta campaigns, and builds the websites, CRMs and reporting dashboards that track the results.",
-    "Recent work spans fashion and jewellery, property investment, an RV resort and a day spa.",
+    "Recent work spans fashion and jewellery, e-bikes, property investment, an RV resort, a day spa and a medical aesthetics studio.",
     fillIn("where you're based and what kind of work you're looking for"),
   ],
   location: fillIn("city, country"),

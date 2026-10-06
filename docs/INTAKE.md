@@ -1,135 +1,115 @@
 # Intake: facts for Ehjay Lorenzo's portfolio
 
-Every `[FILL IN: …]` below shows on the site as a visible placeholder until it's answered. Nothing gets invented. ✅ = already confirmed (source: his current application email, or your instructions on 2026-10-05).
+Updated 2026-10-06. ✅ = confirmed (by his files in `ehjay-files/`, or by your instructions of 2026-10-05/06). Every `[FILL IN: …]` shows on the site as a visible placeholder until it's answered; `pnpm fill-ins` lists them all (56 today, §8). Nothing is invented.
 
-**Never on the site:** his phone number, salary or compensation information.
+**Never on the site:** his phone number, salary or compensation, customer data, client business figures without written permission.
 
 ---
 
-## 0. Files
+## 0. Files and permissions
 | Item | Status |
 |---|---|
-| `C:\Users\Nico\ehjay-assets\` (photo, résumé, work samples) | ❌ **Not found.** The folder doesn't exist on this machine. [FILL IN: correct path, or create the folder and add the files] |
-| Portrait photo | Found `C:\Users\Nico\Downloads\Ehjay.webp` (768×1024). [FILL IN: confirm it's him and approved for the site, and give alt text] |
-| Résumé PDF | [FILL IN: file, which will be served at /resume.pdf] |
-| Work images and videos | [FILL IN: files, grouped by project] |
+| His files | ✅ `C:\Users\Client\LPT\ehjay-files\` (outside the repo, never modified). What each file shows and what was done with it: `docs/ASSETS.md`. |
+| Portrait | ✅ `Downloads\Ehjay.webp` (768×1024) → `/media/img/ehjay-lorenzo.jpg`. Alt: "Portrait of Ehjay Lorenzo". (`photo\ehjay.jpeg` is a different, smaller photo, not used.) |
+| Client names | ✅ May be shown (2026-10-06), in each brand's own spelling. |
+| `notes.txt` | ❌ None in any folder. So: no client figures anywhere, social videos muted, website recordings silent. [FILL IN: for each client, may the site show real results (leads, cost per lead, ROAS, revenue)? A note per client saying so lifts the rule.] |
+| Music in the social videos | [FILL IN: is the music licensed or original? If yes, the sound can go back on.] |
+| Résumé PDF | [FILL IN: the file; it will be served at `/resume.pdf`] |
+| Left out (privacy) | The Sabbath CRM demo video (customer names, phones, health details, signatures); the campaign report's figures; property ads showing a street address. Full list: `docs/ASSETS.md`. |
 
 ## 1. Profile → `content/data/profile.ts`
 | Field | Answer |
 |---|---|
 | name | ✅ Ehjay Lorenzo |
-| title (lead, editable) | ✅ Creative & Marketing Technologist (default) |
-| roleLine | ✅ "I make the ads, and I build the systems that measure them." (default) |
-| current job title (for Experience) | ✅ Digital Marketing, Social Media and Creative Specialist |
-| positioning (one line, beyond the role line) | [FILL IN] |
-| bio (2–3 sentences, portfolio voice) | Will be drafted from ✅ his experience list below; [FILL IN: anything personal to add, e.g. where he's based and what he's looking for] |
-| location | [FILL IN] |
-| email | ✅ ehjaylorenzo2@gmail.com |
-| links.github | [FILL IN or "none"] |
-| links.linkedin | [FILL IN or "none"] |
-| links.resume | [FILL IN: PDF file] |
-| other links (Instagram, Behance, YouTube…) | [FILL IN or skip] |
+| title | ✅ Creative & Marketing Technologist (default) |
+| roleLine | ✅ "I make the ads, and I build the systems that measure them." |
+| positioning | Drafted from the work: "Ad creative, Meta campaigns, and the websites, CRMs and dashboards behind them." [confirm or replace] |
+| bio | Drafted from the work (whole funnel: video, static ads, Meta campaigns, websites, CRMs, dashboards; clients in fashion and jewellery, e-bikes, property, an RV resort, a day spa, a medical aesthetics studio) + [FILL IN: where he's based and what work he's looking for] |
+| location | [FILL IN: city, country] |
+| email | ✅ ehjaylorenzo2@gmail.com (also receives contact-form notifications) |
+| LinkedIn / GitHub / other | [FILL IN: URLs, or "none"] |
+| current job title | ✅ Digital Marketing, Social Media and Creative Specialist |
 
-## 2. Experience areas (source material for bio and capabilities) ✅
-Video editing · graphic design · photography/videography · ad creative production · Meta Ads · content strategy · copywriting · performance reporting · same-day edits · freelance and marketing-focused creative projects.
-**New:** full-stack web development (CRM work, dashboards) and digital/Meta marketing campaigns. Details: [FILL IN]
-**Tools:** Adobe Premiere Pro, Adobe Photoshop, Canva, Meta Business Suite, Google Sheets/Excel, ActiveCampaign. Web stack used for the CRM/dashboard work: [FILL IN]
+## 2. Experience areas and tools ✅
+Video editing · graphic design · photography/videography · ad creative production · Meta Ads · content strategy · copywriting · performance reporting · same-day edits · freelance and marketing-focused creative projects · web development (CRMs, dashboards, websites).
+Tools: Adobe Premiere Pro, Adobe Photoshop, Canva, Meta Business Suite, Google Sheets/Excel, ActiveCampaign.
+Seen in his files: Next.js (the Sabbath portal); vanilla JavaScript + inline SVG + a Python export job (the dashboards); data from Windsor.ai (Meta, Shopify), ActiveCampaign, Campaign Monitor, Klaviyo; Meta Ads Manager with instant forms.
 
 ## 3. Work → `content/data/projects.ts` (+ `content/work/<slug>.mdx`)
-Disciplines: **Web & Systems** (CRM, dashboards) · **Campaigns** (Meta) · **Video** (short-form) · **Creative** (Clothing, Services, Property).
-Existing categories ✅: Clothing, Services, Property, Short-form videos, Sample campaigns.
+Featured on the homepage (one per discipline): **Client reporting dashboards**, **Rooming House Expert campaign**, **Honey Tribe**, **Riverdance RV Resort**.
 
-Rules:
-- Sample campaigns are labelled "Sample campaign" everywhere.
-- Results are real numbers only.
-- Clients are named only with permission.
-- CRM/dashboard screenshots show no real customer or client data.
+| # | Project | Discipline | Confirmed from his files | Still needed |
+|---|---|---|---|---|
+| 1 | Client reporting dashboards | Web & Systems | One system, five clients (Honey Tribe, MeloYelo, Riverdance RV Resort, Rooming House Expert, The Contract Shop); tabs, parts and tech from the code; five live demos with sample data | why this approach, constraints, result, lessons |
+| 2 | Rooming House Expert: guide lead campaign | Campaigns | Real campaign (not a sample), Aug 1–Sep 1 2026 report; objective, instant form + "Book Free Strategy Call", placements, attribution, the winning ad, three video angles for the guide | his role; audience; why the winner won; whether the video angles ran in it; results the client allows; lessons |
+| 3 | Honey Tribe | Video (+ Creative) | 4 product videos, 12 carousel images; shop: shophoneytribe.com | tools used |
+| 4 | Riverdance RV Resort | Creative (+ Video) | 12 ads (five-angle set, extended-stay carousel, seasonal offers), 2 videos; Gypsum, CO | tools used |
+| 5 | Sabbath Spa & Wellness Hub | Web & Systems | Website recording; the portal (guest + staff sides, modules listed); Next.js | live URL; rest of the stack; problem, constraints, decision, result, lessons |
+| 6 | Super Cashflow Developments | Creative (+ Video) | 12 static ads, 3 talking-head videos; Stratos; SMSF offers | tools used |
+| 7 | Rooming House Expert (website) | Web & Systems | Recording; live at www.roominghouse.expert (URL seen in his ad videos, checked live) | stack; problem, constraints, architecture, decision, result, lessons |
+| 8 | HydRate Medbar | Web & Systems | Recording; Long Island City, NY | live URL; stack; the case-study sections |
+| 9 | Latte with Lata | Web & Systems | Recording; live at addbp.github.io/latewlatta01/ (seen in the recording's address bar, checked live); its contact details are placeholders | his role; **is it a live client site or a concept?**; stack; the case-study sections |
 
-**Featured on the homepage (4, ideally one per discipline):** [FILL IN: which 4]
-
-Copy this block for every piece:
-
-| Field | Answer |
-|---|---|
-| title | [FILL IN] |
-| discipline | [FILL IN: web-systems / campaigns / video / creative] |
-| sector (Creative only) | [FILL IN: clothing / services / property] |
-| isSample (sample campaign/spec work?) | [FILL IN: yes / no] |
-| client name + permission to name it | [FILL IN or "don't name"] |
-| eyebrow (small label) | [FILL IN] |
-| summary (2–3 sentences) | [FILL IN] |
-| his role | [FILL IN] |
-| tools / stack | [FILL IN] |
-| result (real) | [FILL IN or skip] |
-| metric (real number + label, e.g. "3.1× ROAS") | [FILL IN or skip] |
-| liveUrl / githubUrl | [FILL IN or skip] |
-| cover image file | [FILL IN or "none" (gets a typographic cover)] |
-| gallery files | [FILL IN or skip] |
-| video file + aspect ratio (9:16 / 16:9 / 1:1 / 4:5) | [FILL IN or skip] |
-| year | [FILL IN] |
-| status | [FILL IN: shipped / in-progress] |
-
-**Case-study notes by discipline** (bullet points are fine; I'll shape them into prose without adding facts):
-- Web & Systems: Problem · Context · Constraints · Architecture · Implementation · Key technical decision · Result · What I learned → [FILL IN]
-- Campaigns: Objective · Audience · Creative approach · Setup · Results · What I learned → [FILL IN]
-- Video / Creative: a short brief (what it was for, his role, tools) → [FILL IN]
-
-**GrowthTrack:** dropped (it came from old notes). [FILL IN: only if it is his work, confirm and give details]
+Brand spellings used: Honey Tribe (logo wordmark "HONEYTRIBE"; the brand writes "Honey Tribe" in its ads), MeloYelo, Riverdance RV Resort, Super Cashflow Developments, Rooming House Expert, HydRate Medbar, Latte with Lata, Sabbath Spa & Wellness Hub, The Contract Shop.
 
 ## 4. Experience → `content/data/experience.ts`
-| Field | Role 1 |
+| Field | Answer |
 |---|---|
-| company (name only with permission) | [FILL IN] |
-| role | [FILL IN, e.g. ✅ Digital Marketing, Social Media and Creative Specialist] |
-| start / end (month + year, or present) | [FILL IN] |
-| 2–4 bullets (real outcomes only) | [FILL IN] |
-| tools | [FILL IN] |
-| freelance? | [FILL IN] |
-
-Role 2, 3, …: [FILL IN]
+| company | [FILL IN: name, or "don't name"] |
+| role | ✅ Digital Marketing, Social Media and Creative Specialist |
+| start / end | [FILL IN: start month and year] / present |
+| bullets | [FILL IN: 2–4 real outcomes] |
+| tools | ✅ as §2 |
+| earlier roles | [FILL IN or skip] |
 
 ## 5. Capabilities → `content/data/capabilities.ts`
-Groups: **Creative · Marketing · Web**. Every item needs one line of evidence (a project or job); items without it are left off.
-
-| Group | Item | Evidence |
-|---|---|---|
-| Creative | Video editing (Premiere Pro) | [FILL IN: which project/job] |
-| Creative | Graphic design (Photoshop, Canva) | [FILL IN] |
-| Creative | Photography / videography | [FILL IN] |
-| Creative | Same-day edits | [FILL IN] |
-| Marketing | Meta Ads (Meta Business Suite) | [FILL IN] |
-| Marketing | Ad creative production | [FILL IN] |
-| Marketing | Content strategy + copywriting | [FILL IN] |
-| Marketing | Performance reporting (Sheets/Excel) | [FILL IN] |
-| Marketing | Email automation (ActiveCampaign) | [FILL IN] |
-| Web | CRM development | [FILL IN] |
-| Web | Dashboards | [FILL IN] |
-| Web | Stack items | [FILL IN] |
+Listed (each with evidence): short-form video editing · static ads and carousels · Meta lead campaigns · performance reporting · CRM and operations portals · reporting dashboards · websites.
+Waiting for evidence (not shown until there is some): photography/videography · same-day edits · content strategy + copywriting · email automation (ActiveCampaign).
 
 ## 6. Now → `content/data/now.ts`
-| Field | Answer |
+building, learning, updatedAt: [FILL IN] (all three).
+
+## 7. Contact, GitHub, deploy
+| Item | Answer |
 |---|---|
-| building | [FILL IN] |
-| learning | [FILL IN] |
-| updatedAt | [FILL IN: YYYY-MM-DD] |
+| Contact heading | ✅ "LET'S BUILD SOMETHING USEFUL." |
+| Contact form | ✅ Built. Sends to the Google Sheet through an Apps Script web app and emails ehjaylorenzo2@gmail.com. **Your setup steps:** `docs/CONTACT-SETUP.md`. Until then the site shows "Email me instead". |
+| GitHub | ✅ https://github.com/adminkatha/ijeportfolio (public), `main`. |
+| Vercel | Later. Steps: `docs/DEPLOY.md`. |
+| `SITE_URL` / domain | [FILL IN: the domain, when there is one] |
+| Analytics | Included; switch on in Vercel (`docs/DEPLOY.md` §5). |
+| Availability line | [FILL IN or skip] |
 
-## 7. Playground / Writing
-Hidden, together with their nav links, while empty ✅. Items or posts to add later: [FILL IN or skip]
+## 8. Every open question
+Generated by `pnpm fill-ins` (2026-10-06). Answer them in the files named, or send the answers and they'll be put in.
 
-## 8. Contact
-| Field | Answer |
-|---|---|
-| heading | ✅ "LET'S BUILD SOMETHING USEFUL." |
-| channels | ✅ email; GitHub / LinkedIn / résumé once provided. Never phone. |
-| availability line | [FILL IN or skip] |
-
-## 9. Video hosting (decide before any video is added; see PLAN §5)
-| Option | Your answer |
-|---|---|
-| A: compressed MP4 in the repo (recommended for short-form; needs ffmpeg installed) / B: Vercel Blob / C: YouTube or Vimeo | [FILL IN] |
-
-## 10. Deploy (answer at Phase 16)
-- `SITE_URL` / domain: [FILL IN]
-- Vercel account/team: [FILL IN]
-- GitHub repo + visibility + push permission: [FILL IN]
-- Analytics on: [FILL IN]
+| # | Where | Field / section | Question |
+|---|---|---|---|
+| 1 | experience | company | company name (or 'don't name') |
+| 2 | experience | start | start month and year |
+| 3 | experience | bullets | 2–4 real outcomes from this role |
+| 4 | now | building | what you're building now |
+| 5 | now | building | one line about it |
+| 6 | now | learning | what you're learning now |
+| 7 | now | updatedAt | date this was last true, YYYY-MM-DD |
+| 8 | profile | bio | where you're based and what kind of work you're looking for |
+| 9 | profile | location | city, country |
+| 10 | profile | linkedin | LinkedIn URL, or remove |
+| 11 | profile | resume | résumé PDF (served at /resume.pdf) |
+| 12 | rooming-house-expert-campaign | role | your role: creative, campaign setup, reporting? |
+| 13 | honey-tribe | stack | tools used |
+| 14 | riverdance-rv-resort | stack | tools used |
+| 15 | sabbath-spa | stack | the rest of the stack (database, hosting, auth) |
+| 16 | sabbath-spa | liveUrl | live website URL |
+| 17 | super-cashflow-developments | stack | tools used |
+| 18 | rooming-house-expert | stack | stack used for the website |
+| 19 | hydrate-medbar | stack | stack used for the website |
+| 20 | hydrate-medbar | liveUrl | live website URL |
+| 21 | latte-with-lata | role | your role, and whether this is a live client site or a concept |
+| 22 | latte-with-lata | stack | stack used for the website |
+| 23–27 | client-reporting-dashboards case study | Problem · Constraints · Key technical decision · Result · What I learned | what wasn't working in the old reports; time/budget/hosting constraints; why vanilla JS + SVG; a real outcome; lessons |
+| 28–33 | hydrate-medbar case study | Problem · Constraints · Architecture · Key technical decision · Result · What I learned | the usual six |
+| 34–39 | latte-with-lata case study | Problem · Constraints · Architecture · Key technical decision · Result · What I learned | the usual six |
+| 40–44 | rooming-house-expert-campaign case study | Audience · Creative approach (×2) · Results · What I learned | who it targeted; why the winner won; did the three video angles run in it; results the client allows; lessons |
+| 45–50 | rooming-house-expert case study | Problem · Constraints · Architecture · Key technical decision · Result · What I learned | the usual six |
+| 51–56 | sabbath-spa case study | Problem · Constraints · Architecture · Key technical decision · Result · What I learned | what wasn't working before; constraints; database/hosting/auth; one decision; a result; lessons |

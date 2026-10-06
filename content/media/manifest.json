@@ -1,0 +1,875 @@
+{
+  "generatedAt": "2026-10-05T21:40:44+00:00",
+  "images": [
+    {
+      "project": "honey-tribe",
+      "src": "/media/img/honey-tribe/beaujo-screw-on-bracelet.jpg",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 147410,
+      "alt": "Beaujo Screw-On Bracelet graphic: a wrist stacked with the bracelet in gold, rose gold, silver and black on a peach background, each finish labelled, with a Shop Now! button.",
+      "group": "Beaujo Screw-On Bracelet carousel",
+      "source": "clothing/1.jpg"
+    },
+    {
+      "project": "honey-tribe",
+      "src": "/media/img/honey-tribe/denim-palazzo-pink.jpg",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 250376,
+      "alt": "Pink Denim Palazzo poster: a model in a white top and wide-leg pink denim trousers in front of large outlined PINK lettering, with the line 'Get yours on shophoneytribe.com'.",
+      "group": "Denim Palazzo carousels",
+      "source": "clothing/1(2).jpg"
+    },
+    {
+      "project": "honey-tribe",
+      "src": "/media/img/honey-tribe/denim-palazzo-olive.jpg",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 151164,
+      "alt": "Olive Denim Palazzo carousel slide: a photo collage of a model in olive acid-wash wide-leg trousers, with copy introducing the Zara Olive Denim Palazzo.",
+      "group": "Denim Palazzo carousels",
+      "source": "clothing/2(1).jpg"
+    },
+    {
+      "project": "honey-tribe",
+      "src": "/media/img/honey-tribe/bjorn-cuff-01.jpg",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 123384,
+      "alt": "Bjorn Cuff carousel slide: a hand wearing a gold cuff shaped like the map of Africa, beside the title BJORN CUFF and the words 'Handmade. Natural. Timeless.'",
+      "group": "Bjorn Cuff carousel",
+      "source": "clothing/Bjorn-Cuff_01.jpg"
+    },
+    {
+      "project": "honey-tribe",
+      "src": "/media/img/honey-tribe/bjorn-cuff-02.jpg",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 177002,
+      "alt": "Bjorn Cuff carousel slide: two gold Africa-shaped cuffs on a stone stand in dappled light, with copy saying the cuff is handcrafted in Kenya from natural brass.",
+      "group": "Bjorn Cuff carousel",
+      "source": "clothing/Bjorn-Cuff_02.jpg"
+    },
+    {
+      "project": "honey-tribe",
+      "src": "/media/img/honey-tribe/eos-cuff-silver.jpg",
+      "width": 2160,
+      "height": 1350,
+      "bytes": 343666,
+      "alt": "Two-slide panorama for the Eos Cuff bracelet in silver: an arm wearing the sculpted silver cuff, the title 'Eos Cuff', and the headline 'A little shine. A little personality.' with product copy.",
+      "group": "Eos Cuff carousel",
+      "caption": "Slides 1 and 2 of a seamless three-slide carousel; the QR-code end slide is cropped off.",
+      "source": "clothing/Eos Cuff Silver.jpg"
+    },
+    {
+      "project": "honey-tribe",
+      "src": "/media/img/honey-tribe/janet-jumper-01.jpg",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 217852,
+      "alt": "Janet Jumper carousel slide: a model in an olive wide-leg jumpsuit with striped suspender ties and a burgundy top, framed by tall condensed JANET JUMPER lettering.",
+      "group": "Janet Jumper carousel",
+      "source": "clothing/Janet-Jumper-Static_01.jpg"
+    },
+    {
+      "project": "honey-tribe",
+      "src": "/media/img/honey-tribe/janet-jumper-in-black-02.jpg",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 170619,
+      "alt": "Janet Jumper in Black carousel slide: a model seen from behind in the black jumpsuit, with the headline 'Relaxed. Refined. Ready for anything.' and product copy.",
+      "group": "Janet Jumper in Black carousel",
+      "source": "clothing/Janet-Jumper-in-Black_02.jpg"
+    },
+    {
+      "project": "honey-tribe",
+      "src": "/media/img/honey-tribe/nysa-shell-bracelet-01.jpg",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 210455,
+      "alt": "Nysa Shell Bracelet carousel slide: a hand and wrist wearing gold cowrie-shell jewellery against a concrete wall, with NYSA SHELL BRACELET in tall lettering.",
+      "group": "Nysa Shell Bracelet carousel",
+      "source": "clothing/Nysa-Shell-Bracelet_01.jpg"
+    },
+    {
+      "project": "honey-tribe",
+      "src": "/media/img/honey-tribe/obi-mask-bangle-01.jpg",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 210067,
+      "alt": "Obi Mask Bangle carousel slide: a hand with red nails wearing a bangle of black-and-white mask motifs, with the title 'Obi Mask Bangle' and 'Sculptural. Striking. Unmistakably bold.'",
+      "group": "Obi Mask Bangle carousel",
+      "source": "clothing/Obi-Mask-Bangle_01.jpg"
+    },
+    {
+      "project": "honey-tribe",
+      "src": "/media/img/honey-tribe/proverbs-3-5-scripture-sweatpants-01.jpg",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 130211,
+      "alt": "Proverbs 3:5 Scripture Sweatpants carousel slide: a model walking in yellow sweatpants with a scripture-print side panel and a red jacket, with 'Introducing Proverbs 3:5 Scripture Sweatpants' and 'Available now!'",
+      "group": "Proverbs 3:5 Scripture Sweatpants carousel",
+      "source": "clothing/Proversb-SweatPants_01.jpg"
+    },
+    {
+      "project": "honey-tribe",
+      "src": "/media/img/honey-tribe/proverbs-3-5-scripture-sweatpants-02.jpg",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 166920,
+      "alt": "Proverbs 3:5 Scripture Sweatpants carousel slide: a close-up of the yellow sweatpants opened at the side zip to show the scripture print, with 'Wear Your Faith. Own Your Style.'",
+      "group": "Proverbs 3:5 Scripture Sweatpants carousel",
+      "source": "clothing/Proversb-SweatPants_02.jpg"
+    },
+    {
+      "project": "super-cashflow-developments",
+      "src": "/media/img/super-cashflow-developments/licensed-rooming-house-sunbury.jpg",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 201160,
+      "alt": "Listing carousel slide: a brick house with LICENSED ROOMING HOUSE in Sunbury in bold white type over a blue sky, and the Super Cashflow Developments logo.",
+      "group": "Sunbury listing carousel (opening slide)",
+      "source": "property/Super Cashflow Development-1-001/1.jpg"
+    },
+    {
+      "project": "super-cashflow-developments",
+      "src": "/media/img/super-cashflow-developments/nine-rooms-nine-incomes-01.jpg",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 117304,
+      "alt": "Listing carousel slide 1 of 3: a new house behind a timber fence with the headline '9 ROOMS 9 INCOMES.' and the banner 'A purpose-built rooming house made for cashflow'.",
+      "group": "Moe listing carousel",
+      "source": "property/Super Cashflow Development-1-001/1(1).jpg"
+    },
+    {
+      "project": "super-cashflow-developments",
+      "src": "/media/img/super-cashflow-developments/nine-rooms-nine-incomes-02.jpg",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 97338,
+      "alt": "Listing carousel slide 2 of 3: the house frontage with the headline 'APPROX. $154K GROSS INCOME PER YEAR' and the line 'Near-new, low-maintenance, and fully self-contained.'",
+      "group": "Moe listing carousel",
+      "source": "property/Super Cashflow Development-1-001/2.jpg"
+    },
+    {
+      "project": "super-cashflow-developments",
+      "src": "/media/img/super-cashflow-developments/nine-rooms-nine-incomes-03.jpg",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 99972,
+      "alt": "Listing carousel slide 3 of 3: the garage and driveway with the headline 'STRONG RENTAL DEMAND IN MOE.' and the list: each room has its own bathroom, kitchenette and courtyard.",
+      "group": "Moe listing carousel",
+      "source": "property/Super Cashflow Development-1-001/3.jpg"
+    },
+    {
+      "project": "super-cashflow-developments",
+      "src": "/media/img/super-cashflow-developments/custom-is-chaos-stratos-is-control.jpg",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 121925,
+      "alt": "Ad with the headline 'CUSTOM IS CHAOS. STRATOS IS CONTROL.' over a dimmed interior, describing Stratos as a standardised 9-studio rooming house system, with a Discover Stratos button.",
+      "group": "Stratos static ads",
+      "source": "property/Super Cashflow Development-1-001/Custom is Chaos. Stratos is Control.jpg"
+    },
+    {
+      "project": "super-cashflow-developments",
+      "src": "/media/img/super-cashflow-developments/custom-builds-drag-stratos-moves.jpg",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 222819,
+      "alt": "Ad with the headline 'CUSTOM BUILDS DRAG. STRATOS MOVES.' and a diagonal orange banner about a standardised 9-studio system, over an aerial photo of houses, with a Get the Stratos Brief button.",
+      "group": "Stratos static ads",
+      "source": "property/Super Cashflow Development-1-001/Custom builds drag, stratos moves.jpg"
+    },
+    {
+      "project": "super-cashflow-developments",
+      "src": "/media/img/super-cashflow-developments/one-system-faster-decisions.jpg",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 215558,
+      "alt": "Ad with the headline 'ONE SYSTEM. FASTER DECISIONS.' over an aerial view of a suburb, with a Get the Stratos Brief button.",
+      "group": "Stratos static ads",
+      "source": "property/Super Cashflow Development-1-001/One System, Faster Decisions.jpg"
+    },
+    {
+      "project": "super-cashflow-developments",
+      "src": "/media/img/super-cashflow-developments/after-august-10-it-may-be-too-late.jpg",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 140455,
+      "alt": "Ad with the headline 'AFTER AUGUST 10, IT MAY BE TOO LATE.' over a calendar page for August 2026, about the SMSF borrowing window closing, with a View Available Listing button.",
+      "group": "SMSF deadline static ads",
+      "source": "property/Super Cashflow Development-1-001/After August 10 it May Be Too Late.jpg"
+    },
+    {
+      "project": "super-cashflow-developments",
+      "src": "/media/img/super-cashflow-developments/turn-your-super-into-super-cashflow.jpg",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 142025,
+      "alt": "Ad with the headline 'TURN YOUR SUPER INTO SUPER CASHFLOW' over a dimmed newspaper page, offering operating rooming houses to eligible SMSF investors, with a View Available Listing button.",
+      "group": "SMSF deadline static ads",
+      "source": "property/Super Cashflow Development-1-001/Turn your Super into Super Cashflow.jpg"
+    },
+    {
+      "project": "super-cashflow-developments",
+      "src": "/media/img/super-cashflow-developments/your-retirement-needs-more-than-a-balance.jpg",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 123965,
+      "alt": "Ad with the orange headline 'YOUR RETIREMENT NEEDS MORE THAN A BALANCE' on a dark background, about investing super in an income-producing rooming house, with a View Available Listing button.",
+      "group": "SMSF deadline static ads",
+      "source": "property/Super Cashflow Development-1-001/Your Retirement Needs More Than A Balance.jpg"
+    },
+    {
+      "project": "super-cashflow-developments",
+      "src": "/media/img/super-cashflow-developments/not-converted-purpose-built.jpg",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 116275,
+      "alt": "Ad with the headline 'NOT CONVERTED. PURPOSE-BUILT.' over a furnished bedroom, with the line 'Designed from the ground up for Rooming House living.' and a Book a call now! button.",
+      "group": "Listing static ads",
+      "source": "property/Super Cashflow Development-1-001/Not Converted. Purpose-Built..jpg"
+    },
+    {
+      "project": "super-cashflow-developments",
+      "src": "/media/img/super-cashflow-developments/nine-room-rooming-house-for-sale.jpg",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 167589,
+      "alt": "Ad with the headline '9-ROOM ROOMING HOUSE FOR SALE' over a new house and driveway, 'Purpose-built specialist accommodation in Shepparton', with a Book a call now! button.",
+      "group": "Listing static ads",
+      "source": "property/Super Cashflow Development-1-001/9-Room Rooming House For Sale.jpg"
+    },
+    {
+      "project": "riverdance-rv-resort",
+      "src": "/media/img/riverdance-rv-resort/angle-1-live-where-others-vacation.jpg",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 285350,
+      "alt": "Green Riverdance RV Resort ad: 'LIVE WHERE OTHERS VACATION', private Eagle River frontage, monthly sites from $1,250/mo and a Book Now! button above a photo of red chairs by the river.",
+      "group": "Five-angle static set",
+      "source": "services/Riverdance-1-001/Angle 1.jpg"
+    },
+    {
+      "project": "riverdance-rv-resort",
+      "src": "/media/img/riverdance-rv-resort/angle-3-the-longer-you-stay.jpg",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 246354,
+      "alt": "Cream Riverdance RV Resort ad: 'THE LONGER YOU STAY, THE LESS YOU PAY' above a photo of the resort building with its Riverdance sign, with 60+ day stays from $1,200/mo.",
+      "group": "Five-angle static set",
+      "source": "services/Riverdance-1-001/Angle 3.jpg"
+    },
+    {
+      "project": "riverdance-rv-resort",
+      "src": "/media/img/riverdance-rv-resort/angle-4-your-office-the-eagle-river.jpg",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 224987,
+      "alt": "Riverdance RV Resort ad: 'YOUR OFFICE. THE EAGLE RIVER.' under a photo of the river and mountains, aimed at remote workers, with monthly sites from $1,250/mo.",
+      "group": "Five-angle static set",
+      "source": "services/Riverdance-1-001/Angle 4.jpg"
+    },
+    {
+      "project": "riverdance-rv-resort",
+      "src": "/media/img/riverdance-rv-resort/angle-5-why-rent-in-vail.jpg",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 197464,
+      "alt": "Riverdance RV Resort ad: 'WHY RENT IN VAIL?' with a simple bar chart comparing Vail-area rent, hotels and condos, and riverside sites from $1,250.",
+      "group": "Five-angle static set",
+      "source": "services/Riverdance-1-001/Angle 5.jpg"
+    },
+    {
+      "project": "riverdance-rv-resort",
+      "src": "/media/img/riverdance-rv-resort/extended-stay-01.jpg",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 160559,
+      "alt": "Extended-stay carousel slide 1 of 5: an RV under string lights at dusk, the Riverdance RV Resort logo and 'WHAT IF HOME LOOKED LIKE THIS?'",
+      "group": "Extended-stay carousel",
+      "source": "services/Riverdance-1-001/Extended-Stay-Carousel_01.jpg"
+    },
+    {
+      "project": "riverdance-rv-resort",
+      "src": "/media/img/riverdance-rv-resort/extended-stay-02.jpg",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 206563,
+      "alt": "Extended-stay carousel slide 2 of 5: 'MOUNTAIN LIVING SHOULDN'T COST A FORTUNE' over a sunset river scene, with 'Hotels. Condos. Rent. The Vail Valley adds up fast.'",
+      "group": "Extended-stay carousel",
+      "source": "services/Riverdance-1-001/Extended-Stay-Carousel_02.jpg"
+    },
+    {
+      "project": "riverdance-rv-resort",
+      "src": "/media/img/riverdance-rv-resort/extended-stay-03.jpg",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 147990,
+      "alt": "Extended-stay carousel slide 3 of 5: 'EXTENDED STAY ON THE EAGLE RIVER from $1,250/mo' with full-hookup monthly sites, beside an angler holding a trout.",
+      "group": "Extended-stay carousel",
+      "source": "services/Riverdance-1-001/Extended-Stay-Carousel_03.jpg"
+    },
+    {
+      "project": "riverdance-rv-resort",
+      "src": "/media/img/riverdance-rv-resort/extended-stay-04.jpg",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 154539,
+      "alt": "Extended-stay carousel slide 4 of 5: 'YOUR EVERYDAY LOOKS LIKE THIS' with a list of amenities (hookups, Wi-Fi, fenced dog area, laundry, river frontage) over a photo of an angler holding a trout.",
+      "group": "Extended-stay carousel",
+      "source": "services/Riverdance-1-001/Extended-Stay-Carousel_04.jpg"
+    },
+    {
+      "project": "riverdance-rv-resort",
+      "src": "/media/img/riverdance-rv-resort/extended-stay-05.jpg",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 234131,
+      "alt": "Extended-stay carousel slide 5 of 5: an aerial view of the RV park with the Riverdance RV Resort logo, 'YOUR SITE IS WAITING' and a Book Now! button.",
+      "group": "Extended-stay carousel",
+      "source": "services/Riverdance-1-001/Extended-Stay-Carousel_05.jpg"
+    },
+    {
+      "project": "riverdance-rv-resort",
+      "src": "/media/img/riverdance-rv-resort/mountain-recharge.jpg",
+      "width": 1122,
+      "height": 1402,
+      "bytes": 268892,
+      "alt": "Riverdance RV Resort ad: 'THE $80 MOUNTAIN RECHARGE' over a dusk photo of RV sites with string lights, with copy about full hookups and private Eagle River access 30 minutes from Vail.",
+      "group": "Seasonal $80 offers",
+      "source": "services/Riverdance-1-001/Mountain Recharge ($80).png"
+    },
+    {
+      "project": "riverdance-rv-resort",
+      "src": "/media/img/riverdance-rv-resort/one-more-august-escape.jpg",
+      "width": 1092,
+      "height": 1441,
+      "bytes": 357801,
+      "alt": "Riverdance RV Resort ad: 'ONE MORE AUGUST ESCAPE' over red chairs on a riverside lawn, 'Select RV sites are still available', starts at $80/night, with a Book Your Stay button.",
+      "group": "Seasonal $80 offers",
+      "source": "services/Riverdance-1-001/ONE MORE AUGUST ESCAPE.png"
+    },
+    {
+      "project": "riverdance-rv-resort",
+      "src": "/media/img/riverdance-rv-resort/vail-valley-adventure.jpg",
+      "width": 1092,
+      "height": 1440,
+      "bytes": 157348,
+      "alt": "Riverdance RV Resort ad on a cream doodle background: 'VAIL VALLEY ADVENTURE WITHOUT VAIL PRICES' above a sunset photo of RVs, with $80/night copy and a Book Now! button.",
+      "group": "Seasonal $80 offers",
+      "source": "services/Riverdance-1-001/Vail Valley Adventure ($80).png"
+    },
+    {
+      "project": "sabbath-spa",
+      "src": "/media/img/sabbath-spa/crm-portal-home.jpg",
+      "width": 1740,
+      "height": 908,
+      "bytes": 54480,
+      "alt": "Sabbath Spa & Wellness Hub Digital Operations Portal: the Sabbath logo above five cards for Book a Session, Digital Waiver, Membership, Sabasu and Staff Portal.",
+      "group": "CRM screenshots",
+      "caption": "Cropped at the sides to remove a development-mode badge and the browser scrollbar.",
+      "source": "crm/SABBATH.png"
+    },
+    {
+      "project": "sabbath-spa",
+      "src": "/media/img/sabbath-spa/crm-bookings-ledger.jpg",
+      "width": 1900,
+      "height": 858,
+      "bytes": 63446,
+      "alt": "Bookings Ledger screen of the Sabbath spa CRM: sidebar navigation, branch tabs, search box, category tabs and the table headings; the booking rows and the signed-in account are blurred.",
+      "group": "CRM screenshots",
+      "caption": "Booking rows (customer, therapist, date, service, amount, payment, type) and the signed-in account are blurred; the browser bookmarks bar is cropped off.",
+      "source": "crm/SABBATH1.png"
+    },
+    {
+      "project": "rooming-house-expert-campaign",
+      "src": "/media/img/rooming-house-expert-campaign/ads-manager-ad-preview.jpg",
+      "width": 966,
+      "height": 704,
+      "bytes": 72820,
+      "alt": "Meta Ads Manager ad editor: placements and the instant-form action 'Book Free Strategy Call' on the left, and a feed preview of the RoomingHouse.Expert ad on the right reading '8 Rooms. $2,200/week! Convert Your Property Into a Rooming House! Download The Guide Here!'",
+      "group": "Ads Manager",
+      "caption": "Cropped from an Ads Manager screenshot: campaign, ad set and ad names and an in-editor Meta suggestion were removed.",
+      "source": "campaigns/Screenshot of the winning Ad.png"
+    },
+    {
+      "project": "rooming-house-expert-campaign",
+      "src": "/media/img/rooming-house-expert-campaign/ad-preview-card.jpg",
+      "width": 240,
+      "height": 417,
+      "bytes": 27218,
+      "alt": "Feed preview of the RoomingHouse.Expert ad: an illustrated man in front of a house with '8 Rooms. $2,200/week! Convert Your Property Into a Rooming House! Download The Guide Here!', the primary text 'Turn 1 Property into 2-3x Rental Income - See If Yours Qualifies!', the headline 'Convert. Rent. Repeat.' and a Sign up button.",
+      "group": "Ads Manager",
+      "source": "campaigns/Screenshot of the winning Ad.png"
+    },
+    {
+      "project": "profile",
+      "src": "/media/img/ehjay-lorenzo.jpg",
+      "width": 768,
+      "height": 1024,
+      "bytes": 50832,
+      "alt": "Portrait of Ehjay Lorenzo",
+      "source": "Ehjay.webp (approved portrait, supplied separately; not in ehjay-files)"
+    }
+  ],
+  "videos": [
+    {
+      "project": "honey-tribe",
+      "src": "/media/video/honey-tribe/janet-jumper.mp4",
+      "poster": "/media/poster/honey-tribe/janet-jumper.jpg",
+      "width": 720,
+      "height": 1280,
+      "aspectRatio": "9:16",
+      "durationSec": 44.33,
+      "bytes": 4203087,
+      "audio": false,
+      "title": "Janet Jumper",
+      "description": "Vertical product video: a model in Honey Tribe's army-green Janet Jumper (a wide-leg jumpsuit with striped tie suspenders) in an arched, plant-filled set, with captions on the relaxed fit, adjustable suspenders, pockets and convertible ankles. Ends on a Honey Tribe 'Shop Now' card with shophoneytribe.com.",
+      "posterTimeSec": 36.0,
+      "source": "videos/Riverdance & HoneyTribe-20261005T143802Z-1-001/Janet Jumper Revised 2.mp4"
+    },
+    {
+      "project": "honey-tribe",
+      "src": "/media/video/honey-tribe/milo-tassel-kimono.mp4",
+      "poster": "/media/poster/honey-tribe/milo-tassel-kimono.jpg",
+      "width": 720,
+      "height": 1280,
+      "aspectRatio": "9:16",
+      "durationSec": 51.07,
+      "bytes": 7637194,
+      "audio": false,
+      "title": "Milo Tassel Kimono",
+      "description": "Vertical product video: a model styles the pink colour-block Milo Tassel Kimono with cream tassels, with bold word-by-word captions about layering it over different outfits. Ends on a Honey Tribe end card.",
+      "posterTimeSec": 39.0,
+      "source": "videos/Riverdance & HoneyTribe-20261005T143802Z-1-001/Milo Tassel Kimono.mp4"
+    },
+    {
+      "project": "honey-tribe",
+      "src": "/media/video/honey-tribe/knox-tassel-kimono.mp4",
+      "poster": "/media/poster/honey-tribe/knox-tassel-kimono.jpg",
+      "width": 720,
+      "height": 1280,
+      "aspectRatio": "9:16",
+      "durationSec": 57.87,
+      "bytes": 9173992,
+      "audio": false,
+      "title": "Knox Tassel Kimono",
+      "description": "Vertical product video: the green, yellow and tan Knox Tassel Kimono worn in a sunlit room, with serif captions such as 'easy to layer and designed to move with you'. Ends on a Honey Tribe end card.",
+      "posterTimeSec": 36.0,
+      "source": "videos/Riverdance & HoneyTribe-20261005T143802Z-1-001/Knox Tassel Kimono .mp4"
+    },
+    {
+      "project": "honey-tribe",
+      "src": "/media/video/honey-tribe/proverbs-3-5-scripture-sweatpants.mp4",
+      "poster": "/media/poster/honey-tribe/proverbs-3-5-scripture-sweatpants.jpg",
+      "width": 720,
+      "height": 1280,
+      "aspectRatio": "9:16",
+      "durationSec": 42.97,
+      "bytes": 5939933,
+      "audio": false,
+      "title": "Proverbs 3:5 Scripture Sweatpants",
+      "description": "Vertical product video: yellow wide-leg sweatpants whose side zip opens to a Proverbs 3:5 scripture print, with captions on the stretch waist, pockets, zippers and inseam. Ends on a Honey Tribe end card.",
+      "posterTimeSec": 3.0,
+      "source": "videos/Riverdance & HoneyTribe-20261005T143802Z-1-001/Proverbs 3_5 Revised.mp4"
+    },
+    {
+      "project": "riverdance-rv-resort",
+      "src": "/media/video/riverdance-rv-resort/not-just-parking.mp4",
+      "poster": "/media/poster/riverdance-rv-resort/not-just-parking.jpg",
+      "width": 720,
+      "height": 1280,
+      "aspectRatio": "9:16",
+      "durationSec": 20.8,
+      "bytes": 2485040,
+      "audio": false,
+      "title": "Not just parking. A full RV getaway.",
+      "description": "Vertical promo: the Eagle River, aerial views and RV sites with captions such as 'Wake up to the calm of the Eagle River.', then an offer card with nightly and weekly rates and the Riverdance RV Resort logo.",
+      "posterTimeSec": 6.0,
+      "source": "videos/Riverdance & HoneyTribe-20261005T143802Z-1-001/Not just parking. A full RV getaway..mp4"
+    },
+    {
+      "project": "riverdance-rv-resort",
+      "src": "/media/video/riverdance-rv-resort/place-to-park.mp4",
+      "poster": "/media/poster/riverdance-rv-resort/place-to-park.jpg",
+      "width": 720,
+      "height": 1280,
+      "aspectRatio": "9:16",
+      "durationSec": 48.67,
+      "bytes": 9557106,
+      "audio": false,
+      "title": "A place to park your RV",
+      "description": "Vertical drone video of Riverdance RV Resort in Gypsum, Colorado: canyon, river, RV rows and cabins, with hand-lettered captions ('Looking for a place to park your RV?', 'Your home base in Gypsum Colorado'), a Book Now! button and the resort logo.",
+      "posterTimeSec": 22.0,
+      "source": "videos/Riverdance & HoneyTribe-20261005T143802Z-1-001/Park .mp4"
+    },
+    {
+      "project": "rooming-house-expert-campaign",
+      "src": "/media/video/rooming-house-expert-campaign/angle-1.mp4",
+      "poster": "/media/poster/rooming-house-expert-campaign/angle-1.jpg",
+      "width": 720,
+      "height": 1280,
+      "aspectRatio": "9:16",
+      "durationSec": 58.83,
+      "bytes": 3699219,
+      "audio": false,
+      "title": "Angle 1: the weekly rent figure",
+      "description": "Vertical talking-head ad for Rooming House Expert: a presenter explains that a big weekly rent figure isn't the number that matters, with captions, a floor-plan animation and a mock-up of the free 'Ultimate Rooming House Conversion Guide'. Ends on the Rooming House Expert logo. The e-mail address on the guide mock-up is blurred.",
+      "posterTimeSec": 3.0,
+      "source": "videos/Super Cahsflow-20261005T143809Z-1-001/Angle 1.mp4"
+    },
+    {
+      "project": "rooming-house-expert-campaign",
+      "src": "/media/video/rooming-house-expert-campaign/angle-2.mp4",
+      "poster": "/media/poster/rooming-house-expert-campaign/angle-2.jpg",
+      "width": 720,
+      "height": 1280,
+      "aspectRatio": "9:16",
+      "durationSec": 53.23,
+      "bytes": 3369400,
+      "audio": false,
+      "title": "Angle 2: more rent isn't a better investment",
+      "description": "Vertical talking-head ad for Rooming House Expert: 'more rent does not automatically mean better investment', with captions, b-roll (paperwork, a route map, a calculator), the free guide mock-up and the Rooming House Expert logo. The e-mail address on the guide mock-up is blurred.",
+      "posterTimeSec": 3.0,
+      "source": "videos/Super Cahsflow-20261005T143809Z-1-001/Angle 2.mp4"
+    },
+    {
+      "project": "rooming-house-expert-campaign",
+      "src": "/media/video/rooming-house-expert-campaign/angle-3.mp4",
+      "poster": "/media/poster/rooming-house-expert-campaign/angle-3.jpg",
+      "width": 720,
+      "height": 1280,
+      "aspectRatio": "9:16",
+      "durationSec": 52.4,
+      "bytes": 3405849,
+      "audio": false,
+      "title": "Angle 3: what is actually left",
+      "description": "Vertical talking-head ad for Rooming House Expert: what is left after costs decides whether a rooming house strategy works, with animated icons (layout, demand, management, vacancy, compliance, expenses), the free guide mock-up and the Rooming House Expert logo. The e-mail address on the guide mock-up is blurred.",
+      "posterTimeSec": 3.0,
+      "source": "videos/Super Cahsflow-20261005T143809Z-1-001/Angle 3.mp4"
+    },
+    {
+      "project": "super-cashflow-developments",
+      "src": "/media/video/super-cashflow-developments/custom-is-chaos-stratos-is-control.mp4",
+      "poster": "/media/poster/super-cashflow-developments/custom-is-chaos-stratos-is-control.jpg",
+      "width": 720,
+      "height": 1280,
+      "aspectRatio": "9:16",
+      "durationSec": 85.1,
+      "bytes": 5312346,
+      "audio": false,
+      "title": "Custom Is Chaos, Stratos Is Control",
+      "description": "Vertical talking-head video: a presenter in a rounded frame with orange-highlighted captions contrasts custom builds with the standardised 9-studio Stratos rooming house system, cut with stock b-roll of plans, builders and paperwork, a 'Custom Is Chaos / The Stratos Is Control' title card and the Super Cashflow Developments logo.",
+      "posterTimeSec": 74.0,
+      "source": "videos/Super Cahsflow-20261005T143809Z-1-001/Custom is Chaos Stratos is Control .mp4"
+    },
+    {
+      "project": "super-cashflow-developments",
+      "src": "/media/video/super-cashflow-developments/stop-treating-rooming-houses-like-normal-houses.mp4",
+      "poster": "/media/poster/super-cashflow-developments/stop-treating-rooming-houses-like-normal-houses.jpg",
+      "width": 720,
+      "height": 1280,
+      "aspectRatio": "9:16",
+      "durationSec": 90.97,
+      "bytes": 5663212,
+      "audio": false,
+      "title": "Stop treating rooming houses like normal houses",
+      "description": "Vertical talking-head video: opens on 'this is why most rooming house projects fall apart', then covers Class 1B requirements (access, fire separation, ventilation, soundproofing) with stock b-roll and listing photos ('6 bedrooms, multiple bathrooms, professionally managed'). Ends on the Super Cashflow Developments logo.",
+      "posterTimeSec": 50.0,
+      "source": "videos/Super Cahsflow-20261005T143809Z-1-001/Stop treating rooming houses like normal houses.mp4"
+    },
+    {
+      "project": "super-cashflow-developments",
+      "src": "/media/video/super-cashflow-developments/the-income-is-obvious-the-process-is-the-problem.mp4",
+      "poster": "/media/poster/super-cashflow-developments/the-income-is-obvious-the-process-is-the-problem.jpg",
+      "width": 720,
+      "height": 1280,
+      "aspectRatio": "9:16",
+      "durationSec": 112.93,
+      "bytes": 7245548,
+      "audio": false,
+      "title": "The income is obvious, the process is the problem",
+      "description": "Vertical talking-head video: the presenter argues that rooming-house income is easy to see but the process (council permits, builders, compliance) is where projects stall, and introduces the Stratos system, with stock b-roll. Ends on the Super Cashflow Developments logo.",
+      "posterTimeSec": 10.0,
+      "source": "videos/Super Cahsflow-20261005T143809Z-1-001/The income is obvious the process is the problem.mp4"
+    },
+    {
+      "project": "hydrate-medbar",
+      "src": "/media/video/hydrate-medbar/website.mp4",
+      "poster": "/media/poster/hydrate-medbar/website.jpg",
+      "width": 1280,
+      "height": 586,
+      "aspectRatio": "2.18:1",
+      "durationSec": 19.53,
+      "bytes": 969382,
+      "audio": false,
+      "title": "HydRate Medbar website",
+      "description": "Screen recording of the HydRate Medbar website: the 'Elevated Beauty & Wellness' hero (Long Island City, NY), a logo loader, 'Where Science Meets Serenity', the treatment cards (Botox & Fillers, IV Drip Therapy, Laser Hair Removal, Microneedling), a testimonial and the footer. Testimonial names and the footer contact details are blurred; browser scrollbar cropped.",
+      "posterTimeSec": 3.0,
+      "source": "website/HydRateMedbar.mp4"
+    },
+    {
+      "project": "latte-with-lata",
+      "src": "/media/video/latte-with-lata/website.mp4",
+      "poster": "/media/poster/latte-with-lata/website.jpg",
+      "width": 1280,
+      "height": 612,
+      "aspectRatio": "2.09:1",
+      "durationSec": 31.07,
+      "bytes": 3087530,
+      "audio": false,
+      "title": "Latte with Lata website",
+      "description": "Screen recording of the Latte with Lata website (a cafe and podcast): the kinetic 'LATTE WITH LATA' hero, a page reload with its letter-reveal intro, cafe and menu sections, episode cards, the host section and the footer. Browser tabs and address bar cropped; a 'Visit' card with the street address is cut, and the footer address, phone and e-mail are blurred.",
+      "posterTimeSec": 2.0,
+      "source": "website/LATTEWITHLATA.mp4"
+    },
+    {
+      "project": "rooming-house-expert",
+      "src": "/media/video/rooming-house-expert/website.mp4",
+      "poster": "/media/poster/rooming-house-expert/website.jpg",
+      "width": 1280,
+      "height": 588,
+      "aspectRatio": "2.18:1",
+      "durationSec": 21.1,
+      "bytes": 1605629,
+      "audio": false,
+      "title": "Rooming House Expert website",
+      "description": "Screen recording of the Rooming House Expert website: 'The Future of Investing' hero, the father-and-son founders section, company stats, featured properties, the 'Think your property might work as a Rooming House?' call to action and the footer. The client-stories section (investor names and income figures) is cut out.",
+      "posterTimeSec": 4.0,
+      "source": "website/RoomingHouseExpert.mp4"
+    },
+    {
+      "project": "sabbath-spa",
+      "src": "/media/video/sabbath-spa/website.mp4",
+      "poster": "/media/poster/sabbath-spa/website.jpg",
+      "width": 1280,
+      "height": 580,
+      "aspectRatio": "2.21:1",
+      "durationSec": 19.27,
+      "bytes": 1240012,
+      "audio": false,
+      "title": "Sabbath Spa & Wellness Hub website",
+      "description": "Screen recording of the Sabbath Spa & Wellness Hub website: the 'Embrace the Gift of Rest' hero with a tilted photo collage, a logo loader, 'Welcome to the Sanctuary of Grace' with photos of the spa's signage, the services line, a massage carousel and the footer.",
+      "posterTimeSec": 4.0,
+      "source": "website/Sabbathspa.mp4"
+    }
+  ],
+  "excluded": [
+    {
+      "source": "clothing/Janet Jumper Revised 2.mp4",
+      "reason": "Exact duplicate (same md5) of videos/Riverdance & HoneyTribe-20261005T143802Z-1-001/Janet Jumper Revised 2.mp4; encoded once as /media/video/honey-tribe/janet-jumper.mp4."
+    },
+    {
+      "source": "clothing/Milo Tassel Kimono.mp4",
+      "reason": "Exact duplicate (same md5) of videos/Riverdance & HoneyTribe-20261005T143802Z-1-001/Milo Tassel Kimono.mp4; encoded once as /media/video/honey-tribe/milo-tassel-kimono.mp4."
+    },
+    {
+      "source": "clothing/Proverbs 3_5 Revised.mp4",
+      "reason": "Exact duplicate (same md5) of videos/Riverdance & HoneyTribe-20261005T143802Z-1-001/Proverbs 3_5 Revised.mp4; encoded once as /media/video/honey-tribe/proverbs-3-5-scripture-sweatpants.mp4."
+    },
+    {
+      "source": "videos/Super Cahsflow-20261005T143809Z-1-001/Not just parking. A full RV getaway..mp4",
+      "reason": "Exact duplicate (same md5) of videos/Riverdance & HoneyTribe-20261005T143802Z-1-001/Not just parking. A full RV getaway..mp4; encoded once as /media/video/riverdance-rv-resort/not-just-parking.mp4."
+    },
+    {
+      "source": "clothing/2.jpg",
+      "reason": "Beaujo colourway slide (gold): the same layout repeats for each finish; the opening slide shows all four finishes."
+    },
+    {
+      "source": "clothing/3.jpg",
+      "reason": "Beaujo colourway slide (rose gold): same layout as the other colourway slides; the opening slide is kept."
+    },
+    {
+      "source": "clothing/4.jpg",
+      "reason": "Beaujo colourway slide (silver): same layout as the other colourway slides; the opening slide is kept."
+    },
+    {
+      "source": "clothing/5.jpg",
+      "reason": "Beaujo colourway slide (black): same layout as the other colourway slides; the opening slide is kept."
+    },
+    {
+      "source": "clothing/6.jpg",
+      "reason": "QR-code-only end card."
+    },
+    {
+      "source": "clothing/1(1).jpg",
+      "reason": "Olive Denim Palazzo poster: same poster layout as the pink version (kept); the olive colourway is shown through its collage slide."
+    },
+    {
+      "source": "clothing/2(2).jpg",
+      "reason": "Pink Denim Palazzo collage slide: same collage layout as the olive version (kept)."
+    },
+    {
+      "source": "clothing/3(1).jpg",
+      "reason": "QR-code-only end card."
+    },
+    {
+      "source": "clothing/3(2).jpg",
+      "reason": "QR-code-only end card. (Its label repeats the olive product name on the pink set.)"
+    },
+    {
+      "source": "clothing/Bjorn-Cuff_03.jpg",
+      "reason": "QR-code-only end card."
+    },
+    {
+      "source": "clothing/Janet-Jumper-Static_02.jpg",
+      "reason": "Same layout as Janet Jumper in Black slide 2 (kept); the olive colourway is shown through its opening slide."
+    },
+    {
+      "source": "clothing/Janet-Jumper-Static_03.jpg",
+      "reason": "QR-code-only end card."
+    },
+    {
+      "source": "clothing/Janet-Jumper-in-Black_01.jpg",
+      "reason": "Same layout as the Janet Jumper opening slide (kept)."
+    },
+    {
+      "source": "clothing/Janet-Jumper-in-Black_03.jpg",
+      "reason": "QR-code-only end card."
+    },
+    {
+      "source": "clothing/Nysa-Shell-Bracelet_02.jpg",
+      "reason": "Curation: the set is represented by its opening slide (about a dozen pieces per client)."
+    },
+    {
+      "source": "clothing/Nysa-Shell-Bracelet_03.jpg",
+      "reason": "QR-code-only end card."
+    },
+    {
+      "source": "clothing/Nysa Shell Bracelet.jpg",
+      "reason": "Preview strip (3240x1350) made of the three Nysa slides: duplicate."
+    },
+    {
+      "source": "clothing/Obi-Mask-Bangle_02.jpg",
+      "reason": "Curation: the set is represented by its opening slide (about a dozen pieces per client)."
+    },
+    {
+      "source": "clothing/Obi-Mask-Bangle_03.jpg",
+      "reason": "QR-code-only end card."
+    },
+    {
+      "source": "clothing/Proversb-SweatPants_03.jpg",
+      "reason": "QR-code-only end card."
+    },
+    {
+      "source": "property/Super Cashflow Development-1-001/1(2).jpg",
+      "reason": "Shows a street address (Shepparton listing)."
+    },
+    {
+      "source": "property/Super Cashflow Development-1-001/2(3).jpg",
+      "reason": "Slide 2 of the Shepparton carousel, whose opening slide shows a street address; left out with its set (same layout family as the Moe carousel, kept)."
+    },
+    {
+      "source": "property/Super Cashflow Development-1-001/3(3).jpg",
+      "reason": "Slide 3 of the Shepparton carousel, whose opening slide shows a street address; left out with its set."
+    },
+    {
+      "source": "property/Super Cashflow Development-1-001/1(3).jpg",
+      "reason": "Shows a street address (Warragul listing; the address runs across slides 1 and 2)."
+    },
+    {
+      "source": "property/Super Cashflow Development-1-001/2(2).jpg",
+      "reason": "Shows the end of a street address (Warragul listing)."
+    },
+    {
+      "source": "property/Super Cashflow Development-1-001/3(2).jpg",
+      "reason": "Slide 3 of the Warragul carousel, whose first two slides show a street address; left out with its set."
+    },
+    {
+      "source": "property/Super Cashflow Development-1-001/[file name withheld: a street address] Shepparton.jpg",
+      "reason": "Preview strip (3240x1350) of the Shepparton carousel: duplicate, and it shows a street address (so does its file name, withheld here)."
+    },
+    {
+      "source": "property/Super Cashflow Development-1-001/2(1).jpg",
+      "reason": "Slide 2 of the Sunbury carousel: same template as the Moe carousel (kept in full); the Sunbury opening slide is kept."
+    },
+    {
+      "source": "property/Super Cashflow Development-1-001/3(1).jpg",
+      "reason": "Slide 3 of the Sunbury carousel: same template as the Moe carousel (kept in full)."
+    },
+    {
+      "source": "property/Super Cashflow Development-1-001/Guesswork Delays, Stratos Controls.jpg",
+      "reason": "Near-duplicate of 'One System, Faster Decisions' (same aerial photo and layout)."
+    },
+    {
+      "source": "property/Super Cashflow Development-1-001/Limited Rooming Houses Available Before the Deadline.jpg",
+      "reason": "Same SMSF-deadline message as the ads kept; its newspaper background also shows a third-party byline."
+    },
+    {
+      "source": "property/Super Cashflow Development-1-001/Private Ensuite + Kitchenette.jpg",
+      "reason": "Near-duplicate of 'Not Converted. Purpose-Built.' (same bedroom-photo layout)."
+    },
+    {
+      "source": "property/Super Cashflow Development-1-001/A Cashflow-Focused Asset.jpg",
+      "reason": "Same interior-photo layout as 'Not Converted. Purpose-Built.' (kept)."
+    },
+    {
+      "source": "services/Riverdance-1-001/Angle 2.jpg",
+      "reason": "Same template as Angle 1 in a cream colourway; Angle 1 is kept."
+    },
+    {
+      "source": "services/Riverdance-1-001/Mountain Recharge.jpg",
+      "reason": "$85 variant of the Mountain Recharge ad; the $80 version is kept (it matches the price on the other two seasonal promos)."
+    },
+    {
+      "source": "crm/Sabbath-Spa-CRM-Dashboard-Demo.mp4",
+      "reason": "Customer names, phone numbers, declared health conditions, signatures, visit histories, amounts and revenue totals appear in scrolling tables and pop-ups for most of its 137 seconds, so it cannot be cleaned reliably. Its title card says 'sample data', but that cannot be verified."
+    },
+    {
+      "source": "campaigns/URHCG_Campaign_Dashboard_Aug1-Sep1_2026.xlsx",
+      "reason": "Campaign report full of client business figures (spend, leads and the like); no written permission (no notes.txt). Not opened for publication and no figure from it is used."
+    },
+    {
+      "source": "photo/ehjay.jpeg",
+      "reason": "A different, smaller photo (420x525); the approved 768x1024 portrait is used instead."
+    }
+  ],
+  "facts": {
+    "brandSpellings": {
+      "honey-tribe": "Logo wordmark 'HoneyTribe' (one word, tagline 'Bold Prints. Modern Cuts.'); 'Honey Tribe' (two words) in captions and on end cards ('Everything Honey Tribe'); shop domain shophoneytribe.com.",
+      "riverdance-rv-resort": "Logo 'Riverdance' (script) + 'RV RESORT', 'Gypsum, CO'; one video's captions write 'River Dance' as two words.",
+      "super-cashflow-developments": "Logo 'SUPER CASHFLOW DEVELOPMENTS'; source folder spelled 'Super Cahsflow'. Product system 'Stratos'; the captions of 'The income is obvious...' also spell it 'Stratus'.",
+      "rooming-house-expert": "'Rooming House Expert' (website and logo); Facebook page name 'RoomingHouse.Expert'; domain roominghouse.expert.",
+      "hydrate-medbar": "'HydRate Medbar' (capital R), monogram logo 'HR', footer '(c) 2026 HYDRATE MEDBAR'.",
+      "latte-with-lata": "'Latte with Lata' (headings in capitals: 'LATTE WITH LATA'), line 'Real Conversations. Built on Purpose.'",
+      "sabbath-spa": "'Sabbath Spa & Wellness Hub' (logo 'SABBATH - SPA & WELLNESS HUB'); in-house cafe brand 'Sabasu'."
+    },
+    "liveUrls": {
+      "latte-with-lata": {
+        "url": "addbp.github.io/latewlatta01/",
+        "seenIn": "browser address bar in the website recording (cropped out of the published video)",
+        "verified": true,
+        "verifiedOn": "2026-10-06 (HTTP 200, matching title)"
+      },
+      "honey-tribe": {
+        "url": "www.shophoneytribe.com",
+        "seenIn": "video end cards and the Denim Palazzo posters",
+        "verified": true,
+        "verifiedOn": "2026-10-06 (HTTP 200, matching title)"
+      },
+      "rooming-house-expert": {
+        "url": "www.roominghouse.expert",
+        "seenIn": "footer of the free-guide mock-up in the Angle 1-3 videos; page name in the ad preview",
+        "verified": true,
+        "verifiedOn": "2026-10-06 (HTTP 200, matching title)"
+      }
+    },
+    "notes": [
+      "No live URL is visible in the HydRate Medbar, Sabbath Spa and Rooming House Expert recordings (they show only the page, without the browser's address bar).",
+      "Exact duplicates (md5): three Honey Tribe videos exist in both clothing/ and the Riverdance & HoneyTribe video folder; 'Not just parking. A full RV getaway.' (a Riverdance video) also sits in the Super Cashflow video folder. Each is encoded once.",
+      "Angle 1-3 were in the Super Cashflow video folder but are Rooming House Expert ads (Rooming House Expert logo end card; they promote a free downloadable guide, as does the ad in the Ads Manager screenshot), so they are filed under rooming-house-expert-campaign. Whether they ran in that campaign is not recorded.",
+      "All social videos are muted: no note confirms that the music is licensed or original.",
+      "The Latte with Lata footer carries a 'SITE BY ...' credit naming a web studio: confirm who built it before presenting it as his build.",
+      "The Latte with Lata contact details look like placeholders (a 555-prefix phone number and an e-mail on the reserved .example domain), which suggests a demo or spec site; they are blurred anyway. Confirm before labelling it client work.",
+      "The Honey Tribe sweatpants images are named 'Proversb-SweatPants' in the source (typo); output names use 'proverbs'.",
+      "Advertised offer prices and yields inside the ads (nightly or monthly rates, approximate gross income) are ad copy and left as is; no client business figure is quoted anywhere."
+    ]
+  },
+  "totals": {
+    "videoBytes": 74594479,
+    "imageBytes": 6976285
+  }
+}

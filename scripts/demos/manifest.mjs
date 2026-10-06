@@ -3,7 +3,7 @@
 //   node scripts/demos/manifest.mjs
 //
 // Sizes and poster dimensions are read from public/demos/<slug>/; the verdicts and evidence below
-// were established from the saved pages (see docs/ASSETS.dashboards.md). Clients are named by
+// were established from the saved pages (see docs/ASSETS.md). Clients are named by
 // their own brand spelling; the reporting app is never named.
 import fs from "node:fs";
 import path from "node:path";

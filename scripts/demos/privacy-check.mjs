@@ -2,7 +2,7 @@
 //
 //   node scripts/demos/privacy-check.mjs
 //
-// Scans public/demos/**, content/media/demos.json, docs/ASSETS.dashboards.md and scripts/demos/**
+// Scans public/demos/**, content/media/demos.json, docs/ASSETS.md and scripts/demos/**
 // for: the reporting-app name (detected at runtime from the source file names; joined or as single
 // words), emails, phone-like numbers (same pattern as scripts/prepush-check.mjs), ad-account IDs,
 // long digit runs, API keys/tokens/JWTs, private or app URLs, unclean asset file names.
@@ -24,7 +24,7 @@ const TEXT = /\.(html|css|js|mjs|json|txt|svg|md|py)$/i;
 const files = [
   ...walk(PUBLIC_DEMOS),
   path.join(REPO, "content", "media", "demos.json"),
-  path.join(REPO, "docs", "ASSETS.dashboards.md"),
+  path.join(REPO, "docs", "ASSETS.md"),
   ...walk(path.join(REPO, "scripts", "demos")).filter((f) => !/__pycache__/.test(f)),
 ].filter((f) => fs.existsSync(f));
 
