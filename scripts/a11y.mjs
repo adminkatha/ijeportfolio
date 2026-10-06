@@ -26,8 +26,11 @@ try {
         scrollTo(0, 0);
       });
       await page.waitForTimeout(600);
+      // Demo iframes are separate documents: scan them on their own (`--routes /demos/<slug>/index.html`),
+      // otherwise axe pools their landmarks with the page's.
       const result = await new AxeBuilder({ page })
         .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa", "best-practice"])
+        .exclude("iframe")
         .analyze();
       for (const v of result.violations) {
         count++;

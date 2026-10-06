@@ -54,7 +54,7 @@ try {
   });
   await measure(browser, MOBILE, "/", "mobile: hero toggle + menu", async (page) => {
     await page.getByRole("button", { name: /^code$/i }).first().tap();
-    await page.getByRole("button", { name: /menu/i }).first().tap();
+    await page.getByRole("button", { name: /^menu$/i }).first().tap();
   });
   await measure(browser, MOBILE, "/work", "work filter", async (page) => {
     for (const name of [/^video$/i, /^campaigns$/i, /^all$/i]) await page.getByRole("link", { name }).first().tap();

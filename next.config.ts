@@ -13,7 +13,12 @@ const nextConfig: NextConfig = {
       {
         // Live dashboard demos: sample data, never indexed (each page also has <meta name="robots" content="noindex">).
         source: "/demos/:path*",
-        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+        headers: [
+          { key: "X-Robots-Tag", value: "noindex, nofollow" },
+          // The demos run in a sandboxed iframe (an opaque origin), so their self-hosted fonts are cross-origin
+          // requests. These are public static files.
+          { key: "Access-Control-Allow-Origin", value: "*" },
+        ],
       },
     ];
   },

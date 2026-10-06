@@ -82,6 +82,8 @@ try {
         deviceScaleFactor: vp.deviceScaleFactor ?? 1,
       });
       const page = await context.newPage();
+      // Requests still in flight when the page is torn down fail with ERR_ABORTED; those aren't site errors.
+      let closing = false;
       const where = `${route} @${vp.width}`;
 
       page.on("console", (msg) => {
@@ -96,6 +98,7 @@ try {
         if (res.status() >= 400) issues.push({ where, kind: `http ${res.status()}`, text: res.url() });
       });
       page.on("requestfailed", (req) => {
+        if (closing) return;
         issues.push({ where, kind: "requestfailed", text: `${req.url()} (${req.failure()?.errorText ?? "unknown"})` });
       });
       // Everything (fonts included) is self-hosted, so any third-party request is a bug.
@@ -116,10 +119,24 @@ try {
         window.scrollTo(0, 0);
       });
       await page.waitForTimeout(400);
+      // Let lazy images and next/image's first (uncached) optimisations finish before the shot.
+      await page.waitForLoadState("networkidle").catch(() => {});
+      await page.evaluate(() =>
+        Promise.all(
+          [...document.images]
+            .filter((img) => !img.complete)
+            .map((img) => new Promise((done) => {
+              img.addEventListener("load", done, { once: true });
+              img.addEventListener("error", done, { once: true });
+              setTimeout(done, 8000);
+            })),
+        ),
+      );
 
       const file = path.join(outDir, `${slug(route)}-${vp.width}.png`);
       await page.screenshot({ path: file, fullPage: true });
       report.shots.push(path.relative(process.cwd(), file));
+      closing = true;
       await context.close();
     }
   }
