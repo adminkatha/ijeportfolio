@@ -12,7 +12,7 @@ import { NavLinks } from "./NavLinks";
  * Esc closes it and returns focus to the button; it also closes when a link is chosen, when focus or a
  * tap leaves it, on navigation, and when the viewport grows past 768px. (Without JS the footer nav remains.)
  */
-export function MobileMenu({ items }: { items: NavItem[] }) {
+export function MobileMenu({ items, resumeHref }: { items: NavItem[]; resumeHref?: string }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [path, setPath] = useState(pathname);
@@ -81,6 +81,12 @@ export function MobileMenu({ items }: { items: NavItem[] }) {
       >
         <nav aria-label="Main" className="container-site pt-4 pb-6">
           <NavLinks items={items} variant="panel" />
+          {resumeHref ? (
+            <a href={resumeHref} download="Ehjay-Lorenzo-Resume.pdf" className="label-mono mt-6 flex h-12 items-center justify-between border border-text-3 px-4 text-text">
+              Download résumé (PDF)
+              <span aria-hidden="true">↓</span>
+            </a>
+          ) : null}
           <Link href={hireHref(pathname)} className="label-mono mt-6 flex h-12 items-center justify-between bg-accent px-4 text-accent-ink">
             Hire me
             <span aria-hidden="true">→</span>

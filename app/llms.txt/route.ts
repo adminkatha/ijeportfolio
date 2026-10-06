@@ -1,5 +1,5 @@
 import { disciplineLabels, isFillIn } from "@/content/data/schema";
-import { getCapabilities, getProfile, getProjects } from "@/lib/content";
+import { getCapabilities, getExperience, getProfile, getProjects, getTraining, hasNow } from "@/lib/content";
 import { absoluteUrl } from "@/lib/site";
 
 // /llms.txt (llmstxt.org): a plain-text summary of who Ehjay is and his work, for AI assistants.
@@ -17,7 +17,6 @@ export function GET() {
   lines.push(`> ${profile.title}. ${profile.roleLine}`, "");
   if (real(profile.positioning)) lines.push(profile.positioning, "");
   for (const paragraph of profile.bio.filter(real)) lines.push(paragraph, "");
-  if (real(profile.location)) lines.push(`Based in ${profile.location}.`, "");
 
   lines.push("## Work", "");
   for (const p of getProjects()) {
@@ -28,10 +27,19 @@ export function GET() {
 
   lines.push("## Capabilities", "");
   for (const group of getCapabilities()) {
-    for (const item of group.items.filter((i) => real(i.name) && real(i.evidence))) {
-      lines.push(`- ${group.group}: ${item.name}. ${item.evidence}`);
+    for (const item of group.items.filter((i) => real(i.name))) {
+      lines.push(`- ${group.group}: ${item.name}${real(item.evidence) ? `. ${item.evidence}` : ""}`);
     }
+    if (group.tools.length) lines.push(`- ${group.group} tools: ${group.tools.join(", ")}`);
   }
+  lines.push("");
+
+  lines.push("## Experience", "");
+  for (const role of getExperience()) {
+    const dates = role.start ? (role.end === role.start ? role.start : `${role.start}–${role.end === null ? "present" : (role.end ?? "")}`) : "";
+    lines.push(`- ${role.role}, ${role.company}${dates ? ` (${dates})` : ""}${role.bullets.length ? `: ${role.bullets.join(" ")}` : ""}`);
+  }
+  for (const t of getTraining()) lines.push(`- Training: ${t.name} (${t.issuer}${t.note ? `, ${t.note.toLowerCase()}` : ""})`);
   lines.push("");
 
   lines.push("## Contact", "");
@@ -48,7 +56,8 @@ export function GET() {
   lines.push("## Pages", "");
   lines.push(`- [Home](${absoluteUrl("/")}): selected work, capabilities, experience and contact`);
   lines.push(`- [All work](${absoluteUrl("/work")}): every project, filterable by discipline`);
-  lines.push(`- [Now](${absoluteUrl("/now")}): what ${firstName} is working on now`);
+  if (hasNow()) lines.push(`- [Now](${absoluteUrl("/now")}): what ${firstName} is working on now`);
+  if (real(profile.links.resume)) lines.push(`- [Résumé (PDF)](${absoluteUrl(profile.links.resume!)})`);
   lines.push("");
 
   return new Response(lines.join("\n"), { headers: { "Content-Type": "text/plain; charset=utf-8" } });

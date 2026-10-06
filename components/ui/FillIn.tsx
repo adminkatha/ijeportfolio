@@ -1,15 +1,15 @@
 import { isFillIn } from "@/content/data/schema";
 
-/** A visible gap: `[FILL IN: question]`. Every one is listed in docs/INTAKE.md. */
+/**
+ * An unanswered question, fillIn("…") in data or <FillIn> in MDX. It renders nothing: the site hides
+ * whatever isn't known yet. The questions stay in the source; `pnpm fill-ins` lists them (docs/INTAKE.md).
+ */
 export function FillIn({ children }: { children: string }) {
-  return (
-    <mark className="rounded-[2px] border border-dashed border-accent/70 bg-transparent px-1 font-mono text-[max(0.8em,0.75rem)] tracking-normal text-accent normal-case [overflow-wrap:anywhere]">
-      [FILL IN: {children}]
-    </mark>
-  );
+  void children;
+  return null;
 }
 
-/** Renders a content string, or a <FillIn> when the string is a fillIn("…") placeholder. */
+/** A content string, or nothing when it's still a fillIn("…") placeholder. */
 export function Fillable({ value }: { value: string }) {
-  return isFillIn(value) ? <FillIn>{value.slice("[FILL IN: ".length, -1)}</FillIn> : <>{value}</>;
+  return isFillIn(value) ? null : <>{value}</>;
 }

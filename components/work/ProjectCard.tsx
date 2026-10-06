@@ -6,6 +6,7 @@ import { SampleTag } from "@/components/ui/SampleTag";
 import { Sep } from "@/components/ui/Sep";
 import { pad2, realLink } from "@/components/ui/format";
 import { disciplineLabels, type Project } from "@/content/data/schema";
+import { getCaseStudy } from "@/lib/content";
 import { coverFit, coverOf } from "./cover";
 
 type ProjectCardProps = {
@@ -19,8 +20,7 @@ type ProjectCardProps = {
 };
 
 /** The case-study / project link label by template. */
-export const projectLinkLabel = (p: Project) =>
-  p.discipline === "web-systems" || p.discipline === "campaigns" ? "Case study" : "View project";
+export const projectLinkLabel = (p: Project) => (getCaseStudy(p.slug)?.short === false ? "Case study" : "View project");
 
 /**
  * A project as a card: cover (real image, or a typographic cover), discipline, title, eyebrow, summary,

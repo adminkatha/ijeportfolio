@@ -1,6 +1,8 @@
+import { notFound } from "next/navigation";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { NowContent } from "@/components/sections/NowContent";
 import { UpdatedAt } from "@/components/sections/UpdatedAt";
+import { hasNow } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
@@ -9,8 +11,9 @@ export const metadata = pageMetadata({
   path: "/now",
 });
 
-/** /now: what has his attention at the moment, and when that was last true. */
+/** /now: what has his attention at the moment, and when that was last true. A 404 while there's nothing in it. */
 export default function NowPage() {
+  if (!hasNow()) notFound();
   return (
     <main id="main">
       <PageHeader label="/now" title="Now" aside={<UpdatedAt />}>

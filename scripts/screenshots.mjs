@@ -99,6 +99,8 @@ try {
       });
       page.on("requestfailed", (req) => {
         if (closing) return;
+        // The browser cancels a responsive image fetch when it settles on another srcset size: not an error.
+        if (req.failure()?.errorText === "net::ERR_ABORTED" && new URL(req.url()).pathname === "/_next/image") return;
         issues.push({ where, kind: "requestfailed", text: `${req.url()} (${req.failure()?.errorText ?? "unknown"})` });
       });
       // Everything (fonts included) is self-hosted, so any third-party request is a bug.

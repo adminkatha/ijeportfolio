@@ -26,7 +26,12 @@ export function WebSystemsTemplate({ project: p, number, caseStudy }: { project:
     },
     p.videos.length && { id: "screen-recordings", title: "Screen recordings", body: <VideoGrid videos={p.videos} /> },
     p.gallery.length && { id: "gallery", title: "Gallery", body: <Gallery images={p.gallery} headingLevel="h3" /> },
-    caseStudy && { id: "case-study", title: "Case study", labelAs: "p", body: <CaseStudy caseStudy={caseStudy} /> },
+    caseStudy && {
+      id: caseStudy.short ? "about" : "case-study",
+      title: caseStudy.short ? "About the project" : "Case study",
+      labelAs: "p",
+      body: <CaseStudy caseStudy={caseStudy} />,
+    },
   ];
   const sections = numbered(blocks);
   return (

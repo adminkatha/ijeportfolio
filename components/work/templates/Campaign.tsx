@@ -11,7 +11,12 @@ import { numbered, type Block } from "./blocks";
 /** Campaigns: header + meta (Sample campaign tag when it is one), the case study, then the creative. */
 export function CampaignTemplate({ project: p, number, caseStudy }: { project: Project; number: number; caseStudy?: CaseStudyDoc }) {
   const blocks: Block[] = [
-    caseStudy && { id: "case-study", title: "Case study", labelAs: "p", body: <CaseStudy caseStudy={caseStudy} /> },
+    caseStudy && {
+      id: caseStudy.short ? "about" : "case-study",
+      title: caseStudy.short ? "About the project" : "Case study",
+      labelAs: "p",
+      body: <CaseStudy caseStudy={caseStudy} />,
+    },
     p.gallery.length && { id: "gallery", title: "The creative", body: <Gallery images={p.gallery} headingLevel="h3" /> },
     p.videos.length && { id: "video", title: "Video", body: <VideoGrid videos={p.videos} /> },
   ];

@@ -322,7 +322,7 @@ function contrastInfo(sels) {
   const desc = (e) => e.localName + (e.id ? "#" + e.id : "") + (typeof e.className === "string" && e.className.trim() ? "." + e.className.trim().split(/\s+/).join(".") : "");
   return sels.map((sel) => {
     let el = null;
-    try { el = sel ? document.querySelector(sel) : null; } catch (e) { el = null; }
+    try { el = sel ? document.querySelector(sel) : null; } catch { el = null; }
     if (!el) return null;
     const chain = [];
     for (let e = el; e && e.nodeType === 1; e = e.parentElement) {

@@ -1,10 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import { isFillIn } from "@/content/data/schema";
-import { Fillable } from "@/components/ui/FillIn";
 import { FillableLink } from "@/components/ui/FillableLink";
 import { formatDate } from "@/components/ui/format";
-import { getNow, getProfile, type HomeSection } from "@/lib/content";
+import { getNow, getProfile, hasNow, type HomeSection } from "@/lib/content";
 import { SectionIndex } from "./SectionIndex";
 import { getProfileLinks } from "./nav";
 
@@ -72,6 +70,7 @@ export function IdentityColumn({ sections }: { sections: HomeSection[] }) {
           ))}
         </ul>
 
+        {hasNow() ? (
         <div className="mt-3 border-t border-line pt-2 lg:mt-6">
           <Link href="/now" className="label-mono link-quiet group inline-flex min-h-11 items-center gap-2 text-text-2 lg:min-h-8">
             <span aria-hidden="true" className="block size-1.5 bg-text" />
@@ -80,20 +79,14 @@ export function IdentityColumn({ sections }: { sections: HomeSection[] }) {
               →
             </span>
           </Link>
-          {building ? (
-            <p className="text-sm">
-              <Fillable value={building.name} />
+          {building ? <p className="text-sm">{building.name}</p> : null}
+          {now.updatedAt ? (
+            <p className="label-mono mt-2 text-text-2">
+              Updated <time dateTime={now.updatedAt}>{formatDate(now.updatedAt)}</time>
             </p>
           ) : null}
-          <p className="label-mono mt-2 text-text-2">
-            Updated{" "}
-            {isFillIn(now.updatedAt) ? (
-              <Fillable value={now.updatedAt} />
-            ) : (
-              <time dateTime={now.updatedAt}>{formatDate(now.updatedAt)}</time>
-            )}
-          </p>
         </div>
+        ) : null}
       </div>
     </div>
   );

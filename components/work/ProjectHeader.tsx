@@ -21,9 +21,7 @@ function ProjectMeta({ project: p }: { project: Project }) {
   const live = realLink(p.liveUrl);
   return (
     <dl className="mt-10 grid gap-x-(--gutter) gap-y-6 border-t border-line pt-6 sm:grid-cols-2 lg:grid-cols-4">
-      <Meta label="Role">
-        <Fillable value={p.role} />
-      </Meta>
+      {p.role ? <Meta label="Role">{p.role}</Meta> : null}
       {p.stack.length ? (
         <Meta label="Tools">
           <ul className="flex flex-wrap items-center gap-x-2 gap-y-1">

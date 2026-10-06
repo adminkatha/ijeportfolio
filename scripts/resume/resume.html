@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ehjay Lorenzo – Résumé</title>
+<meta name="author" content="Ehjay Lorenzo">
+<meta name="description" content="Résumé of Ehjay Lorenzo, Creative &amp; Marketing Technologist, Malolos, Bulacan, Philippines.">
+<!--
+  Résumé template. Build the PDFs with scripts/resume/build.mjs (usage in its header comment).
+  - Facts only from his CV and the portfolio. Never add a street address here.
+  - The phone number is never stored in this file: [data-slot="phone"] is filled at run time for the
+    private copy and removed from the public one.
+  - Fonts are the site's (OFL; licences in public/fonts/LICENSES/). Geist uses its static weights from the
+    same package, not Geist-Variable: Chrome prints variable fonts as Type 3 glyph outlines, which some ATS
+    parsers read badly. Ligatures are off so "fi"/"fl" extract as plain letters. The Bricolage file is the
+    96pt optical size, so small headings get a little positive tracking.
+  - Each .page is an explicit 210 × 297 mm sheet, so the PDF pages match the screenshots exactly. Page breaks
+    are chosen by hand (sheet 1: masthead, Summary, Experience; sheet 2: Selected work, Training, Skills).
+    The build fails if anything overflows a sheet, or if content leaves normal flow (reading order).
+  - .nw keeps brand names, hyphenated words and skill items on one line (no breaks inside them).
+-->
+<style>
+  @font-face { font-family: "Bricolage Grotesque"; src: url("../../lib/og-fonts/BricolageGrotesque-Bold.ttf") format("truetype"); font-weight: 700; font-style: normal; font-display: block; }
+  @font-face { font-family: "Geist"; src: url("../../node_modules/geist/dist/fonts/geist-sans/Geist-Regular.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: block; }
+  @font-face { font-family: "Geist"; src: url("../../node_modules/geist/dist/fonts/geist-sans/Geist-Medium.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: block; }
+  @font-face { font-family: "Geist"; src: url("../../node_modules/geist/dist/fonts/geist-sans/Geist-SemiBold.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: block; }
+  @font-face { font-family: "JetBrains Mono"; src: url("../../lib/og-fonts/JetBrainsMono-Regular.ttf") format("truetype"); font-weight: 400; font-style: normal; font-display: block; }
+
+  @page { size: A4; margin: 0; }
+
+  :root {
+    --paper: #ffffff;
+    --ink: #0e0f11;      /* name, headings */
+    --text: #2a2c30;     /* body: 13.9:1 on white */
+    --muted: #5d6066;    /* labels, dates: 6.3:1 on white */
+    --line: #dfdfda;     /* hairlines */
+    --accent: #c5f82a;   /* the site's lime: small markers only, never text */
+    --mx: 18mm;          /* side margins */
+    --display: "Bricolage Grotesque", "Geist", sans-serif;
+    --sans: "Geist", sans-serif;
+    --mono: "JetBrains Mono", monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  body {
+    background: #e7e7e3;
+    color: var(--text);
+    font-family: var(--sans);
+    font-weight: 400;
+    font-size: 9.5pt;
+    line-height: 1.55;
+    font-kerning: normal;
+    font-synthesis: none;
+    font-variant-ligatures: none;
+    font-feature-settings: "liga" 0, "clig" 0, "dlig" 0, "calt" 0;
+    text-rendering: geometricPrecision;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  @media print {
+    body { background: var(--paper); }
+  }
+
+  a { color: inherit; text-decoration: none; }
+  p, li, dd { text-wrap: pretty; }
+  strong { font-weight: 600; color: var(--ink); }
+  .nw { white-space: nowrap; }
+
+  /* ── Sheets ─────────────────────────────────────────────── */
+  .page {
+    position: relative;
+    width: 210mm;
+    height: 297mm;
+    padding: 16mm var(--mx) 18mm;
+    background: var(--paper);
+    overflow: hidden;
+    break-after: page;
+  }
+  .page:last-child { break-after: auto; }
+
+  @media screen {
+    .page { margin: 10mm auto; box-shadow: 0 1px 2px rgb(0 0 0 / 0.06), 0 10px 30px rgb(0 0 0 / 0.08); }
+  }
+
+  .folio {
+    position: absolute;
+    left: var(--mx);
+    right: var(--mx);
+    bottom: 9.5mm;
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 6.8pt;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ── Masthead ───────────────────────────────────────────── */
+  .masthead {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 8mm;
+    padding-bottom: 8.5mm;
+    border-bottom: 0.8pt solid var(--ink);
+  }
+
+  .name {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 46pt;
+    line-height: 0.9;
+    letter-spacing: -0.012em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+
+  .role {
+    margin-top: 4.2mm;
+    font-weight: 500;
+    font-size: 13pt;
+    line-height: 1.3;
+    color: var(--ink);
+  }
+
+  .contact {
+    margin-top: 4.6mm;
+    font-size: 9pt;
+    line-height: 1.65;
+  }
+  .contact p { white-space: nowrap; }
+  .contact a {
+    text-decoration: underline;
+    text-decoration-color: #c4c5bf;
+    text-decoration-thickness: 0.5pt;
+    text-underline-offset: 1.8pt;
+  }
+  .sep { color: var(--muted); margin: 0 0.2em; }
+
+  /* 4:5; top on the name's cap height, bottom on the last contact baseline */
+  .portrait {
+    display: block;
+    flex: none;
+    width: 29mm;
+    height: 36.3mm;
+    margin-bottom: 1.8mm;
+    object-fit: cover;
+  }
+
+  /* ── Sections ───────────────────────────────────────────── */
+  .section { margin-top: 11mm; }
+  .page > .section:first-child { margin-top: 0; }
+
+  .section-head {
+    display: flex;
+    align-items: center;
+    gap: 2.8mm;
+    margin-bottom: 4.4mm;
+  }
+  .section-head::before {
+    content: "";
+    flex: none;
+    width: 2.2mm;
+    height: 2.2mm;
+    background: var(--accent);
+  }
+  .section-head h2 {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 13.5pt;
+    line-height: 1.1;
+    letter-spacing: 0.004em;
+    color: var(--ink);
+  }
+  .section-head .rule {
+    flex: 1;
+    height: 0;
+    border-top: 0.6pt solid var(--line);
+  }
+  .section-head .note {
+    font-family: var(--mono);
+    font-size: 7.4pt;
+    color: var(--muted);
+  }
+
+  .summary { max-width: 166mm; font-size: 11pt; line-height: 1.6; text-wrap: balance; }
+
+  /* ── Items (work, jobs, training) ───────────────────────── */
+  .item + .item { margin-top: 6.4mm; }
+
+  .item-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 6mm;
+  }
+  .item-head h3 {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 10.8pt;
+    line-height: 1.3;
+    letter-spacing: 0.014em;
+    color: var(--ink);
+  }
+  .meta {
+    flex: none;
+    font-family: var(--mono);
+    font-size: 7.5pt;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .meta.caps { text-transform: uppercase; letter-spacing: 0.03em; }
+
+  .org { font-weight: 500; color: var(--ink); margin-top: 0.4mm; }
+
+  .desc, .bullets { margin-top: 1.3mm; }
+
+  /* Hanging text dash: it shares the line's baseline (a drawn rule can drift by a pixel), and it stays in
+     normal flow. No position: relative/absolute inside the content: Chrome paints positioned boxes last, which
+     moves their text to the end of the PDF's reading order. Only the folio is positioned. */
+  .bullets { list-style: none; }
+  .bullets li { padding-left: 3.8mm; }
+  .bullets li + li { margin-top: 0.6mm; }
+  .bullets li::before {
+    content: "–" / "";
+    display: inline-block;
+    width: 3.8mm;
+    margin-left: -3.8mm;
+    color: var(--muted);
+  }
+
+  .client { font-weight: 500; color: var(--ink); white-space: nowrap; }
+  .results { margin-top: 1.6mm; }
+
+  /* ── Skills ─────────────────────────────────────────────── */
+  .skills { display: grid; row-gap: 2.2mm; }
+  .skills > div { display: grid; grid-template-columns: 23mm 1fr; column-gap: 3mm; align-items: baseline; }
+  .skills dt {
+    font-family: var(--mono);
+    font-size: 7.5pt;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+</style>
+</head>
+<body>
+
+<div class="page" data-page="1">
+  <header class="masthead">
+    <div class="identity">
+      <h1 class="name">Ehjay Lorenzo</h1>
+      <p class="role">Creative &amp; Marketing Technologist</p>
+      <div class="contact">
+        <p><a href="mailto:ehjaylorenzo2@gmail.com">ehjaylorenzo2@gmail.com</a><span class="sep"> · </span><a href="https://www.linkedin.com/in/ehjaylorenzocrtv/">linkedin.com/in/ehjaylorenzocrtv</a><span class="sep"> · </span><a href="https://ehjay-lorenzo.vercel.app">ehjay-lorenzo.vercel.app</a></p>
+        <p><span>Malolos, Bulacan, Philippines</span><span data-slot="phone" hidden><span class="sep"> · </span><span data-value></span></span></p>
+      </div>
+    </div>
+    <img class="portrait" src="photo.jpg" width="300" height="375" alt="Portrait of Ehjay Lorenzo">
+  </header>
+
+  <section class="section" aria-labelledby="h-summary">
+    <div class="section-head"><h2 id="h-summary">Summary</h2><span class="rule" aria-hidden="true"></span></div>
+    <p class="summary">Digital marketer and creative based in Malolos, Bulacan, Philippines. I run Meta ad campaigns, design the static and video creatives that go into them, set up the tracking, reporting and email automation behind them, and build the websites and reporting dashboards that track the results. Open to new opportunities where I can keep growing and put that range to work for a team’s goals.</p>
+  </section>
+
+  <section class="section" aria-labelledby="h-experience">
+    <div class="section-head"><h2 id="h-experience">Experience</h2><span class="rule" aria-hidden="true"></span></div>
+
+    <article class="item">
+      <div class="item-head"><h3>Digital Marketing / Creatives</h3><p class="meta">2025 – 2026</p></div>
+      <p class="org">Agora Data Driven</p>
+      <ul class="bullets">
+        <li>Managed Meta Ads campaigns for lead generation and brand awareness.</li>
+        <li>Designed static and video creatives for Facebook and Instagram advertising.</li>
+        <li>Configured audience targeting, placements, budgets and campaign objectives.</li>
+        <li>Built automated email workflows for customer <span class="nw">follow-up</span> and lead nurturing.</li>
+        <li>Monitored campaign performance using CTR, CPC, CPM and conversion metrics.</li>
+      </ul>
+    </article>
+
+    <article class="item">
+      <div class="item-head"><h3>Video Editor</h3><p class="meta">2023</p></div>
+      <p class="org">Academy of Success</p>
+    </article>
+
+    <article class="item">
+      <div class="item-head"><h3>Video Editor and Graphic Designer</h3></div>
+      <p class="org">Freelance</p>
+    </article>
+
+    <article class="item">
+      <div class="item-head"><h3>Photographer / Videographer</h3><p class="meta">2019 – 2022</p></div>
+      <p class="org">Rutenzo Photography</p>
+      <ul class="bullets">
+        <li>Wedding photo and video shoots.</li>
+        <li>Debut photo and video shoots.</li>
+        <li><span class="nw">Same-day</span> edits.</li>
+      </ul>
+    </article>
+  </section>
+
+  <footer class="folio"><span>Ehjay Lorenzo · Résumé</span><span>1 / 2</span></footer>
+</div>
+
+<div class="page" data-page="2">
+  <section class="section" aria-labelledby="h-work">
+    <div class="section-head"><h2 id="h-work"><a href="https://ehjay-lorenzo.vercel.app/work">Selected work</a></h2><span class="rule" aria-hidden="true"></span><a class="note" href="https://ehjay-lorenzo.vercel.app/work">ehjay-lorenzo.vercel.app/work</a></div>
+
+    <article class="item">
+      <div class="item-head"><h3>Client reporting dashboards, 5 brands</h3><p class="meta caps">Web &amp; Systems</p></div>
+      <p class="desc">One reporting system for <span class="client">Honey Tribe</span>, <span class="client">MeloYelo</span>, <span class="client">Riverdance RV Resort</span>, <span class="client">Rooming House Expert</span> and <span class="client">The Contract Shop</span>: a single page per brand with KPI scorecards, <span class="nw">inline-SVG</span> charts, tables, the ads that ran and written insights. <span class="nw">Hand-written</span> HTML/CSS/JavaScript fed by a Python data export (Meta and Shopify via Windsor.ai, ActiveCampaign, Campaign Monitor, Klaviyo). Live demos with sample data on the portfolio.</p>
+    </article>
+
+    <article class="item">
+      <div class="item-head"><h3>Rooming House Expert, guide lead campaign</h3><p class="meta caps">Campaigns · Meta</p></div>
+      <p class="desc">A lead campaign for the free Ultimate Rooming House Conversion Guide, with an instant form whose <span class="nw">follow-up</span> books a free strategy call.</p>
+      <p class="results"><span class="nw">1 Aug – 1 Sep 2026</span>: <strong>257 leads</strong> at <strong>A$25.01</strong> each from A$6,427.45 of spend; <strong>78,091</strong> people reached; <strong>1,837</strong> link clicks (0.82% link CTR); <strong>14%</strong> of link clicks became leads.</p>
+    </article>
+
+    <article class="item">
+      <div class="item-head"><h3>Websites</h3><p class="meta caps">Web &amp; Systems</p></div>
+      <p class="desc"><span class="client">Sabbath Spa &amp; Wellness Hub</span>: a website and operations portal with online booking, digital waivers, memberships, <span class="nw">in-room</span> ordering and a staff back office (Next.js, Supabase). Also <span class="client">Rooming House Expert</span> (React), <span class="client">HydRate Medbar</span>, and <span class="client">Latte with Lata</span> (a team build, hosted on GitHub Pages).</p>
+    </article>
+
+    <article class="item">
+      <div class="item-head"><h3>Ad and video work</h3><p class="meta caps">Creative · Video</p></div>
+      <p class="desc">Carousel ads and vertical product videos for <span class="client">Honey Tribe</span>; a <span class="nw">five-angle</span> offer set, an <span class="nw">extended-stay</span> carousel, seasonal offers and resort videos for <span class="client">Riverdance RV Resort</span>; listing ads and <span class="nw">talking-head</span> videos for <span class="client">Super Cashflow Developments</span>.</p>
+    </article>
+  </section>
+
+  <section class="section" aria-labelledby="h-training">
+    <div class="section-head"><h2 id="h-training">Training</h2><span class="rule" aria-hidden="true"></span></div>
+
+    <article class="item">
+      <div class="item-head"><h3>Google AI Essentials</h3><p class="meta">Coursera · employer-sponsored</p></div>
+      <p class="desc">AI fundamentals, prompt engineering, productivity tools and responsible AI practices.</p>
+    </article>
+
+    <article class="item">
+      <div class="item-head"><h3>Google Digital Marketing &amp; <span class="nw">E-commerce</span></h3><p class="meta">Coursera · employer-sponsored</p></div>
+      <p class="desc">Digital marketing fundamentals, social media marketing, email marketing, <span class="nw">e-commerce</span>, analytics and customer acquisition.</p>
+    </article>
+  </section>
+
+  <section class="section" aria-labelledby="h-skills">
+    <div class="section-head"><h2 id="h-skills">Skills</h2><span class="rule" aria-hidden="true"></span></div>
+    <dl class="skills">
+      <div><dt>Marketing</dt><dd><span class="nw">Meta Ads Manager ·</span> <span class="nw">Campaign setup &amp; optimization ·</span> <span class="nw">Meta Pixel &amp; conversion tracking ·</span> <span class="nw">Audience targeting ·</span> <span class="nw">Analytics &amp; performance reporting ·</span> <span class="nw">Lead generation ·</span> <span class="nw">Email automation</span></dd></div>
+      <div><dt>Creative</dt><dd><span class="nw">Ad creative design ·</span> <span class="nw">Video editing ·</span> <span class="nw">Copywriting ·</span> <span class="nw">Content strategy ·</span> <span class="nw">Graphic design</span></dd></div>
+      <div><dt>Web</dt><dd><span class="nw">Websites ·</span> <span class="nw">CRM and operations portals ·</span> <span class="nw">Reporting dashboards</span></dd></div>
+      <div><dt>Tools</dt><dd><span class="nw">Adobe Photoshop ·</span> <span class="nw">Adobe Premiere Pro ·</span> <span class="nw">Canva ·</span> <span class="nw">Meta Business Suite ·</span> <span class="nw">Google Sheets / Excel ·</span> <span class="nw">ActiveCampaign ·</span> <span class="nw">WordPress ·</span> <span class="nw">GitHub ·</span> <span class="nw">Vercel ·</span> <span class="nw">VS Code ·</span> <span class="nw">Supabase</span></dd></div>
+    </dl>
+  </section>
+
+  <footer class="folio"><span>Ehjay Lorenzo · Résumé</span><span>2 / 2</span></footer>
+</div>
+
+</body>
+</html>

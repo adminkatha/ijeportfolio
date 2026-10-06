@@ -7,9 +7,9 @@ import { MobileMenu } from "./MobileMenu";
 import { NavLinks } from "./NavLinks";
 import { getNavItems } from "./nav";
 
-/** Sticky site header: wordmark, primary nav, ⌘K, and the one primary CTA. */
+/** Sticky site header: wordmark, primary nav, the résumé, ⌘K, and the one primary CTA. */
 export function Header() {
-  const { name } = getProfile();
+  const { name, links } = getProfile();
   const items = getNavItems();
   return (
     <header id="top" className="sticky top-0 z-40 border-b border-line bg-bg bg-[url(/grain.png)]">
@@ -25,8 +25,19 @@ export function Header() {
         <nav aria-label="Main" className="hidden md:block">
           <NavLinks items={items} variant="bar" />
         </nav>
+        {links.resume ? (
+          <a
+            href={links.resume}
+            download="Ehjay-Lorenzo-Resume.pdf"
+            className="label-mono link-quiet hidden h-10 items-center gap-1.5 px-2 text-text-2 hover:text-text md:inline-flex"
+          >
+            Résumé
+            <span aria-hidden="true">↓</span>
+            <span className="sr-only"> (PDF)</span>
+          </a>
+        ) : null}
         {/* Before ⌘K in DOM and visual order under 768px (wordmark · Menu · ⌘K). */}
-        <MobileMenu items={items} />
+        <MobileMenu items={items} resumeHref={links.resume} />
         <CommandButton items={getCommandItems()} />
         <HireLink className="group label-mono hidden h-10 items-center gap-2 bg-accent px-4 text-accent-ink md:inline-flex">
           Hire me

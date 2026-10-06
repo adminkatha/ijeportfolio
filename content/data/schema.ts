@@ -175,19 +175,32 @@ export const projectsSchema = z
 
 // ── Experience, capabilities, now, playground ─────────────────────────────────
 
+/** "YYYY" or "YYYY-MM" (his CV gives years). */
+const yearOrMonth = z.string().regex(/^\d{4}(-\d{2})?$/, 'must be "YYYY" or "YYYY-MM"');
+
 export const experienceSchema = z.array(
   z.object({
     company: text,
     role: text,
-    /** "YYYY-MM" or fillIn(…) */
-    start: z.union([z.string().regex(/^\d{4}-\d{2}$/), fillInString]),
-    /** null = present */
-    end: z.union([z.string().regex(/^\d{4}-\d{2}$/), fillInString]).nullable(),
+    /** Omitted when unknown (his CV gives no dates for freelance work). */
+    start: z.union([yearOrMonth, fillInString]).optional(),
+    /** null = present; omitted when unknown. */
+    end: z.union([yearOrMonth, fillInString]).nullable().optional(),
     url: httpUrl.optional(),
     freelance: z.boolean().optional(),
-    /** Real outcomes only. */
-    bullets: z.array(text).min(1),
+    /** Real outcomes only; may be empty. */
+    bullets: z.array(text).default([]),
     tech: z.array(text).default([]),
+  }),
+);
+
+/** Courses and certificates. */
+export const trainingSchema = z.array(
+  z.object({
+    name: text,
+    issuer: text,
+    note: text.optional(),
+    description: text.optional(),
   }),
 );
 
@@ -199,20 +212,23 @@ export const capabilitiesSchema = z.array(
       .array(
         z.object({
           name: text,
-          /** One line of evidence (a project or a job). Items without evidence are rejected. */
-          evidence: text,
+          /** One line of evidence (a project or a job), when there is one. */
+          evidence: text.optional(),
           projectSlug: slug.optional(),
         }),
       )
       .min(1),
+    /** The tools he uses for this kind of work. */
+    tools: z.array(text).default([]),
   }),
 );
 
+/** The Now section and /now are hidden (with their nav links) while this has nothing real in it. */
 export const nowSchema = z.object({
-  building: z.array(z.object({ name: text, description: text, url: httpUrl.optional() })).min(1),
-  learning: z.array(text).min(1),
+  building: z.array(z.object({ name: text, description: text, url: httpUrl.optional() })).default([]),
+  learning: z.array(text).default([]),
   /** "YYYY-MM-DD" or fillIn(…) */
-  updatedAt: z.union([z.iso.date(), fillInString]),
+  updatedAt: z.union([z.iso.date(), fillInString]).optional(),
 });
 
 export const playgroundSchema = z.array(
@@ -228,6 +244,7 @@ export type Profile = z.infer<typeof profileSchema>;
 export type Project = z.infer<typeof projectSchema>;
 export type Experience = z.infer<typeof experienceSchema>[number];
 export type CapabilityGroup = z.infer<typeof capabilitiesSchema>[number];
+export type Training = z.infer<typeof trainingSchema>[number];
 export type Now = z.infer<typeof nowSchema>;
 export type PlaygroundItem = z.infer<typeof playgroundSchema>[number];
 

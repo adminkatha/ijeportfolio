@@ -1,112 +1,81 @@
 # Intake: facts for Ehjay Lorenzo's portfolio
 
-Updated 2026-10-06 (with Ehjay's answers of the same day). ✅ = confirmed (by his files in `ehjay-files/`, or by your instructions and his answers of 2026-10-05/06). Every `[FILL IN: …]` shows on the site as a visible placeholder until it's answered; `pnpm fill-ins` lists them all (50 today, §8). Nothing is invented.
+Updated 2026-10-06 (his CV and answers of the same day). ✅ = confirmed (his CV `ehjay-files/ehjay-cv-original.pdf`, his files, his application email, your instructions). Nothing is invented.
 
-**Never on the site:** his phone number, salary or compensation, and customers' or leads' personal data (names, emails, phones, home addresses, health details, signatures, appointment details).
+**How gaps work now:** nothing unanswered is shown on the site. Each open question stays in the source as `fillIn("…")` (data) or `<FillIn>…</FillIn>` (case studies), and `pnpm fill-ins` lists them. Answer one (replace the placeholder with the real text) and it appears on the next build: a field, a tools list, a live link, a case-study section, or the whole Now section.
+
+**Never on the site or the public résumé:** his phone number, his street address (city only: Malolos, Bulacan, Philippines), salary or compensation, customers' or leads' personal data.
 
 ---
 
 ## 0. Files and permissions
 | Item | Status |
 |---|---|
-| His files | ✅ `C:\Users\Client\LPT\ehjay-files\` (outside the repo, never modified). What each file shows and what was done with it: `docs/ASSETS.md`. |
+| His files | ✅ `C:\Users\Client\LPT\ehjay-files\` (outside the repo). What each file shows and what was done with it: `docs/ASSETS.md`. |
+| CV | ✅ `ehjay-files/ehjay-cv-original.pdf` (read 2026-10-06). |
+| Résumé | ✅ New one made from the CV + the portfolio: public `public/resume.pdf` (no phone, no street address), linked from the header, the identity column, the contact section, the footer and the command palette; private version with his phone at `ehjay-files/ehjay-resume-full.pdf` (outside the repo). Rebuild: `scripts/resume/`. |
 | Portrait | ✅ `Downloads\Ehjay.webp` (768×1024) → `/media/img/ehjay-lorenzo.jpg`. Alt: "Portrait of Ehjay Lorenzo". |
-| Client names | ✅ May be shown, in each brand's own spelling. |
-| Client results and files | ✅ The clients approved all of these files, including real results (2026-10-06). The Rooming House Expert campaign's results are on the site. |
-| Music in the social videos | ✅ Licensed (2026-10-06): the 12 social videos play with their soundtrack. Website recordings stay silent. |
-| Street addresses in listing ads | ✅ Allowed (the client's public ads): the Shepparton and Warragul carousels are on the site. |
-| Still left out | The Sabbath CRM demo video (customer names, phones, health details, signatures); every blur and cut that hides customers' data. The live dashboard demos stay on sample data. |
-| Résumé PDF | [FILL IN: the file; it will be served at `/resume.pdf`] |
+| Client names, results, music, listing addresses | ✅ Allowed (2026-10-06). Still out: the Sabbath CRM demo video and every blur or cut that hides customers' data. The dashboard demos stay on sample data. |
 
-## 1. Profile → `content/data/profile.ts`
+## 1. Profile ✅ → `content/data/profile.ts`
 | Field | Answer |
 |---|---|
-| name | ✅ Ehjay Lorenzo |
-| title | ✅ Creative & Marketing Technologist (default) |
-| roleLine | ✅ "I make the ads, and I build the systems that measure them." |
-| positioning | Drafted from the work: "Ad creative, Meta campaigns, and the websites, CRMs and dashboards behind them." [confirm or replace] |
-| bio | Drafted from the work + [FILL IN: where he's based and what work he's looking for] |
-| location | [FILL IN: city, country] |
-| email | ✅ ehjaylorenzo2@gmail.com (also receives contact-form notifications) |
-| LinkedIn | ✅ https://www.linkedin.com/in/ehjaylorenzocrtv/ (footer, identity column, contact section, command palette, JSON-LD `sameAs`, llms.txt) |
-| GitHub / other links | none given |
-| current job title | ✅ Digital Marketing, Social Media and Creative Specialist |
+| name / title / role line | ✅ Ehjay Lorenzo · Creative & Marketing Technologist · "I make the ads, and I build the systems that measure them." |
+| location | ✅ Malolos, Bulacan, Philippines (city only) |
+| bio | ✅ Rewritten from his CV summary and application email: the whole funnel (Meta campaigns, static and video creatives, tracking, reporting, email automation, websites and dashboards); Agora Data Driven since 2025 after Academy of Success, freelance video and graphic design, and Rutenzo Photography (weddings, debuts, same-day edits); open to new opportunities. |
+| email | ✅ ehjaylorenzo2@gmail.com |
+| LinkedIn | ✅ https://www.linkedin.com/in/ehjaylorenzocrtv/ |
+| résumé | ✅ `/resume.pdf` |
 
-## 2. Experience areas and tools ✅
-Video editing · graphic design · photography/videography · ad creative production · Meta Ads · content strategy · copywriting · performance reporting · same-day edits · freelance and marketing-focused creative projects · web development (CRMs, dashboards, websites).
-Creative and marketing tools: Adobe Premiere Pro, Adobe Photoshop, Canva, Meta Business Suite, Google Sheets/Excel, ActiveCampaign.
-Web tools (his answer, 2026-10-06): **WordPress, GitHub, Vercel, VS Code, Supabase**.
-Seen in the work: Next.js, React, TypeScript, Tailwind CSS, Supabase, React Hook Form, Zod, Resend (the Sabbath portal); vanilla JavaScript + inline SVG + a Python export job, with Windsor.ai, Shopify, ActiveCampaign, Campaign Monitor and Klaviyo data (the dashboards); React, React Router, Vite (the Rooming House Expert site); HTML/CSS/JS, GSAP, Splide on GitHub Pages (Latte with Lata); Meta Ads Manager with instant forms.
+## 2. Experience ✅ → `content/data/experience.ts` (his CV, newest first)
+| Role | Company | Dates | Bullets |
+|---|---|---|---|
+| Digital Marketing / Creatives | Agora Data Driven | 2025–2026 | his 5 CV bullets (Meta Ads campaigns; static and video creatives; targeting, placements, budgets, objectives; automated email workflows; CTR/CPC/CPM/conversion monitoring) |
+| Video Editor | Academy of Success | 2023 | none on the CV |
+| Video Editor and Graphic Designer | Freelance | none on the CV | none on the CV |
+| Photographer / Videographer | Rutenzo Photography | 2019–2022 | wedding and debut photo and video shoots; same-day edits |
 
-## 3. Work → `content/data/projects.ts` (+ `content/work/<slug>.mdx`)
-Featured on the homepage (one per discipline): **Client reporting dashboards**, **Rooming House Expert campaign**, **Honey Tribe**, **Riverdance RV Resort**.
+**Training ✅** → `content/data/training.ts`: Google AI Essentials; Google Digital Marketing & E-commerce (both employer-sponsored, via Coursera).
 
-| # | Project | Discipline | Confirmed | Still needed |
-|---|---|---|---|---|
-| 1 | Client reporting dashboards | Web & Systems | One system, five clients; parts and tech from the code; five live demos on sample data | why this approach; constraints; result; lessons |
-| 2 | Rooming House Expert: guide lead campaign | Campaigns | Real campaign; objective, instant form + "Book Free Strategy Call", placements, attribution, the winning ad, three video angles; **results 1 Aug – 1 Sep 2026: 257 leads at A$25.01 from A$6,427.45, 78,091 reached, 1,837 link clicks (0.82% CTR), 14% click-to-lead** | his role; audience; why the winner won; whether the video angles ran in it; lessons |
-| 3 | Honey Tribe | Video (+ Creative) | 4 product videos (with sound), 12 carousel images; shop: shophoneytribe.com | tools used |
-| 4 | Riverdance RV Resort | Creative (+ Video) | 12 ads, 2 videos (with sound); Gypsum, CO | tools used |
-| 5 | Sabbath Spa & Wellness Hub | Web & Systems | Website recording; the portal's modules; stack from its `package.json`: Next.js, React, TypeScript, Tailwind CSS, Supabase (database + auth), React Hook Form, Zod, Resend | live URL; hosting; problem, constraints, decision, result, lessons |
-| 6 | Super Cashflow Developments | Creative (+ Video) | 18 static ads (incl. the Shepparton and Warragul listing carousels), 3 talking-head videos (with sound); Stratos; SMSF offers | tools used |
-| 7 | Rooming House Expert (website) | Web & Systems | Recording; live at www.roominghouse.expert; React + React Router (Vite) from the live bundle | where content/forms live and hosting; problem, constraints, decision, result, lessons |
-| 8 | HydRate Medbar | Web & Systems | Recording; Long Island City, NY | live URL; stack; the case-study sections |
-| 9 | Latte with Lata | Web & Systems | ✅ **Built by Ehjay with the team.** Role "Web development (team build)"; static HTML/CSS/JS with GSAP and Splide on GitHub Pages; link labelled "View the site" (its contact details are placeholders, so it isn't presented as a client's live site) | what it was for; constraints, decision, result, lessons |
+## 3. Capabilities ✅ → `content/data/capabilities.ts`
+- **Marketing** (CV): Meta Ads Manager · campaign setup and optimization · audience targeting · Meta Pixel and conversion tracking · analytics and performance reporting · lead generation · email automation. Tools: Meta Business Suite, Google Sheets / Excel, ActiveCampaign.
+- **Creative** (CV): ad creative design · video editing · copywriting · content strategy · graphic design. Tools: Adobe Photoshop, Adobe Premiere Pro, Canva.
+- **Web** (portfolio): CRM and operations portals · reporting dashboards · websites. Tools: WordPress, GitHub, Vercel, VS Code, Supabase.
+- Evidence lines (a job or a project) where there is one; CV skills without a distinct example show by name.
 
-Brand spellings used: Honey Tribe, MeloYelo, Riverdance RV Resort, Super Cashflow Developments, Rooming House Expert, HydRate Medbar, Latte with Lata, Sabbath Spa & Wellness Hub, The Contract Shop.
+## 4. Work → `content/data/projects.ts` (+ `content/work/<slug>.mdx`)
+Featured: Client reporting dashboards, Rooming House Expert campaign, Honey Tribe, Riverdance RV Resort.
+- **Full case studies:** client reporting dashboards (6 of 8 sections), Rooming House Expert campaign (4 of 6, with the real results).
+- **Short pages** ("About the project": summary, media, facts and the sections that have content): Sabbath Spa (3 of 8), Rooming House Expert website (3), Latte with Lata (3), HydRate Medbar (2).
+- Creative and video projects (Honey Tribe, Riverdance RV Resort, Super Cashflow Developments) were always summary + media pages.
 
-## 4. Experience → `content/data/experience.ts`
-| Field | Answer |
+## 5. Hidden on the site (answer these to show them)
+Generated by `pnpm fill-ins` (2026-10-06): 44 open questions.
+
+| Where it would appear | What's missing |
 |---|---|
-| company | [FILL IN: name, or "don't name"] |
-| role | ✅ Digital Marketing, Social Media and Creative Specialist |
-| start / end | [FILL IN: start month and year] / present |
-| bullets | [FILL IN: 2–4 real outcomes] |
-| tools | ✅ as §2 |
+| **Now section, /now page and their nav links** (hidden while empty) | what he's building now (+ one line), what he's learning, the date it was last true |
+| Rooming House Expert campaign → Role | his role: creative, campaign setup, reporting? |
+| Honey Tribe → Tools | tools used (e.g. Premiere Pro, Photoshop, Canva) |
+| Riverdance RV Resort → Tools | tools used |
+| Super Cashflow Developments → Tools | tools used |
+| Sabbath Spa → Tools (last item) and Architecture | where it's hosted |
+| Sabbath Spa → Live site | live website URL |
+| HydRate Medbar → Tools, Architecture | the stack used for the website |
+| HydRate Medbar → Live site | live website URL |
+| Client reporting dashboards case study | Problem (what wasn't working in the old reports) · Constraints (time, budget, hosting) · Key technical decision (why vanilla JS + SVG) · Result · What I learned |
+| Rooming House Expert campaign case study | Audience (who it targeted) · Creative approach (why the winning ad won; did the three video angles run in this campaign) · What I learned |
+| Sabbath Spa case study | Problem · Constraints · Key technical decision · Result · What I learned |
+| Rooming House Expert website case study | Problem · Constraints · Architecture (where content and forms live, hosting) · Key technical decision · Result · What I learned |
+| HydRate Medbar case study | Problem · Constraints · Architecture · Key technical decision · Result · What I learned |
+| Latte with Lata case study | Problem (what it was for: a concept, a pitch or a client brief?) · Constraints · Key technical decision · Result · What I learned |
 
-## 5. Capabilities → `content/data/capabilities.ts`
-Listed (each with evidence): short-form video editing · static ads and carousels · Meta lead campaigns · performance reporting · CRM and operations portals · reporting dashboards · websites · **web tools: WordPress, GitHub, Vercel, VS Code, Supabase**.
-Waiting for evidence (not shown until there is some): photography/videography · same-day edits · content strategy + copywriting · email automation (ActiveCampaign).
+A case study switches from a short page to a full one once at least half its sections have real content.
 
-## 6. Now → `content/data/now.ts`
-building, learning, updatedAt: [FILL IN] (all three).
-
-## 7. Contact, GitHub, deploy
+## 6. Contact, GitHub, deploy
 | Item | Answer |
 |---|---|
-| Contact heading | ✅ "LET'S BUILD SOMETHING USEFUL." |
-| Contact form | ✅ Built. Sends to the Google Sheet through an Apps Script web app and emails ehjaylorenzo2@gmail.com. **Your setup steps:** `docs/CONTACT-SETUP.md`. Until then the site shows "Email me instead". |
+| Contact form | ✅ Built; not connected yet, so it shows "Email me instead". Setup: `docs/CONTACT-SETUP.md`. |
 | GitHub | ✅ https://github.com/adminkatha/ijeportfolio (public), `main`. |
-| Vercel | Later. Steps: `docs/DEPLOY.md`. |
-| `SITE_URL` / domain | [FILL IN: the domain, when there is one] |
-| Analytics | Included; switch on in Vercel (`docs/DEPLOY.md` §5). The hero CTA click is sent as a custom event. |
-
-## 8. Every open question
-Generated by `pnpm fill-ins` (2026-10-06). Answer them in the files named, or send the answers and they'll be put in.
-
-| # | Where | Field / section | Question |
-|---|---|---|---|
-| 1 | experience | company | company name (or 'don't name') |
-| 2 | experience | start | start month and year |
-| 3 | experience | bullets | 2–4 real outcomes from this role |
-| 4 | now | building | what you're building now |
-| 5 | now | building | one line about it |
-| 6 | now | learning | what you're learning now |
-| 7 | now | updatedAt | date this was last true, YYYY-MM-DD |
-| 8 | profile | bio | where you're based and what kind of work you're looking for |
-| 9 | profile | location | city, country |
-| 10 | profile | resume | résumé PDF (served at /resume.pdf) |
-| 11 | rooming-house-expert-campaign | role | your role: creative, campaign setup, reporting? |
-| 12 | honey-tribe | stack | tools used |
-| 13 | riverdance-rv-resort | stack | tools used |
-| 14 | sabbath-spa | stack | where it's hosted |
-| 15 | sabbath-spa | liveUrl | live website URL |
-| 16 | super-cashflow-developments | stack | tools used |
-| 17 | hydrate-medbar | stack | stack used for the website |
-| 18 | hydrate-medbar | liveUrl | live website URL |
-| 19–23 | client-reporting-dashboards case study | Problem · Constraints · Key technical decision · Result · What I learned | what wasn't working in the old reports; constraints; why vanilla JS + SVG; a real outcome; lessons |
-| 24–29 | hydrate-medbar case study | Problem · Constraints · Architecture · Key technical decision · Result · What I learned | the usual six |
-| 30–34 | latte-with-lata case study | Problem · Constraints · Key technical decision · Result · What I learned | what the site was for (a concept, a pitch or a client brief?); constraints; one decision; a result; lessons |
-| 35–38 | rooming-house-expert-campaign case study | Audience · Creative approach (×2) · What I learned | who it targeted; why the winner won; did the three video angles run in it; lessons |
-| 39–44 | rooming-house-expert case study | Problem · Constraints · Architecture · Key technical decision · Result · What I learned | the usual six (Architecture: where its content and forms live, and hosting) |
-| 45–50 | sabbath-spa case study | Problem · Constraints · Architecture · Key technical decision · Result · What I learned | what wasn't working before; constraints; hosting; one decision; a result; lessons |
+| Vercel | ✅ Live at https://ehjay-lorenzo.vercel.app (CLI deploys). GitHub auto-deploys, domain, Analytics: `docs/DEPLOY.md`. |
+| `SITE_URL` / domain | open: until a domain is set, canonical URLs use the vercel.app address |

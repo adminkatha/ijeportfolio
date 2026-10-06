@@ -1,4 +1,4 @@
-import { getProfile, hasPlayground, hasWriting } from "@/lib/content";
+import { getProfile, hasNow, hasPlayground, hasWriting } from "@/lib/content";
 
 export type NavItem = {
   label: string;
@@ -7,11 +7,11 @@ export type NavItem = {
   match?: string;
 };
 
-/** Primary navigation. Playground and Writing appear only once they have content. */
+/** Primary navigation. Now, Playground and Writing appear only once they have content. */
 export function getNavItems(): NavItem[] {
   return [
     { label: "Work", href: "/work", match: "/work" },
-    { label: "Now", href: "/now", match: "/now" },
+    ...(hasNow() ? [{ label: "Now", href: "/now", match: "/now" }] : []),
     ...(hasPlayground() ? [{ label: "Playground", href: "/playground", match: "/playground" }] : []),
     ...(hasWriting() ? [{ label: "Writing", href: "/writing", match: "/writing" }] : []),
     { label: "Contact", href: "/#contact" },
@@ -20,7 +20,7 @@ export function getNavItems(): NavItem[] {
 
 export type ProfileLink = {
   label: string;
-  /** URL or site path, or a fillIn("…") placeholder (rendered as a visible gap, never as a link). */
+  /** URL or site path (placeholders are already removed by lib/content). */
   href: string;
 };
 
@@ -30,7 +30,7 @@ export function getProfileLinks(): ProfileLink[] {
   return [
     ...(links.linkedin ? [{ label: "LinkedIn", href: links.linkedin }] : []),
     ...(links.github ? [{ label: "GitHub", href: links.github }] : []),
-    { label: "Résumé", href: links.resume },
+    ...(links.resume ? [{ label: "Résumé", href: links.resume }] : []),
     ...links.other.map((o) => ({ label: o.label, href: o.href })),
   ];
 }
