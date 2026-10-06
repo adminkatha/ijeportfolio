@@ -1,0 +1,71 @@
+/* Header button for the command palette, and the toast that confirms its actions. */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  min-height: 2.5rem;
+  padding: 0 0.75rem;
+  border: 1px solid var(--color-text-3);
+  background: transparent;
+  color: var(--color-text-2);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.button:hover {
+  border-color: var(--color-text-2);
+  color: var(--color-text);
+}
+
+.kbd {
+  padding: 0.0625rem 0.375rem;
+  border: 1px solid var(--color-line);
+  font: inherit;
+  letter-spacing: 0.04em;
+  color: var(--color-text-2);
+}
+
+/* No keyboard shortcut to advertise on touch screens. */
+@media (hover: none) {
+  .kbd {
+    display: none;
+  }
+}
+
+/* A polite live region; shown as a small toast while it has something to say. */
+.status {
+  position: fixed;
+  left: 50%;
+  bottom: 1.5rem;
+  z-index: 90;
+  max-width: calc(100vw - 2rem);
+  margin: 0;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--color-line);
+  background: var(--color-surface-2);
+  font: 400 0.8125rem/1.45 var(--font-mono);
+  color: var(--color-text);
+  overflow-wrap: anywhere;
+  opacity: 0;
+  transform: translate(-50%, 0.5rem);
+  pointer-events: none;
+  transition:
+    opacity var(--dur-1) var(--ease-out),
+    transform var(--dur-1) var(--ease-out);
+}
+
+.status[data-visible] {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .status {
+    transition: none;
+  }
+}
+
+:global(html[data-motion="reduced"]) .status {
+  transition: none;
+}

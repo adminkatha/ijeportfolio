@@ -1,0 +1,797 @@
+/*
+ * CREATIVE | CODE hero.
+ * Two full-size layers stacked in one grid cell, each clipped from one --seam (percent of the hero's width).
+ * Nothing changes size when the seam moves: only --seam (clip-path, the rail's transform) and opacity change.
+ */
+
+@property --seam {
+  syntax: "<percentage>";
+  inherits: true;
+  initial-value: 50%;
+}
+
+.hero {
+  --seam: 50%;
+  /* Derived opacities (0–1), written by the seam controller; the side labels fade near the clamps. */
+  --o-creative: 1;
+  --o-code: 1;
+  --pad-t: clamp(1.25rem, 0.75rem + 2vw, 2.75rem);
+  --pad-b: clamp(3.5rem, 2rem + 2.5vw, 4.25rem);
+  /* Height of the handle's centre above the hero's bottom edge. */
+  --rail-y: calc(var(--pad-b) / 2);
+  --hero-h: clamp(36rem, min(100svh - var(--header-h, 4rem), 85vw + 6rem), 62rem);
+  /* CODE side colours. */
+  --c-guide: color-mix(in oklab, var(--color-line) 85%, transparent);
+  --c-guide-fill: color-mix(in oklab, var(--color-text) 1.6%, transparent);
+  --c-box: var(--color-text-3);
+  --c-dim: var(--color-text-2);
+
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+}
+
+.stage {
+  position: relative;
+  display: grid;
+}
+
+.layer {
+  grid-area: 1 / 1;
+  position: relative;
+  min-width: 0;
+}
+
+/* CREATIVE shows 0 → seam, CODE shows seam → 100%. */
+.creative {
+  clip-path: inset(0 calc(100% - var(--seam)) 0 0);
+}
+
+.code {
+  z-index: 1;
+  clip-path: inset(0 0 0 var(--seam));
+  user-select: none;
+}
+
+/* ── Shared frame: identical on both layers, so the headline sits in exactly the same place ── */
+
+.frame {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-rows: auto minmax(0, 1.15fr) auto auto minmax(0, 1fr);
+  column-gap: var(--gutter);
+  min-height: var(--hero-h);
+  padding-block: var(--pad-t) var(--pad-b);
+  /* Lets annotations inside the (centred, fit-content) name box reach the frame's edge via cqw. */
+  container-type: inline-size;
+}
+
+.eyebrow {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  position: relative;
+  justify-self: start;
+  margin: 0;
+  color: var(--color-text-2);
+}
+
+/* A centred poster: the seam's rest position runs through the middle of every line. */
+.name {
+  grid-column: 1 / -1;
+  grid-row: 3;
+  justify-self: center;
+  position: relative;
+  width: fit-content;
+  max-width: 100%;
+  /* Room under the name for one row of notes above and one below (CODE side). */
+  margin: 0 0 clamp(3rem, 2rem + 1.4vw, 3.5rem);
+  text-align: center;
+  text-wrap: balance;
+}
+
+.deck {
+  grid-column: 1 / -1;
+  grid-row: 4;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.role {
+  position: relative;
+  margin: 0;
+  max-width: 62ch;
+  font-family: var(--font-sans);
+  font-size: clamp(1.125rem, 0.98rem + 0.55vw, 1.5rem);
+  line-height: 1.35;
+  letter-spacing: -0.012em;
+  text-align: center;
+  text-wrap: balance;
+  color: var(--color-text);
+}
+
+.mark {
+  position: relative;
+  background: none;
+  color: inherit;
+}
+
+.cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 3rem;
+  margin-top: clamp(1.5rem, 1rem + 1.5vw, 2.25rem);
+  padding: 0 1.25rem;
+  border: 1px solid transparent;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* ── CREATIVE: a finished ad ── */
+
+.creative .mark {
+  color: var(--color-accent-ink);
+}
+
+/* A marker stroke behind the word, slightly off-square like a real highlighter. */
+.creative .mark::before {
+  content: "";
+  position: absolute;
+  inset: 0.06em 0 -0.03em -0.14em;
+  z-index: -1;
+  background: var(--color-accent);
+  transform: rotate(-1.4deg) skewX(-8deg);
+  border-radius: 0.08em 0.18em 0.1em 0.2em;
+}
+
+.creative .cta {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-accent-ink);
+}
+
+.creative .cta:hover {
+  background: var(--color-text);
+  border-color: var(--color-text);
+}
+
+/* Print furniture: crop marks just outside the trim, registration targets in the margins. */
+.trim {
+  position: absolute;
+  inset: var(--pad-t) var(--gutter) var(--pad-b);
+  pointer-events: none;
+}
+
+.crop {
+  position: absolute;
+  width: 1rem;
+  height: 1rem;
+}
+
+.crop::before,
+.crop::after {
+  content: "";
+  position: absolute;
+  background: var(--color-text-3);
+}
+
+.crop::before {
+  height: 1px;
+  width: 100%;
+}
+
+.crop::after {
+  width: 1px;
+  height: 100%;
+}
+
+.tl {
+  top: -0.875rem;
+  left: -0.875rem;
+}
+.tl::before {
+  top: 0.875rem;
+  left: -0.25rem;
+  width: 0.75rem;
+}
+.tl::after {
+  left: 0.875rem;
+  top: -0.25rem;
+  height: 0.75rem;
+}
+
+.tr {
+  top: -0.875rem;
+  right: -0.875rem;
+}
+.tr::before {
+  top: 0.875rem;
+  right: -0.25rem;
+  width: 0.75rem;
+}
+.tr::after {
+  right: 0.875rem;
+  top: -0.25rem;
+  height: 0.75rem;
+}
+
+.bl {
+  bottom: -0.875rem;
+  left: -0.875rem;
+}
+.bl::before {
+  bottom: 0.875rem;
+  left: -0.25rem;
+  width: 0.75rem;
+}
+.bl::after {
+  left: 0.875rem;
+  bottom: -0.25rem;
+  height: 0.75rem;
+}
+
+.br {
+  bottom: -0.875rem;
+  right: -0.875rem;
+}
+.br::before {
+  bottom: 0.875rem;
+  right: -0.25rem;
+  width: 0.75rem;
+}
+.br::after {
+  right: 0.875rem;
+  bottom: -0.25rem;
+  height: 0.75rem;
+}
+
+.reg {
+  position: absolute;
+  top: 50%;
+  width: 0.875rem;
+  height: 0.875rem;
+  margin-top: -0.4375rem;
+  border: 1px solid var(--color-text-3);
+  border-radius: 50%;
+  background:
+    linear-gradient(var(--color-text-3), var(--color-text-3)) center / 1px 100% no-repeat,
+    linear-gradient(var(--color-text-3), var(--color-text-3)) center / 100% 1px no-repeat;
+}
+
+.regL {
+  left: calc(var(--gutter) / -2 - 0.4375rem);
+}
+
+.regR {
+  right: calc(var(--gutter) / -2 - 0.4375rem);
+}
+
+/* ── CODE: the same headline as its code and structure ── */
+
+.guides {
+  position: absolute;
+  inset-block: 0;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+}
+
+.guides > span {
+  position: relative;
+  border-inline: 1px solid var(--c-guide);
+  background: var(--c-guide-fill);
+}
+
+.code .eyebrow,
+.code .role {
+  color: var(--color-text-2);
+}
+
+.code .eyebrow,
+.code .role,
+.code .mark,
+.code .name {
+  outline: 1px dashed var(--c-box);
+  outline-offset: 0;
+}
+
+.code .mark {
+  outline-offset: 1px;
+}
+
+/*
+ * Hairline glyphs: same font, size and position, outline only. The stroke is painted under a
+ * background-coloured fill, so only its outer 1px shows: a plain transparent fill would also
+ * draw the variable font's overlapping contours (the inner lines of E, H, A…).
+ */
+.code .name {
+  color: var(--color-bg);
+  -webkit-text-stroke: 2px var(--color-text-2);
+  paint-order: stroke fill;
+}
+
+/* Opaque (page-coloured) boxes, so contrast checkers that ignore clip-path don't read this text against
+   the CREATIVE layer's accent button and highlight underneath. No visual change. */
+.code .cta,
+.code .mark {
+  background: var(--color-bg);
+}
+
+.code .cta {
+  border: 1px dashed var(--c-box);
+  color: var(--color-text-2);
+}
+
+.code .cta:hover {
+  border-style: solid;
+  color: var(--color-text);
+}
+
+/* The CTA is often split by the seam: its CODE copy mirrors the real link's focus ring. */
+.hero:has(.creative .cta:focus-visible) .code .cta {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+/* Annotations: small mono notes, values in full white. */
+.note {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1.45;
+  letter-spacing: 0;
+  text-transform: none;
+  white-space: nowrap;
+  color: var(--color-text-2);
+  -webkit-text-stroke: 0;
+}
+
+.note b {
+  font-weight: 400;
+  color: var(--color-text);
+}
+
+.note i {
+  font-style: normal;
+  color: var(--color-text-2);
+}
+
+.note em {
+  font-style: normal;
+  color: var(--color-text-2);
+}
+
+/* "= 118.4px" appears once the value has been measured (after hydration). */
+.note i:has(+ b[data-measure]:empty) {
+  display: none;
+}
+
+/* Tag labels sit on the box's top-left edge, like an element inspector. */
+.tag {
+  position: absolute;
+  left: -1px;
+  bottom: 100%;
+  margin-bottom: 0.3rem;
+}
+
+.tagCta {
+  top: 50%;
+  bottom: auto;
+  left: calc(100% + 0.75rem);
+  margin: -0.5rem 0 0;
+}
+
+.specSize {
+  position: absolute;
+  right: 0;
+  bottom: 100%;
+  margin-bottom: 0.3rem;
+}
+
+.specTrack {
+  position: absolute;
+  left: -1px;
+  top: 100%;
+  margin-top: 0.4rem;
+}
+
+/* Vertical redline along the line box, with end ticks; its label sits under the box, right-aligned. */
+.dimLine {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(100% + 0.375rem);
+  width: 0.5625rem;
+  border-block: 1px solid var(--c-dim);
+}
+
+.dimLine::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  border-left: 1px solid var(--c-dim);
+}
+
+.dimLine > span {
+  position: absolute;
+  right: 0.9rem;
+  top: 100%;
+  margin-top: 0.4rem;
+}
+
+/* Frame width, along the top margin. */
+.dimFrame {
+  position: absolute;
+  top: calc(var(--pad-t) * 0.42);
+  left: var(--gutter);
+  right: var(--gutter);
+  height: 0.5625rem;
+  margin-top: -0.28rem;
+  border-inline: 1px solid var(--c-dim);
+  text-align: right;
+}
+
+.dimFrame::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 50%;
+  border-top: 1px solid var(--c-dim);
+}
+
+.dimFrame > span {
+  position: relative;
+  top: -0.36rem;
+  margin-right: 1.5rem;
+  padding-inline: 0.6rem;
+  background: var(--color-bg);
+}
+
+/* Gap between two columns, low in the guides. */
+.gap {
+  position: absolute;
+  top: calc(var(--pad-t) + 0.25rem);
+  right: 100%;
+  width: var(--gutter);
+  height: 0.5625rem;
+  border-inline: 1px solid var(--c-dim);
+  text-indent: calc(100% + 0.4rem);
+  line-height: 0.5625rem;
+}
+
+.gap::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 50%;
+  border-top: 1px solid var(--c-dim);
+}
+
+/* The JSX that renders the headline. */
+.source {
+  position: absolute;
+  right: var(--gutter);
+  bottom: var(--pad-b);
+  width: calc((100% - 13 * var(--gutter)) / 12 * 4 + 3 * var(--gutter));
+  margin: 0;
+  padding: 0.875rem 1rem;
+  border: 1px solid var(--color-line);
+  background: var(--color-bg);
+  line-height: 1.6;
+  white-space: pre;
+  overflow: hidden;
+}
+
+.source code {
+  font: inherit;
+}
+
+.size {
+  position: absolute;
+  left: var(--gutter);
+  bottom: calc(var(--pad-b) * 0.42 - 0.5rem);
+}
+
+/* ── The seam rail: full width, translated to the seam (transform only) ── */
+
+.rail {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  transform: translateX(var(--seam));
+  will-change: transform;
+}
+
+/* Whole pixels keep the 1px line crisp (a var() can't fall back, hence @supports). */
+@supports (transform: translateX(round(1%, 1px))) {
+  .rail {
+    transform: translateX(round(var(--seam), 1px));
+  }
+}
+
+.line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 1px;
+  background: var(--color-accent);
+}
+
+.side {
+  position: absolute;
+  bottom: calc(var(--rail-y) - 0.525rem);
+  color: var(--color-text-2);
+  white-space: nowrap;
+}
+
+.sideCreative {
+  right: 100%;
+  margin-right: 1.875rem;
+  opacity: var(--o-creative);
+}
+
+.sideCode {
+  left: 1.875rem;
+  opacity: var(--o-code);
+}
+
+/* The handle: a focusable slider (arrows, Page keys, Home/End) that also drags. */
+.knob {
+  position: absolute;
+  left: 0;
+  bottom: calc(var(--rail-y) - 1.125rem);
+  width: 2.25rem;
+  height: 2.25rem;
+  margin-left: -1.125rem;
+  border: 1px solid var(--color-accent);
+  background: var(--color-bg);
+  pointer-events: auto;
+  cursor: grab;
+  touch-action: none;
+}
+
+.knob::before,
+.knob::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 0.375rem;
+  height: 0.375rem;
+  margin-top: -0.1875rem;
+  border: solid var(--color-accent);
+  border-width: 0 0 1px 1px;
+}
+
+.knob::before {
+  left: 0.6rem;
+  transform: rotate(45deg);
+}
+
+.knob::after {
+  right: 0.6rem;
+  transform: rotate(-135deg);
+}
+
+.knob:hover,
+.hero[data-dragging] .knob {
+  background: var(--color-accent);
+}
+
+.knob:hover::before,
+.knob:hover::after,
+.hero[data-dragging] .knob::before,
+.hero[data-dragging] .knob::after {
+  border-color: var(--color-accent-ink);
+}
+
+.hero[data-dragging],
+.hero[data-dragging] .knob {
+  cursor: grabbing;
+  user-select: none;
+}
+
+/* Without JavaScript the seam stays put, so there is no handle to offer. */
+:global(html:not(.js)) .knob {
+  display: none;
+}
+
+/* "The side you are in dominates": a side's notes and marks fade as it shrinks to its clamp. */
+.code [data-annot] {
+  opacity: var(--o-code);
+}
+
+.trim {
+  opacity: var(--o-creative);
+}
+
+/* ── Toggle (under 768px) ── */
+
+.toggle {
+  display: none;
+}
+
+/* ── Intro (≤ 800ms): only the seam and the CODE annotations move; the h1 is never hidden ── */
+
+@keyframes seamIntro {
+  from {
+    --seam: 92%;
+  }
+}
+
+@keyframes annotIn {
+  from {
+    opacity: 0;
+    transform: translateY(0.375rem);
+  }
+}
+
+/* data-intro="done" (set once it has played) keeps it from replaying when a media query flips. */
+@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+  :global(html:not([data-motion="reduced"])) .hero:not([data-intro="done"]) {
+    animation: seamIntro var(--dur-4) var(--ease-out);
+  }
+
+  :global(html:not([data-motion="reduced"])) .hero:not([data-intro="done"]) .code [data-annot] {
+    animation: annotIn var(--dur-3) var(--ease-out) backwards;
+    animation-delay: calc(140ms + var(--i, 0) * 26ms);
+  }
+}
+
+/* ── Medium: 768–1023 ── */
+
+@media (max-width: 1023.98px) {
+  /* Anchor the long font-size note to the frame's right edge, so it stays on the CODE side. */
+  .specSize {
+    right: calc((100% - 100cqw) / 2);
+  }
+
+  .source {
+    width: calc((100% - 13 * var(--gutter)) / 12 * 5 + 4 * var(--gutter));
+  }
+}
+
+/* ── Small: under 768 the views take turns (toggle) instead of splitting ── */
+
+@media (max-width: 767.98px) {
+  .hero {
+    --hero-h: clamp(34rem, 100svh - var(--header-h, 4rem), 48rem);
+  }
+
+  .creative,
+  .code {
+    clip-path: none;
+    transition:
+      opacity var(--dur-2) var(--ease-out),
+      visibility 0s linear;
+  }
+
+  .hero:not([data-view="code"]) .code,
+  .hero[data-view="code"] .creative {
+    opacity: 0;
+    transition:
+      opacity var(--dur-2) var(--ease-out),
+      visibility 0s linear var(--dur-2);
+  }
+
+  .code [data-annot],
+  .trim {
+    opacity: 1;
+  }
+
+  /* The CODE layer is decorative: fully out of the way when it isn't shown. */
+  .hero:not([data-view="code"]) .code {
+    visibility: hidden;
+  }
+
+  .rail {
+    display: none;
+  }
+
+  .eyebrow {
+    max-width: calc(100% - 10rem);
+  }
+
+  .deck {
+    grid-column: 1 / -1;
+  }
+
+  .name {
+    margin-bottom: 1.5rem;
+  }
+
+  .specSize {
+    right: auto;
+    left: -1px;
+    margin-bottom: 1.6rem;
+  }
+
+  .specTrack,
+  .dimFrame,
+  .gap {
+    display: none;
+  }
+
+  .dimLine {
+    left: auto;
+    right: 0.375rem;
+  }
+
+  .dimLine > span {
+    top: auto;
+    bottom: 100%;
+    right: 0.5rem;
+    margin: 0 0 0.3rem;
+  }
+
+  .tagCta {
+    top: 100%;
+    left: 50%;
+    margin: 0.5rem 0 0;
+    transform: translateX(-50%);
+  }
+
+  .source {
+    left: var(--gutter);
+    right: var(--gutter);
+    width: auto;
+  }
+
+  .size {
+    bottom: calc(var(--pad-b) * 0.3);
+  }
+
+  .reg {
+    display: none;
+  }
+
+  .toggle {
+    position: absolute;
+    top: calc(var(--pad-t) - 0.7rem);
+    right: var(--gutter);
+    z-index: 3;
+    display: flex;
+    border: 1px solid var(--color-text-3);
+  }
+
+  .toggle button {
+    min-height: 2.5rem;
+    padding: 0 0.875rem;
+    color: var(--color-text-2);
+    cursor: pointer;
+  }
+
+  .toggle button + button {
+    border-left: 1px solid var(--color-text-3);
+  }
+
+  .toggle button[aria-pressed="true"] {
+    background: var(--color-text);
+    color: var(--color-bg);
+  }
+
+  /* Without JavaScript the toggle can't work, so the CREATIVE view simply stays. */
+  :global(html:not(.js)) .toggle {
+    display: none;
+  }
+}
+
+/* Reduced motion (OS setting or the site's motion toggle): no intro, no crossfade. */
+@media (prefers-reduced-motion: reduce) {
+  .creative,
+  .code {
+    transition: none !important;
+  }
+}
+
+:global(html[data-motion="reduced"]) .creative,
+:global(html[data-motion="reduced"]) .code {
+  transition: none !important;
+}

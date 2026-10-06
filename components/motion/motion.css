@@ -1,0 +1,61 @@
+/*
+ * Global motion styles, loaded by MotionRoot (root layout) and Reveal.
+ * Only opacity and transform animate. Nothing is hidden unless JavaScript runs (MotionScript adds `js`
+ * to <html> before first paint) and motion is on.
+ */
+
+/* ── Reveal once: 12px rise + fade, 450ms ── */
+
+html.js:not([data-motion="reduced"]) [data-reveal]:not([data-revealed]) {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+[data-reveal] {
+  transition:
+    opacity var(--dur-3, 450ms) var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)) var(--reveal-delay, 0ms),
+    transform var(--dur-3, 450ms) var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)) var(--reveal-delay, 0ms);
+}
+
+html[data-motion="reduced"] [data-reveal] {
+  transition: none;
+}
+
+/* Failsafe: if MotionRoot never starts (a script failed to load), show everything after a few seconds. */
+html.js:not([data-reveal-ready]) [data-reveal]:not([data-revealed]) {
+  animation: reveal-failsafe 0s 4s forwards;
+}
+
+@keyframes reveal-failsafe {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ── Lenis (desktop only; see components/motion/smooth.ts) ── */
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+.lenis [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/*
+ * Sections focused by in-page navigation (components/motion/scroll.ts) get no ring around the whole section:
+ * they are landing points, not controls.
+ */
+[data-scroll-target]:focus {
+  outline: none;
+}
