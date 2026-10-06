@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"><head>
+<html lang="en" data-a11y="1"><head>
 <meta name="robots" content="noindex, nofollow">
 <title>MeloYelo — Demo (sample data)</title><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
@@ -10,7 +10,9 @@
 
 
 
-<link rel="stylesheet" href="assets/fonts/fonts.css"><link rel="icon" href="assets/logo.png"></head>
+<link rel="stylesheet" href="assets/fonts/fonts.css"><link rel="icon" href="assets/logo.png"><style id="a11y-css">
+.demo-sr{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+</style></head>
 <body style="margin:0">
 <style>
   
@@ -114,7 +116,7 @@
   .rangenote b{color:var(--ink2)}
 
   
-  main{padding:26px 0 70px}
+  :is(main:where(:not([data-a11y-was])),:where([data-a11y-was="main"])){padding:26px 0 70px}
   .tab-pane[hidden]{display:none}
   section{margin-bottom:30px}
   .shead{display:flex;align-items:baseline;gap:12px;margin-bottom:14px;padding-bottom:9px;border-bottom:1px solid var(--line)}
@@ -127,7 +129,7 @@
   .card h3{font-size:13.5px;font-weight:900;margin-bottom:2px}
   .card .csub{font-size:11.5px;color:var(--muted);margin-bottom:10px}
   .cardhead{display:flex;align-items:flex-start;gap:10px;flex-wrap:wrap;margin-bottom:10px}
-  .cardhead>div:first-child{flex:1;min-width:170px}
+  .cardhead>:is(div:where(:not([data-a11y-was])),:where([data-a11y-was="div"])):first-child{flex:1;min-width:170px}
   .cardhead .csub{margin-bottom:0}
 
   
@@ -332,7 +334,7 @@
   .tab-pane[hidden]{ display:block !important; }
   [hidden].tab-pane{ display:block !important; }
   body{ background:#fff !important; }
-  main{ padding-top:8px !important; }
+  :is(main:where(:not([data-a11y-was])),:where([data-a11y-was="main"])){ padding-top:8px !important; }
   
   .card, .kpi, .cmp, .stage, .insight, .verdict, .panel, .hero, .bm, .ccard, .fresh, .acct{
     box-shadow:none !important;
@@ -364,7 +366,7 @@
 
 </style>
 
-<header class="top">
+<header class="top"><h1 class="demo-sr">MeloYelo performance dashboard</h1>
   <div class="top-inner">
     <div class="brand">
       <img id="logo" alt="MeloYelo" src="assets/logo.png">
@@ -385,7 +387,7 @@
   </div>
 </header>
 
-<div class="tabbar">
+<div class="tabbar" role="region" aria-label="Dashboard tabs">
   <div class="tabs" id="tabs" role="tablist" aria-label="Dashboard sections">
     <button type="button" class="tab" id="tabbtn-sales" role="tab" data-tab="sales" aria-selected="true" aria-controls="tab-sales" tabindex="0"><span class="ix">01</span>Sales Performance</button>
     <button type="button" class="tab" id="tabbtn-riders" role="tab" data-tab="riders" aria-selected="false" aria-controls="tab-riders" tabindex="-1"><span class="ix">02</span>Riders &amp; Leads</button>
@@ -396,10 +398,10 @@
 
 
 
-<div id="app">
+<main id="app" data-a11y-was="div">
 
 
-<div id="tab-sales" class="tab-pane" role="tabpanel" aria-labelledby="tabbtn-sales">
+<div id="tab-sales" class="tab-pane" role="tabpanel" aria-labelledby="tabbtn-sales"><h2 class="demo-sr">Sales performance</h2>
   <div class="controls" inert="">
     <div class="controls-inner">
       <button type="button" class="ctuck" data-tuck="1" aria-label="Collapse or expand the filters"><span class="cv">▲</span><span class="cl">Filters</span></button>
@@ -440,7 +442,7 @@
     </div>
   </div>
 
-  <main><div class="wrap">
+  <div data-a11y-was="main"><div class="wrap">
     <section>
       <div class="grid" style="grid-template-columns:minmax(0,1.3fr) minmax(0,1fr)">
         <div class="hero">
@@ -525,7 +527,7 @@
               <div class="csub" id="modelTblSub">bikes sold in the period · click a column to sort, a row to cross-filter</div>
             </div>
           </div>
-          <div class="tblwrap" style="max-height:420px;overflow-y:auto">
+          <div class="tblwrap" style="max-height:420px;overflow-y:auto" tabindex="0" role="region" aria-label="Model leaderboard, scrollable table">
             <table id="tblModels">
               <thead><tr>
                 <th>#</th><th class="srt" data-k="m" inert="">Model<span class="ar">▼</span></th>
@@ -546,7 +548,7 @@
               <div class="csub" id="agentTblSub">bike units by selling agent · click a row to cross-filter</div>
             </div>
           </div>
-          <div class="tblwrap" style="max-height:420px;overflow-y:auto">
+          <div class="tblwrap" style="max-height:420px;overflow-y:auto" tabindex="0" role="region" aria-label="Agent leaderboard, scrollable table">
             <table id="tblAgents">
               <thead><tr>
                 <th>#</th><th class="srt" data-k="ag" inert="">Agent<span class="ar">▼</span></th>
@@ -571,7 +573,7 @@
             <div class="csub">everything invoiced in the period · bikes, parts, accessories, freight, discounts</div>
           </div>
         </div>
-        <div class="tblwrap">
+        <div class="tblwrap" tabindex="0" role="region" aria-label="Product groups, scrollable table">
           <table id="tblGroups">
             <thead><tr>
               <th>Group</th><th class="r">Units</th><th class="r">Revenue</th><th class="r">COGS</th>
@@ -587,11 +589,11 @@
       <div class="shead"><h2>Reading of the period</h2><span class="sub">recomputed from whatever the filters show</span></div>
       <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))" id="s1insights"><div class="insight"><div class="ico">🚲</div><div><div class="it">Best seller</div><div class="ib"><b>SuperLite3</b> leads the period with <b>71</b> bikes · 34.3% of everything sold.</div></div></div><div class="insight"><div class="ico">🏆</div><div><div class="it">Top agent</div><div class="ib"><b>Agent #22</b> moved <b>14</b> bikes; the direct channel took <b>6</b>.</div></div></div><div class="insight"><div class="ico">💰</div><div><div class="it">Margin</div><div class="ib">Gross profit is <b>$307.4K</b> on <b>$735.8K</b> · a blended <b>41.8%</b> across bikes, parts and freight.</div></div></div><div class="insight"><div class="ico">🔧</div><div><div class="it">Attach rate</div><div class="ib">Every bike sold pulls <b>$204</b> of parts &amp; accessories alongside it in this period.</div></div></div></div>
     </section>
-  </div></main>
+  </div></div>
 </div>
 
 
-<div id="tab-riders" class="tab-pane" role="tabpanel" aria-labelledby="tabbtn-riders" hidden="">
+<div id="tab-riders" class="tab-pane" role="tabpanel" aria-labelledby="tabbtn-riders" hidden=""><h2 class="demo-sr">Riders &amp; leads</h2>
   <div class="controls" inert="">
     <div class="controls-inner">
       <button type="button" class="ctuck" data-tuck="1" aria-label="Collapse or expand the filters"><span class="cv">▲</span><span class="cl">Filters</span></button>
@@ -614,7 +616,7 @@
     </div>
   </div>
 
-  <main><div class="wrap">
+  <div data-a11y-was="main"><div class="wrap">
     <section>
       <div class="grid" style="grid-template-columns:minmax(0,1fr) minmax(0,1.5fr)">
         <div class="hero">
@@ -750,12 +752,12 @@
       <div class="shead"><h2>Reading of the pipeline</h2><span class="sub">recomputed from whatever the filters show</span></div>
       <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))" id="s2insights"><div class="insight"><div class="ico">🎯</div><div><div class="it">Conversion</div><div class="ib"><b>189</b> test-ride requests in the window; <b>74</b> rides completed and <b>102</b> became customers (54.0%).</div></div></div><div class="insight"><div class="ico">⏱️</div><div><div class="it">Speed to lead</div><div class="ib">Median first contact takes <b>20H 0M</b>. Leads chased inside a day book far more test rides · the per-agent chart shows who is quickest.</div></div></div><div class="insight"><div class="ico">🧭</div><div><div class="it">Attribution gap</div><div class="ib"><b>40.0%</b> of riders carry no source. Most are warranty-import history · new joins are tagged, so this gap closes on its own.</div></div></div></div>
     </section>
-  </div></main>
+  </div></div>
 </div>
 
 
-<div id="tab-inventory" class="tab-pane" role="tabpanel" aria-labelledby="tabbtn-inventory" hidden="">
-  <main><div class="wrap">
+<div id="tab-inventory" class="tab-pane" role="tabpanel" aria-labelledby="tabbtn-inventory" hidden=""><h2 class="demo-sr">Inventory &amp; production</h2>
+  <div data-a11y-was="main"><div class="wrap">
     <section>
       <div class="kpis" id="invKpis"><div class="kpi" style="--accent:#c98500"><div class="kl">Variants in stock</div><div class="kv tnum" style="font-size:23px">18 / 18</div><div class="kd">current range, Unleashed</div></div><div class="kpi" style="--accent:#c98500"><div class="kl">Bikes available now</div><div class="kv tnum" style="font-size:23px">448</div><div class="kd">sum across all variants</div></div><div class="kpi" style="--accent:#d03b3b"><div class="kl">Low stock</div><div class="kv tnum" style="font-size:23px">5</div><div class="kd">variants under 15 units</div></div><div class="kpi" style="--accent:#3987e5"><div class="kl">Bikes in production</div><div class="kv tnum" style="font-size:23px">400</div><div class="kd">on the way from factory</div></div><div class="kpi" style="--accent:#ec835a"><div class="kl">Production orders</div><div class="kv tnum" style="font-size:23px">5</div><div class="kd">1 running late</div></div><div class="kpi" style="--accent:#3987e5"><div class="kl">Next shipment</div><div class="kv tnum" style="font-size:23px">8 Sep 2026</div><div class="kd">estimated shipping date</div></div></div>
     </section>
@@ -783,7 +785,7 @@
               <div class="csub">months of stock left at the recent selling pace, and what production adds</div>
             </div>
           </div>
-          <div class="tblwrap">
+          <div class="tblwrap" tabindex="0" role="region" aria-label="Runway by model, scrollable table">
             <table id="tblRunway">
               <thead><tr>
                 <th>Model</th><th class="r">In stock</th><th class="r">Sold / month</th>
@@ -805,7 +807,7 @@
             <div class="csub" id="onwaySub">production orders from the Lark base · soonest shipping first · factory updates through 2 Oct 2026</div>
           </div>
         </div>
-        <div class="tblwrap">
+        <div class="tblwrap" tabindex="0" role="region" aria-label="On the way from factory, scrollable table">
           <table id="tblOnway">
             <thead><tr>
               <th>PO</th><th>Product / model</th><th class="r">Qty</th><th>Stage</th>
@@ -821,12 +823,12 @@
       <div class="shead"><h2>Reading of the stockroom</h2><span class="sub">stock, pace and production combined</span></div>
       <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))" id="s3insights"><div class="insight"><div class="ico">📦</div><div><div class="it">Pipeline vs shelf</div><div class="ib"><b>400</b> bikes are in production against <b>448</b> on the shelf · the fleet roughly grows 89% when the containers land.</div></div></div><div class="insight"><div class="ico">⚠️</div><div><div class="it">Low stock</div><div class="ib"><b>Town'n Trail 3, Large, Jade</b> (7), <b>Town'n Trail 3, Large, Coral</b> (10), <b>SuperTrail, Large, Gunmetal Grey</b> (12), <b>SuperTrail, Large, Champagne</b> (13), <b>SuperTrail, Large, Sage</b> (10) · check whether an incoming order covers these colours before they run out.</div></div></div><div class="insight"><div class="ico">🚢</div><div><div class="it">On the water</div><div class="ib"><b>80</b> bikes across 1 orders are already shipped · plan floor space and agent allocations now.</div></div></div></div>
     </section>
-  </div></main>
+  </div></div>
 </div>
 
 
 <div id="tab-marketing" class="tab-pane" role="tabpanel" aria-labelledby="tabbtn-marketing" hidden="">
-  <main><div class="wrap">
+  <div data-a11y-was="main"><div class="wrap">
     <section>
       <div class="shead">
         <h2>Email · Campaign Monitor</h2>
@@ -841,7 +843,7 @@
               <div class="csub">most recent sends first · open and click rates are unique people ÷ delivered</div>
             </div>
           </div>
-          <div class="tblwrap" style="max-height:380px;overflow-y:auto">
+          <div class="tblwrap" style="max-height:380px;overflow-y:auto" tabindex="0" role="region" aria-label="Campaign performance, scrollable table">
             <table id="tblEmail">
               <thead><tr><th>#</th><th>Campaign</th><th>Sent</th><th class="r">Recipients</th><th class="r">Open rate</th><th class="r">Click rate</th></tr></thead>
               <tbody><tr><td class="rank">1</td><td>October 2026 EDM to agents</td><td>1 Oct 2026</td><td class="r">22</td><td class="r">59.1%</td><td class="r">0.0%</td></tr><tr><td class="rank">2</td><td>Spring riding guide EDM</td><td>27 Sep 2026</td><td class="r">21,168</td><td class="r">32.4%</td><td class="r">1.1%</td></tr><tr><td class="rank">3</td><td>Customer survey results</td><td>21 Sep 2026</td><td class="r">18,417</td><td class="r">27.1%</td><td class="r">1.7%</td></tr><tr><td class="rank">4</td><td>Test ride weekend reminder</td><td>15 Sep 2026</td><td class="r">21,894</td><td class="r">31.7%</td><td class="r">2.5%</td></tr><tr><td class="rank">5</td><td>$50 Accessory discount code - final batch</td><td>8 Sep 2026</td><td class="r">21,757</td><td class="r">32.0%</td><td class="r">1.6%</td></tr><tr><td class="rank">6</td><td>September 2026 EDM to agents</td><td>1 Sep 2026</td><td class="r">26</td><td class="r">61.5%</td><td class="r">0.0%</td></tr><tr><td class="rank">7</td><td>$50 Accessory discount code - fourth batch</td><td>28 Aug 2026</td><td class="r">1</td><td class="r">0.0%</td><td class="r">0.0%</td></tr><tr><td class="rank">8</td><td>Supergold campaign EDM</td><td>19 Aug 2026</td><td class="r">20,809</td><td class="r">29.2%</td><td class="r">1.5%</td></tr><tr><td class="rank">9</td><td>Customer survey reminder, August 2026</td><td>12 Aug 2026</td><td class="r">24,020</td><td class="r">32.2%</td><td class="r">1.2%</td></tr><tr><td class="rank">10</td><td>$50 Accessory discount code - third batch</td><td>6 Aug 2026</td><td class="r">3</td><td class="r">66.7%</td><td class="r">0.0%</td></tr><tr><td class="rank">11</td><td>August 2026 EDM to agents</td><td>3 Aug 2026</td><td class="r">19</td><td class="r">73.7%</td><td class="r">0.0%</td></tr><tr><td class="rank">12</td><td>SuperTrail champagne - main audience reminder</td><td>29 Jul 2026</td><td class="r">24,616</td><td class="r">29.4%</td><td class="r">1.4%</td></tr><tr><td class="rank">13</td><td>$50 Accessory discount code - second batch</td><td>22 Jul 2026</td><td class="r">1</td><td class="r">0.0%</td><td class="r">0.0%</td></tr><tr><td class="rank">14</td><td>Finance offer EDM</td><td>15 Jul 2026</td><td class="r">23,877</td><td class="r">28.7%</td><td class="r">1.1%</td></tr><tr><td class="rank">15</td><td>Customer survey, July 2026</td><td>8 Jul 2026</td><td class="r">20,006</td><td class="r">31.4%</td><td class="r">2.5%</td></tr><tr><td class="rank">16</td><td>July 2026 EDM to agents</td><td>1 Jul 2026</td><td class="r">26</td><td class="r">69.2%</td><td class="r">0.0%</td></tr><tr><td class="rank">17</td><td>SuperTrail champagne - test ride, no booking</td><td>24 Jun 2026</td><td class="r">20,647</td><td class="r">26.1%</td><td class="r">1.3%</td></tr><tr><td class="rank">18</td><td>SuperTrail champagne - MY Customers 12m+</td><td>24 Jun 2026</td><td class="r">21,842</td><td class="r">27.5%</td><td class="r">1.4%</td></tr><tr><td class="rank">19</td><td>$50 Accessory discount code</td><td>17 Jun 2026</td><td class="r">3</td><td class="r">33.3%</td><td class="r">0.0%</td></tr><tr><td class="rank">20</td><td>Why riders choose an e-bike EDM</td><td>10 Jun 2026</td><td class="r">18,726</td><td class="r">31.2%</td><td class="r">1.5%</td></tr><tr><td class="rank">21</td><td>June 2026 EDM to agents</td><td>1 Jun 2026</td><td class="r">25</td><td class="r">68.0%</td><td class="r">0.0%</td></tr><tr><td class="rank">22</td><td>Winter servicing reminder</td><td>26 May 2026</td><td class="r">23,726</td><td class="r">30.1%</td><td class="r">2.5%</td></tr><tr><td class="rank">23</td><td>New colourways announcement</td><td>19 May 2026</td><td class="r">20,504</td><td class="r">29.7%</td><td class="r">2.3%</td></tr><tr><td class="rank">24</td><td>Mid-year sale EDM</td><td>12 May 2026</td><td class="r">23,361</td><td class="r">33.5%</td><td class="r">1.6%</td></tr><tr><td class="rank">25</td><td>May 2026 EDM to agents</td><td>1 May 2026</td><td class="r">29</td><td class="r">72.4%</td><td class="r">0.0%</td></tr></tbody>
@@ -893,7 +895,7 @@
           <h3>Campaigns</h3>
           <div class="csub">biggest spenders first, selected range</div>
         </div></div>
-        <div class="tblwrap" style="max-height:380px;overflow-y:auto">
+        <div class="tblwrap" style="max-height:380px;overflow-y:auto" tabindex="0" role="region" aria-label="Campaigns, scrollable table">
           <table id="tblMetaCamps">
             <thead><tr>
               <th>#</th><th>Campaign</th><th class="r">Spend</th><th class="r">Impressions</th>
@@ -918,10 +920,10 @@
       <div class="shead"><h2>Reading of the channels</h2><span class="sub">what the data already says</span></div>
       <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))" id="s4insights"><div class="insight"><div class="ico">📬</div><div><div class="it">Database reach</div><div class="ib">The biggest sends hit <b>22</b> inboxes · that is the effective size of the marketing database today.</div></div></div><div class="insight"><div class="ico">🖱️</div><div><div class="it">Email engagement</div><div class="ib">Across the whole history: <b>2.32M</b> emails delivered, <b>38.5%</b> uniquely opened, <b>3.3%</b> clicked · strong numbers for a database this size.</div></div></div><div class="insight"><div class="ico">📣</div><div><div class="it">Meta lead engine</div><div class="ib">Last 30 days: <b>$2,073</b> spent, <b>192</b> Meta leads at <b>$10.80</b> each. The CRM funnel on the Riders tab shows how many become test rides.</div></div></div><div class="insight"><div class="ico">🔌</div><div><div class="it">One job, four connectors</div><div class="ib">Sales, riders, leads and inventory are already live on this dashboard. Meta, Google Ads, GA4 and Campaign Monitor slot into the same export job · no dashboard changes needed.</div></div></div></div>
     </section>
-  </div></main>
+  </div></div>
 </div>
 
-</div>
+</main>
 
 
 
@@ -934,7 +936,7 @@
 .demo-wordmark{font:600 11px/1.2 system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:.14em;text-transform:uppercase;opacity:.75;white-space:nowrap}
 .demo-badge{position:fixed;left:0;bottom:12px;z-index:99999;pointer-events:none;writing-mode:vertical-rl;transform:rotate(180deg);font:700 9px/1 system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#fff;background:rgba(17,18,20,.9);border:1px solid rgba(255,255,255,.28);border-right:0;border-radius:6px 0 0 6px;padding:9px 2px;box-shadow:0 1px 6px rgba(0,0,0,.25)}
 </style>
-<div class="demo-badge" role="note">Demo — sample data</div>
+<aside class="demo-badge" data-a11y-was="div" aria-label="Demo notice">Demo — sample data</aside>
 <script>
 (function(){var t=[].slice.call(document.querySelectorAll("#tabs [role=tab]"));if(!t.length)return;
 function key(b){return b.getAttribute("data-tab")||b.getAttribute("data-v")||b.getAttribute("aria-controls")}

@@ -3,17 +3,26 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { TrackEvents } from "./TrackEvents";
 
 /**
- * Vercel Analytics + Speed Insights (render once, in the root layout's <body>).
- * Only on Vercel builds: their scripts are served from /_vercel/… by Vercel and would 404 anywhere else.
- * Turn both on in the Vercel dashboard too (docs/DEPLOY.md). Clicks on [data-event] elements become custom events.
+ * Vercel Analytics + Speed Insights (render once, in the root layout's <body>). Only on Vercel builds, and each
+ * only once it's switched on: Vercel serves their scripts from /_vercel/… only after the product is enabled in the
+ * dashboard (before that they 404). So: enable it in Vercel, then set ENABLE_VERCEL_ANALYTICS=1 and/or
+ * ENABLE_SPEED_INSIGHTS=1 and redeploy (docs/DEPLOY.md §5). With Analytics on, clicks on [data-event] elements
+ * become custom events.
  */
 export function VercelInsights() {
   if (process.env.VERCEL !== "1") return null;
+  const analytics = process.env.ENABLE_VERCEL_ANALYTICS === "1";
+  const speedInsights = process.env.ENABLE_SPEED_INSIGHTS === "1";
+  if (!analytics && !speedInsights) return null;
   return (
     <>
-      <Analytics />
-      <SpeedInsights />
-      <TrackEvents />
+      {analytics ? (
+        <>
+          <Analytics />
+          <TrackEvents />
+        </>
+      ) : null}
+      {speedInsights ? <SpeedInsights /> : null}
     </>
   );
 }

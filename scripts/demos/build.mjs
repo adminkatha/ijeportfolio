@@ -14,6 +14,8 @@
 //  6. sanitise    - all scripts, comments, handlers, IDs, titles and app-only chrome are stripped,
 //                   the agency mark becomes a neutral wordmark, controls are made inert; a tiny tab
 //                   script, noindex, the demo title and a "Demo - sample data" label are added.
+//  7. a11y        - a11y-pass.mjs, in place: landmarks, one h1, tab roles, focusable scroll regions,
+//                   colour contrast; it proves text, charts, images and layout are unchanged.
 // Nothing here ever contacts the dashboards' live services.
 import fs from "node:fs";
 import path from "node:path";
@@ -22,6 +24,7 @@ import { createHash } from "node:crypto";
 import { chromium } from "playwright";
 import { DASHBOARDS, REMOVE_ALWAYS, INERT_ALWAYS } from "./dashboards.mjs";
 import { PUBLIC_DEMOS, WORK, findSource, brandWords, brandWordRe, dirSize, kb } from "./lib.mjs";
+import { a11yPass } from "./a11y-pass.mjs";
 
 const HERE = path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, "$1"));
 const ORIGIN = "http://demo.invalid";
@@ -75,7 +78,12 @@ async function buildOne(cfg) {
   const final = finalize(html, cfg, assetsDir);
   fs.writeFileSync(path.join(outDir, "index.html"), final);
   pruneAssets(assetsDir, final);
-  return { slug: cfg.slug, bytes: dirSize(outDir), htmlBytes: Buffer.byteLength(final), blocked, errors };
+
+  // 7. accessibility pass, in place (writes only if its proof holds)
+  const a11y = await a11yPass(browser, cfg, { log: () => {} });
+  if (!a11y.ok) throw new Error(`${cfg.slug}: the accessibility pass failed, see ${path.join(WORK, "a11y", `${cfg.slug}.json`)}`);
+  const htmlBytes = fs.statSync(path.join(outDir, "index.html")).size;
+  return { slug: cfg.slug, bytes: dirSize(outDir), htmlBytes, blocked, errors, a11y: { rounds: a11y.rounds, contrast: a11y.contrast } };
 }
 
 function py(script, args) {

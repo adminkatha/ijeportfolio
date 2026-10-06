@@ -54,7 +54,7 @@ The clients approved all of these files, including real results, and the music i
 
 **Campaign results:** the workbook's key figures (1 Aug – 1 Sep 2026) are now in the Rooming House Expert campaign case study; the workbook itself stays out (not a visual asset).
 
-**Dashboards:** unchanged sample-data demos (no rebuild); accessibility fixes were applied in place.
+**Dashboards:** unchanged sample-data demos (no rebuild). Accessibility fixes were applied in place by `scripts/demos/a11y-pass.mjs`: one `<main>`, named regions, one `<h1>`, heading order, a proper tablist (The Contract Shop), 32 scroll containers made focusable regions with labels, a hidden label for an empty table header, and text darkened within each brand's hue where contrast fell short (Honey Tribe, Rooming House Expert, The Contract Shop). axe: from 5–848 violations per demo to 0 at 1440 and 390. Every text, chart, image and title was compared with the committed pages and is identical apart from the hidden labels.
 
 # Part 1. Media
 
@@ -448,6 +448,8 @@ node scripts/demos/build.mjs            # all demos, or: node scripts/demos/buil
 node scripts/demos/verify.mjs --shots <screenshot folder>
 node scripts/demos/privacy-check.mjs
 node scripts/demos/manifest.mjs         # rewrites content/media/demos.json
+node scripts/demos/a11y-pass.mjs [--check] [slug ...]   # accessibility pass, in place (build.mjs runs it too)
+node scripts/demos/verify.mjs --shots <dir> [--posters]  # axe on every tab; --posters rewrites preview.jpg
 ```
 
 It needs Python 3.12 + Pillow and Node with the repo's Playwright (local Chrome). Network is used once to download the self-hosted font files and their OFL texts; nothing contacts the dashboards' live services.

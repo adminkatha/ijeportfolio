@@ -1,22 +1,28 @@
 // Verify the built demos offline and capture their posters.
 //
-//   node scripts/demos/verify.mjs [--shots <dir>] [slug ...]
+//   node scripts/demos/verify.mjs [--shots <dir>] [--posters] [--quick] [slug ...]
 //
 // Serves public/ from a tiny local static server, opens every demo in Chrome (Playwright) with
 // EVERY non-local request blocked and logged, and fails on: any external request attempt, any
 // console error or page error, any 4xx/5xx. It clicks through the tabs, screenshots 1440x900 and
 // 390x844 (viewport + full page) into --shots, and writes public/demos/<slug>/preview.jpg
-// (1440x900 viewport, top of the page, JPEG q80): the poster the site shows.
+// (1440x900 viewport, top of the page, JPEG q80) when run with --posters: the poster the site shows.
+// Every tab is also checked with axe (WCAG 2.0/2.1/2.2 A + AA and best-practice) at both sizes;
+// any violation fails the run. --quick skips the full-page screenshots (axe and checks still run).
 import fs from "node:fs";
 import http from "node:http";
 import path from "node:path";
 import { chromium } from "playwright";
+import AxeBuilder from "@axe-core/playwright";
 import { DASHBOARDS } from "./dashboards.mjs";
 import { REPO, PUBLIC_DEMOS, WORK, dirSize, kb } from "./lib.mjs";
 
 const argv = process.argv.slice(2);
 const shotsDir = argv.includes("--shots") ? argv[argv.indexOf("--shots") + 1] : path.join(WORK, "shots");
 const only = argv.filter((a, i) => !a.startsWith("--") && argv[i - 1] !== "--shots");
+const quick = argv.includes("--quick");
+const posters = argv.includes("--posters"); // (re)write public/demos/<slug>/preview.jpg; off by default so a check never edits a demo
+const AXE_TAGS = ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22a", "wcag22aa", "best-practice"];
 const list = DASHBOARDS.filter((d) => !only.length || only.includes(d.slug));
 fs.mkdirSync(shotsDir, { recursive: true });
 
@@ -36,7 +42,7 @@ const browser = await chromium.launch({ channel: "chrome" });
 const results = [];
 let failed = false;
 for (const cfg of list) {
-  const r = { slug: cfg.slug, external: [], errors: [], bad: [], tabs: [], shots: [] };
+  const r = { slug: cfg.slug, external: [], errors: [], bad: [], tabs: [], shots: [], axe: {} };
   for (const vp of [{ width: 1440, height: 900, tag: "1440" }, { width: 390, height: 844, tag: "390", mobile: true }]) {
     const ctx = await browser.newContext({ viewport: { width: vp.width, height: vp.height }, deviceScaleFactor: 1, isMobile: !!vp.mobile, hasTouch: !!vp.mobile });
     await ctx.route("**/*", (route) => {
@@ -56,7 +62,7 @@ for (const cfg of list) {
     const viewportShot = path.join(shotsDir, `${cfg.slug}-${vp.tag}.png`);
     await page.screenshot({ path: viewportShot });
     r.shots.push(viewportShot);
-    if (!vp.mobile) {
+    if (!vp.mobile && posters) {
       await page.screenshot({ path: path.join(PUBLIC_DEMOS, cfg.slug, "preview.jpg"), type: "jpeg", quality: 80 });
     }
     // every tab: click, check its panel is the only one shown, full-page shot
@@ -88,22 +94,39 @@ for (const cfg of list) {
       for (const b of broken) r.errors.push(`[${vp.tag}] broken image ${b}`);
       await page.evaluate(() => window.scrollTo(0, 0));
       await page.waitForTimeout(150);
-      await page.screenshot({ path: path.join(shotsDir, `${cfg.slug}-${vp.tag}-tab${i + 1}.png`) });
-      const full = path.join(shotsDir, `${cfg.slug}-${vp.tag}-tab${i + 1}-full.png`);
-      await page.screenshot({ path: full, fullPage: true });
-      r.shots.push(full);
+      if (!quick) {
+        await page.screenshot({ path: path.join(shotsDir, `${cfg.slug}-${vp.tag}-tab${i + 1}.png`) });
+        const full = path.join(shotsDir, `${cfg.slug}-${vp.tag}-tab${i + 1}-full.png`);
+        await page.screenshot({ path: full, fullPage: true });
+        r.shots.push(full);
+      }
+      // accessibility: axe on this tab's state (hidden panels are skipped by axe, so every tab is run)
+      const ax = await new AxeBuilder({ page }).withTags(AXE_TAGS).analyze();
+      const bucket = (r.axe[vp.tag] = r.axe[vp.tag] || {});
+      for (const v of ax.violations) {
+        const b = (bucket[v.id] = bucket[v.id] || { impact: v.impact, help: v.help, targets: [] });
+        for (const n of v.nodes) {
+          const t = n.target.join(" ");
+          if (!b.targets.some((x) => x.t === t)) b.targets.push({ t, tab: i + 1, why: (n.failureSummary || "").split(/\r?\n/).slice(1, 2).join(" ").slice(0, 160), data: ((n.any[0] || n.all[0] || n.none[0] || {}).data) || null });
+        }
+      }
     }
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
     if (vp.mobile) r.mobileOverflowPx = overflow; else r.desktopOverflowPx = overflow;
     await ctx.close();
   }
   const preview = path.join(PUBLIC_DEMOS, cfg.slug, "preview.jpg");
-  r.preview = { src: `/demos/${cfg.slug}/preview.jpg`, width: 1440, height: 900, bytes: fs.statSync(preview).size };
+  r.preview = { src: `/demos/${cfg.slug}/preview.jpg`, width: 1440, height: 900, bytes: fs.existsSync(preview) ? fs.statSync(preview).size : 0 };
   r.bytes = dirSize(path.join(PUBLIC_DEMOS, cfg.slug));
-  r.ok = !r.external.length && !r.errors.length && !r.bad.length;
+  const axeCount = (tag) => Object.values(r.axe[tag] || {}).reduce((s, v) => s + v.targets.length, 0);
+  r.axeViolations = { "1440": axeCount("1440"), "390": axeCount("390") };
+  r.ok = !r.external.length && !r.errors.length && !r.bad.length && !r.axeViolations["1440"] && !r.axeViolations["390"];
   if (!r.ok) failed = true;
   results.push(r);
   console.log(`${r.ok ? "OK  " : "FAIL"} ${cfg.slug}: ${kb(r.bytes)} | external ${r.external.length} | console/page errors ${r.errors.length} | 4xx/5xx ${r.bad.length} | tabs ${r.tabs.length} | overflow desktop ${r.desktopOverflowPx}px, mobile ${r.mobileOverflowPx}px`);
+  console.log(`      axe violations (nodes): 1440 ${r.axeViolations["1440"]}, 390 ${r.axeViolations["390"]}`);
+  for (const tag of ["1440", "390"]) for (const [id, v] of Object.entries(r.axe[tag] || {}))
+    console.log(`      [${tag}] ${id} (${v.impact}) x${v.targets.length}: ${v.targets.slice(0, 3).map((x) => `tab${x.tab} ${x.t}`).join(" | ")}`);
   for (const x of [...r.external, ...r.errors, ...r.bad].slice(0, 8)) console.log("     ", x);
 }
 await browser.close();

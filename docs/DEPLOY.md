@@ -73,10 +73,10 @@ In the project: **Settings**.
 6. **Deployments → ⋯ → Redeploy.**
 
 ## 5. Turn on Analytics and Speed Insights
-The site already includes both (they load only on Vercel). In the project:
-1. **Analytics** tab → **Enable**.
-2. **Speed Insights** tab → **Enable**.
-3. **Deployments → ⋯ → Redeploy**, then visit the site once. Data shows up after a few visits.
+The site already includes both, switched off until you enable them (otherwise their scripts would 404). In the project:
+1. **Analytics** tab → **Enable**. Then **Settings → Environment Variables → Add:** `ENABLE_VERCEL_ANALYTICS` = `1` (Production).
+2. **Speed Insights** tab → **Enable**. Then add `ENABLE_SPEED_INSIGHTS` = `1` (Production).
+3. **Deployments → ⋯ → Redeploy**, then visit the site once. Data shows up after a few visits. (With Analytics on, the hero's "See the work" click is recorded as a custom event.)
 
 ## 6. After each deploy: checklist
 - [ ] The site opens on the production URL, and the browser console (F12 → Console) shows no errors.

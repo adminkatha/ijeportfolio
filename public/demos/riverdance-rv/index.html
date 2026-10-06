@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"><head>
+<html lang="en" data-a11y="1"><head>
 <meta name="robots" content="noindex, nofollow">
 <title>Riverdance RV Resort — Demo (sample data)</title><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
@@ -8,7 +8,16 @@
 
 
 
-<link rel="stylesheet" href="assets/fonts/fonts.css"><link rel="icon" href="assets/logo.png"></head>
+<link rel="stylesheet" href="assets/fonts/fonts.css"><link rel="icon" href="assets/logo.png"><style id="a11y-css">
+.demo-sr{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+@layer a11y-defaults{
+:where(h2[data-a11y-was="h1"]){font-size:2em;margin-block:0.67em}
+:where(h2[data-a11y-was="h4"]){font-size:inherit;margin-block:1.33em}
+}
+@layer a11y-contrast{
+[role=tab][aria-selected=false][data-c-off="1"],[role=tab][aria-selected=false] [data-c-off="1"]{color:#3f6a4a!important}
+}
+</style></head>
 <body style="margin:0">
 <style>
   :root{
@@ -25,7 +34,7 @@
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
   body{font-family:var(--sans);background:var(--cream);color:var(--pine);line-height:1.55;-webkit-font-smoothing:antialiased}
-  h1,h2,h3,h4{font-family:var(--serif);font-weight:700;color:var(--green);letter-spacing:-.01em}
+  :is(h1,:where([data-a11y-was="h1"])),h2:where(:not([data-a11y-was])),h3,:is(h4,:where([data-a11y-was="h4"])){font-family:var(--serif);font-weight:700;color:var(--green);letter-spacing:-.01em}
   strong{font-weight:700}
   .pos{color:var(--green2)}
   .wrap{max-width:1280px;margin:0 auto;padding:0 24px}
@@ -58,8 +67,8 @@
   main{padding:28px 0 60px}
   section{margin-bottom:34px}
   .section-head{display:flex;align-items:center;gap:12px;margin-bottom:16px;padding-bottom:11px;border-bottom:1px solid var(--sage)}
-  .section-head h2{font-size:18px;display:flex;align-items:center}
-  .section-head h2::before{content:'';display:inline-block;width:4px;height:16px;background:var(--red);border-radius:2px;margin-right:11px}
+  .section-head h2:where(:not([data-a11y-was])){font-size:18px;display:flex;align-items:center}
+  .section-head h2:where(:not([data-a11y-was]))::before{content:'';display:inline-block;width:4px;height:16px;background:var(--red);border-radius:2px;margin-right:11px}
   .section-head .sub{font-size:12.5px;color:var(--gray);margin-left:auto;font-weight:500}
   .caption{font-size:13.5px;color:var(--gray);max-width:920px;margin:-2px 0 18px}
   .caption strong{color:var(--green)}
@@ -68,7 +77,7 @@
   .hero{background:linear-gradient(135deg,#1c4a26 0%,#21582B 55%,#2a6e3a 100%);border-radius:16px;color:#fff;padding:32px 34px 78px;position:relative;overflow:hidden;box-shadow:var(--shadow)}
   .hero .mountains{position:absolute;left:0;right:0;bottom:0;width:100%;height:120px;opacity:.20}
   .hero .eyebrow{font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:var(--sand);font-weight:700;position:relative;margin-bottom:11px}
-  .hero h1{color:#fff;font-size:27px;font-weight:700;line-height:1.18;letter-spacing:-.02em;position:relative}
+  .hero :is(h1,:where([data-a11y-was="h1"])){color:#fff;font-size:27px;font-weight:700;line-height:1.18;letter-spacing:-.02em;position:relative}
   .hero .lead{color:#dbe7dd;font-size:14.5px;max-width:780px;margin-top:9px;position:relative;line-height:1.6}
   .hero .lead strong{color:#fff;font-weight:700}
 
@@ -232,7 +241,7 @@
   footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px;align-items:flex-start}
   footer img{height:30px;filter:brightness(0) invert(1);opacity:.92}
   footer .col{max-width:560px}
-  footer h4{color:#fff;font-size:14px;margin-bottom:8px}
+  footer :is(h4,:where([data-a11y-was="h4"])){color:#fff;font-size:14px;margin-bottom:8px}
   footer p{font-size:11.5px;line-height:1.7;color:#aeb6ae}
   .footer-brand{text-align:right}
   .footer-brand .made{font-size:11px;color:#aeb6ae;margin-top:8px}
@@ -383,7 +392,7 @@ th.srt:hover{color:var(--green)}
 </style>
 
 
-<header class="top">
+<header class="top"><h1 class="demo-sr">Riverdance RV Resort performance dashboard</h1>
   <div class="top-inner">
     <img class="brand-logo" id="logo" alt="Riverdance RV Resort" src="assets/logo.png">
     <div class="top-title">
@@ -453,8 +462,8 @@ th.srt:hover{color:var(--green)}
   
   <div class="tabbar">
   <div class="tabs" id="tabs" role="tablist" aria-label="Dashboard sections">
-    <button type="button" class="tab" id="tabbtn-ads" role="tab" data-tab="ads" aria-selected="true" aria-controls="tab-ads" data-sub="Meta Ads · Gypsum, CO" tabindex="0"><span class="ix">01</span><span class="ic">●</span>Paid Social</button>
-    <button type="button" class="tab" id="tabbtn-email" role="tab" data-tab="email" aria-selected="false" aria-controls="tab-email" data-sub="Email · ActiveCampaign" tabindex="-1"><span class="ix">02</span><span class="ic">✉</span>Email · ActiveCampaign<span class="cnt" id="em-tabcnt">30</span></button>
+    <button type="button" class="tab" id="tabbtn-ads" role="tab" data-tab="ads" aria-selected="true" aria-controls="tab-ads" data-sub="Meta Ads · Gypsum, CO" tabindex="0"><span class="ix" data-c-off="1">01</span><span class="ic">●</span>Paid Social</button>
+    <button type="button" class="tab" id="tabbtn-email" role="tab" data-tab="email" aria-selected="false" aria-controls="tab-email" data-sub="Email · ActiveCampaign" tabindex="-1"><span class="ix" data-c-off="1">02</span><span class="ic">✉</span>Email · ActiveCampaign<span class="cnt" id="em-tabcnt">30</span></button>
   </div>
   </div>
 
@@ -470,7 +479,7 @@ th.srt:hover{color:var(--green)}
         <path d="M0,120 L220,90 L420,108 L620,78 L860,104 L1080,84 L1280,106" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.6"></path>
       </svg>
       <div class="eyebrow" id="hero-eyebrow">Performance Summary · May 13 – Oct 4, 2026</div>
-      <h1>Efficient spend, profitable return.</h1>
+      <h2 data-a11y-was="h1">Efficient spend, profitable return.</h2>
       <p class="lead" id="hero-lead">In this window, <strong>$5,852</strong> in ad spend generated <strong>$15,643</strong> in tracked booking revenue, a <strong>2.7×</strong> return, with click-through and cost efficiency measured against travel-industry benchmarks below.</p>
     </div>
 
@@ -654,7 +663,7 @@ th.srt:hover{color:var(--green)}
       <div class="card full" id="campaignCard" style="">
         <h3>By campaign</h3>
         <div class="ch-sub" style="margin-bottom:6px">Sorted by spend</div>
-        <div class="scroll-x"><table>
+        <div class="scroll-x" tabindex="0" role="region" aria-label="By campaign, scrollable table"><table>
           <thead><tr><th>Campaign</th><th class="tr">Spend</th><th class="tr">Revenue</th><th class="tr">ROAS</th><th class="tr">CTR</th><th class="tr">CPC</th><th class="tr">Bookings</th></tr></thead>
           <tbody id="campaignTable"><tr><td><div class="tname">2026_05_May Mountain Recharge_Conversions V1</div></td><td class="tr">$5,686.19</td><td class="tr">$15,643<div class="mbar"><div class="mbar-fill" style="width:100%;background:#21582B"></div></div></td><td class="tr"><strong class="">2.75x</strong></td><td class="tr">3.28%</td><td class="tr">$0.34</td><td class="tr">38</td></tr><tr><td><div class="tname">Riverdance | Extended Stay | Leads</div></td><td class="tr">$165.44</td><td class="tr">$0<div class="mbar"><div class="mbar-fill" style="width:2%;background:#21582B"></div></div></td><td class="tr"><strong class="">–</strong></td><td class="tr">3.48%</td><td class="tr">$0.33</td><td class="tr">0</td></tr></tbody>
         </table></div>
@@ -662,7 +671,7 @@ th.srt:hover{color:var(--green)}
       <div class="card full">
         <h3>By creative</h3>
         <div class="ch-sub" style="margin-bottom:6px">Click a column to sort · ★ marks the top performer · click a row for detail</div>
-        <div class="scroll-x"><table>
+        <div class="scroll-x" tabindex="0" role="region" aria-label="By creative, scrollable table"><table>
           <thead><tr id="adHead">
             <th class="sortable" data-sort="label" inert="">Creative<span class="arr"></span></th>
             <th class="tr sortable" data-sort="spend" inert="">Spend<span class="arr"></span></th>
@@ -679,7 +688,7 @@ th.srt:hover{color:var(--green)}
       <div class="card full">
         <h3>Month-by-month</h3>
         <div class="ch-sub" style="margin-bottom:6px">Performance trend across the flight</div>
-        <div class="scroll-x"><table>
+        <div class="scroll-x" tabindex="0" role="region" aria-label="Month-by-month, scrollable table"><table>
           <thead><tr><th>Month</th><th class="tr">Spend</th><th class="tr">Revenue</th><th class="tr">ROAS</th><th class="tr">Impressions</th><th class="tr">Clicks</th><th class="tr">CTR</th><th class="tr">CPC</th></tr></thead>
           <tbody id="monthlyTable"><tr><td><div class="tname">May 2026</div></td><td class="tr">$336.49</td><td class="tr">$1,046</td><td class="tr"><strong class="">3.11x</strong></td><td class="tr">28K</td><td class="tr">905</td><td class="tr">3.23%</td><td class="tr">$0.37</td></tr><tr><td><div class="tname">Jun 2026</div></td><td class="tr">$1,202.32</td><td class="tr">$1,447</td><td class="tr"><strong class="">1.20x</strong></td><td class="tr">109.4K</td><td class="tr">3,455</td><td class="tr">3.16%</td><td class="tr">$0.35</td></tr><tr><td><div class="tname">Jul 2026</div></td><td class="tr">$1,637.04</td><td class="tr">$5,515</td><td class="tr"><strong class="">3.37x</strong></td><td class="tr">150.2K</td><td class="tr">4,980</td><td class="tr">3.32%</td><td class="tr">$0.33</td></tr><tr><td><div class="tname">Aug 2026</div></td><td class="tr">$1,338.44</td><td class="tr">$5,051</td><td class="tr"><strong class="">3.77x</strong></td><td class="tr">120.7K</td><td class="tr">3,952</td><td class="tr">3.27%</td><td class="tr">$0.34</td></tr><tr><td><div class="tname">Sep 2026</div></td><td class="tr">$1,203.19</td><td class="tr">$2,254</td><td class="tr"><strong class="">1.87x</strong></td><td class="tr">107.7K</td><td class="tr">3,632</td><td class="tr">3.37%</td><td class="tr">$0.33</td></tr><tr><td><div class="tname">Oct 2026</div></td><td class="tr">$134.15</td><td class="tr">$331</td><td class="tr"><strong class="">2.47x</strong></td><td class="tr">11.6K</td><td class="tr">413</td><td class="tr">3.56%</td><td class="tr">$0.32</td></tr></tbody>
         </table></div>
@@ -692,7 +701,7 @@ th.srt:hover{color:var(--green)}
     <div class="section-head"><h2>Tracked bookings</h2><span class="sub">attributed revenue events</span></div>
     <p class="caption">Each booking attributed to the campaigns, sorted by value.</p>
     <div class="card">
-      <div class="scroll-x"><table>
+      <div class="scroll-x" tabindex="0" role="region" aria-label="Tracked bookings, scrollable table"><table>
         <thead><tr><th>Date</th><th>Creative</th><th class="tr">Bookings</th><th class="tr">Revenue</th><th class="tr">Spend that day</th></tr></thead>
         <tbody id="bookingsTable"><tr><td>Jul 12, 2026</td><td><div class="tname">Mountain Recharge</div></td><td class="tr">2</td><td class="tr"><strong class="pos">$1,635.96</strong></td><td class="tr">$30.84</td></tr><tr><td>Jul 27, 2026</td><td><div class="tname">Mountain Recharge</div></td><td class="tr">1</td><td class="tr"><strong class="pos">$1,384.87</strong></td><td class="tr">$39.02</td></tr><tr><td>Aug 9, 2026</td><td><div class="tname">Mountain Recharge</div></td><td class="tr">1</td><td class="tr"><strong class="pos">$1,239.39</strong></td><td class="tr">$26.99</td></tr><tr><td>Aug 4, 2026</td><td><div class="tname">Mountain Recharge - Copy</div></td><td class="tr">1</td><td class="tr"><strong class="pos">$1,210.15</strong></td><td class="tr">$25.33</td></tr><tr><td>Sep 12, 2026</td><td><div class="tname">Mountain Recharge</div></td><td class="tr">1</td><td class="tr"><strong class="pos">$1,153.51</strong></td><td class="tr">$37.65</td></tr><tr><td>Aug 22, 2026</td><td><div class="tname">Mountain Recharge</div></td><td class="tr">3</td><td class="tr"><strong class="pos">$1,059.92</strong></td><td class="tr">$31.02</td></tr><tr><td>Jul 17, 2026</td><td><div class="tname">Mountain Recharge - Copy</div></td><td class="tr">1</td><td class="tr"><strong class="pos">$760.44</strong></td><td class="tr">$30.12</td></tr><tr><td>Aug 11, 2026</td><td><div class="tname">Mountain Recharge</div></td><td class="tr">1</td><td class="tr"><strong class="pos">$694.51</strong></td><td class="tr">$13.77</td></tr><tr><td>Jun 30, 2026</td><td><div class="tname">Mountain Recharge</div></td><td class="tr">1</td><td class="tr"><strong class="pos">$600.58</strong></td><td class="tr">$27.39</td></tr><tr><td>May 16, 2026</td><td><div class="tname">Mountain Recharge</div></td><td class="tr">1</td><td class="tr"><strong class="pos">$527.98</strong></td><td class="tr">$16.08</td></tr><tr><td>May 25, 2026</td><td><div class="tname">Mountain Recharge</div></td><td class="tr">1</td><td class="tr"><strong class="pos">$517.94</strong></td><td class="tr">$26.75</td></tr><tr><td>Jul 8, 2026</td><td><div class="tname">Mountain Recharge</div></td><td class="tr">1</td><td class="tr"><strong class="pos">$477.64</strong></td><td class="tr">$24.64</td></tr><tr><td>Sep 23, 2026</td><td><div class="tname">Mountain Recharge</div></td><td class="tr">1</td><td class="tr"><strong class="pos">$387.49</strong></td><td class="tr">$20.59</td></tr><tr><td>Jun 24, 2026</td><td><div class="tname">Mountain Recharge</div></td><td class="tr">1</td><td class="tr"><strong class="pos">$373.27</strong></td><td class="tr">$28.56</td></tr><tr><td>Oct 4, 2026</td><td><div class="tname">Mountain Recharge</div></td><td class="tr">1</td><td class="tr"><strong class="pos">$330.86</strong></td><td class="tr">$20.10</td></tr><tr><td>Aug 19, 2026</td><td><div class="tname">Mountain Recharge</div></td><td class="tr">1</td><td class="tr"><strong class="pos">$327.27</strong></td><td class="tr">$30.98</td></tr><tr><td>Jun 7, 2026</td><td><div class="tname">Mountain Recharge</div></td><td class="tr">1</td><td class="tr"><strong class="pos">$279.37</strong></td><td class="tr">$28.07</td></tr><tr><td>Sep 11, 2026</td><td><div class="tname">Mountain Recharge</div></td><td class="tr">1</td><td class="tr"><strong class="pos">$248.15</strong></td><td class="tr">$30.83</td></tr><tr><td>Aug 24, 2026</td><td><div class="tname">Mountain Recharge</div></td><td class="tr">1</td><td class="tr"><strong class="pos">$209.70</strong></td><td class="tr">$30.57</td></tr><tr><td>Jul 26, 2026</td><td><div class="tname">Mountain Recharge</div></td><td class="tr">1</td><td class="tr"><strong class="pos">$208.86</strong></td><td class="tr">$27.74</td></tr><tr><td>Aug 26, 2026</td><td><div class="tname">Mountain Recharge - Copy</div></td><td class="tr">1</td><td class="tr"><strong class="pos">$208.13</strong></td><td class="tr">$21.67</td></tr><tr><td>Sep 30, 2026</td><td><div class="tname">Mountain Recharge</div></td><td class="tr">2</td><td class="tr"><strong class="pos">$202.09</strong></td><td class="tr">$31.23</td></tr><tr><td>Jul 27, 2026</td><td><div class="tname">Mountain Recharge - Copy</div></td><td class="tr">1</td><td class="tr"><strong class="pos">$201.08</strong></td><td class="tr">$31.02</td></tr><tr><td>Jul 21, 2026</td><td><div class="tname">Mountain Recharge - Copy</div></td><td class="tr">1</td><td class="tr"><strong class="pos">$198.84</strong></td><td class="tr">$13.35</td></tr><tr><td>Jul 15, 2026</td><td><div class="tname">Mountain Recharge</div></td><td class="tr">1</td><td class="tr"><strong class="pos">$186.20</strong></td><td class="tr">$53.20</td></tr><tr><td>Sep 16, 2026</td><td><div class="tname">Mountain Recharge</div></td><td class="tr">1</td><td class="tr"><strong class="pos">$181.45</strong></td><td class="tr">$36.44</td></tr><tr><td>Jul 24, 2026</td><td><div class="tname">Mountain Recharge - Copy</div></td><td class="tr">1</td><td class="tr"><strong class="pos">$164.82</strong></td><td class="tr">$12.22</td></tr><tr><td>Aug 19, 2026</td><td><div class="tname">Mountain Recharge - Copy</div></td><td class="tr">1</td><td class="tr"><strong class="pos">$102.30</strong></td><td class="tr">$12.05</td></tr><tr><td>Jul 19, 2026</td><td><div class="tname">Mountain Recharge</div></td><td class="tr">1</td><td class="tr"><strong class="pos">$102.23</strong></td><td class="tr">$30.31</td></tr><tr><td>Jun 4, 2026</td><td><div class="tname">Mountain Recharge</div></td><td class="tr">1</td><td class="tr"><strong class="pos">$98.05</strong></td><td class="tr">$27.45</td></tr><tr><td>Jul 11, 2026</td><td><div class="tname">Mountain Recharge - Copy</div></td><td class="tr">1</td><td class="tr"><strong class="pos">$97.34</strong></td><td class="tr">$6.83</td></tr><tr><td>Jul 1, 2026</td><td><div class="tname">Mountain Recharge</div></td><td class="tr">1</td><td class="tr"><strong class="pos">$96.34</strong></td><td class="tr">$33.16</td></tr><tr><td>Jun 21, 2026</td><td><div class="tname">Mountain Recharge</div></td><td class="tr">1</td><td class="tr"><strong class="pos">$95.23</strong></td><td class="tr">$37.58</td></tr><tr><td>Sep 12, 2026</td><td><div class="tname">Mountain Recharge - Copy</div></td><td class="tr">1</td><td class="tr"><strong class="pos">$80.88</strong></td><td class="tr">$13.23</td></tr></tbody>
       </table></div>
@@ -768,7 +777,7 @@ th.srt:hover{color:var(--green)}
     
     <section>
       <div class="section-head"><h2>Every email, by the numbers</h2><span class="sub" id="em-camp-sub">30 campaigns in range · click a column to sort</span></div>
-      <div class="card full scroll-x">
+      <div class="card full scroll-x" tabindex="0" role="region" aria-label="Every email, by the numbers, scrollable table">
         <table>
           <thead><tr id="em-head">
             <th class="sortable" data-emsort="name" inert="">Campaign<span class="arr"></span></th>
@@ -790,7 +799,7 @@ th.srt:hover{color:var(--green)}
     
     <section>
       <div class="section-head"><h2>Journeys running in the background</h2><span class="sub" id="em-auto-sub">8 with contacts</span></div>
-      <div class="card full scroll-x">
+      <div class="card full scroll-x" tabindex="0" role="region" aria-label="Journeys running in the background, scrollable table">
         <table>
           <thead><tr>
             <th>Automation</th><th>Status</th><th class="tr">Entered</th><th class="tr">Completed</th>
@@ -815,7 +824,7 @@ th.srt:hover{color:var(--green)}
 <footer>
   <div class="wrap">
     <div class="col">
-      <h4>About this dashboard</h4>
+      <h2 data-a11y-was="h4">About this dashboard</h2>
       <p id="foot-about">Paid social performance for <strong style="color:#fff">Riverdance RV Resort</strong> (Gypsum, CO). Source: Meta (Facebook), the resort's ad account via Windsor.ai, May 13, 2026 – Oct 4, 2026. Data refreshes with each sync.</p>
       <p style="margin-top:8px">Benchmarks (2025–26 Meta, travel/hospitality): CTR ~2.3–2.8%, CPC ~$0.21–0.70, CPM ~$7–13 (vs ~$20 global), "good" ROAS 2–4×. Sources: WordStream, SuperAds, inBeat. Metrics are derived from daily ad-level data: ROAS = booking revenue ÷ spend; CTR = clicks ÷ impressions; CPC = spend ÷ clicks; CPM = spend ÷ impressions × 1,000; Frequency = impressions ÷ reach.</p>
     </div>
@@ -836,7 +845,7 @@ th.srt:hover{color:var(--green)}
 .demo-wordmark{font:600 11px/1.2 system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:.14em;text-transform:uppercase;opacity:.75;white-space:nowrap}
 .demo-badge{position:fixed;left:0;bottom:12px;z-index:99999;pointer-events:none;writing-mode:vertical-rl;transform:rotate(180deg);font:700 9px/1 system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#fff;background:rgba(17,18,20,.9);border:1px solid rgba(255,255,255,.28);border-right:0;border-radius:6px 0 0 6px;padding:9px 2px;box-shadow:0 1px 6px rgba(0,0,0,.25)}
 </style>
-<div class="demo-badge" role="note">Demo — sample data</div>
+<aside class="demo-badge" data-a11y-was="div" aria-label="Demo notice">Demo — sample data</aside>
 <script>
 (function(){var t=[].slice.call(document.querySelectorAll("#tabs [role=tab]"));if(!t.length)return;
 function key(b){return b.getAttribute("data-tab")||b.getAttribute("data-v")||b.getAttribute("aria-controls")}

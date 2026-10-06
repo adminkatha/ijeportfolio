@@ -7,6 +7,10 @@
 // renderTabs: click every tab during the build (for dashboards that draw a tab when it is opened).
 // sensitive:  selectors whose text in the ORIGINAL page (people, accounts, other businesses) must not
 //             appear anywhere in the demo (privacy-check.mjs); sensitiveAllow lists reused labels.
+// a11y:       accessibility pass (a11y-pass.mjs): h1 = visually hidden page title (when the header has
+//             no visible title on every screen size); retag = [selector, tag] heading and landmark fixes
+//             (each element keeps its exact look); regions = [selector, name] for chrome outside the
+//             landmarks. Inert filter bars need nothing: they are not exposed to assistive technology.
 export const DASHBOARDS = [
   {
     slug: "honey-tribe",
@@ -24,6 +28,7 @@ export const DASHBOARDS = [
     tabs: "#tabs [role=tab]",
     renderTabs: false,
     views: ["Sales overview", "Shopify × Meta funnel", "Product & audience"],
+    a11y: { h1: "Honey Tribe performance dashboard", retag: [["#app > .tab-pane > main", "div"], ["#app", "main"]], regions: [[".tabbar", "Dashboard tabs"]] },
   },
   {
     slug: "meloyelo",
@@ -34,6 +39,7 @@ export const DASHBOARDS = [
     tabs: "#tabs [role=tab]",
     renderTabs: false,
     views: ["Sales performance", "Riders & leads", "Inventory & production", "Marketing"],
+    a11y: { h1: "MeloYelo performance dashboard", retag: [["#app > .tab-pane > main", "div"], ["#app", "main"]], regions: [[".tabbar", "Dashboard tabs"]] },
     // selling agents are people: none of the original names may appear in the demo
     sensitive: ["#tblAgents tbody td:nth-child(2) span", "#chartRiderAgents text", "#chartStl text", "#s1agent option", "#s2agent option"],
     sensitiveAllow: ["Direct Sale", "MeloYelo Internal"],
@@ -50,6 +56,7 @@ export const DASHBOARDS = [
     renderTabs: true,
     views: ["Paid social (Meta Ads)", "Email (ActiveCampaign)"],
     tabSubtitle: { target: "#top-sub", values: { ads: "Meta Ads · Gypsum, CO", email: "Email · ActiveCampaign" } },
+    a11y: { h1: "Riverdance RV Resort performance dashboard", retag: [[".hero h1", "h2"], ["footer h4", "h2"]] },
     // the shared email account also held other businesses' lists, automations and campaigns
     sensitive: ["#em-acct", "#em-lists .ln", "#em-autos .tname", "#em-table .tname", "#foot-about"],
     // resort-only labels the sample data reuses on purpose
@@ -67,6 +74,7 @@ export const DASHBOARDS = [
     tabPanel: "pane-{data-tab}",
     renderTabs: true, // tabs 2-4 are drawn only when opened (they were empty in the saved page)
     views: ["Meta funnel", "Email performance", "Lead magnet & sequence", "Demographics & placement"],
+    a11y: { retag: [[".empty h4", "h3"]], regions: [[".tabbar", "Dashboard tabs"]] },
     // campaign/ad names and ad copy that carried street addresses, property names or first names
     sensitive: ["#campTbl td.nm", "#adTbl td.nm", "#campsel option", "#creativeGallery .cc-copy"],
     sensitiveAllow: ["LEADS_RHE_URHCG - 12/2025", "LEADS_RHE_Interstate_URHCG", "LIKES_RHE Page Campaign 03/31/2026",
@@ -85,6 +93,7 @@ export const DASHBOARDS = [
     tabPanel: "view-{data-v}",
     renderTabs: true, // the Lead Gen view draws its chart only when shown
     views: ["Quiz diagnostic", "Lead Gen"],
+    a11y: { retag: [["#wm", "h1"], [".hero h1", "h2"], ["#app", "main"]] },
     sensitive: ["#leads td .name", "#leads td .em"],
   },
 ];
