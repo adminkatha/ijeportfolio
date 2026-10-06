@@ -1,6 +1,7 @@
 import { MDXContent } from "@content-collections/mdx/react";
 import { CommandButton } from "@/components/command/CommandButton";
 import { HeroSeam } from "@/components/hero/HeroSeam";
+import { Reveal } from "@/components/motion/Reveal";
 import { Container } from "@/components/layout/Grid";
 import { FillIn, Fillable } from "@/components/ui/FillIn";
 import { SectionLabel } from "@/components/ui/SectionLabel";
@@ -28,8 +29,8 @@ export default function Home() {
         <section aria-labelledby="work" className="space-y-6">
           <SectionLabel number={sections[0]!.number} title="Work (content check)" id="work" note={`${getProjects().length} projects`} />
           <ul className="divide-y divide-line border-y border-line">
-            {getProjects().map((p) => (
-              <li key={p.slug} className="grid gap-1 py-4 sm:grid-cols-[12rem_1fr]">
+            {getProjects().map((p, i) => (
+              <Reveal as="li" key={p.slug} delay={(i % 3) * 60} className="grid gap-1 py-4 sm:grid-cols-[12rem_1fr]">
                 <span className="label-mono text-text-2">{disciplineLabels[p.discipline]}</span>
                 <span>
                   <span className="font-medium">{p.title}</span>
@@ -40,12 +41,12 @@ export default function Home() {
                     </span>
                   ) : null}
                 </span>
-              </li>
+              </Reveal>
             ))}
           </ul>
         </section>
 
-        <section aria-labelledby="sections" className="space-y-4">
+        <Reveal as="section" className="space-y-4">
           <SectionLabel number={sections[1]!.number} title="Visible sections" id="sections" />
           <ol className="label-mono space-y-1 text-text-2">
             {sections.map((s) => (
@@ -54,7 +55,7 @@ export default function Home() {
               </li>
             ))}
           </ol>
-        </section>
+        </Reveal>
 
         {caseStudy ? (
           <article aria-label="Case study check" className="max-w-[65ch] space-y-4 text-text-2 [&_h2]:font-display [&_h2]:text-2xl [&_h2]:text-text">

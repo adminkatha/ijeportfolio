@@ -24,6 +24,8 @@ export function CommandButton({ items }: { items: CommandItem[] }) {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const openerRef = useRef<HTMLElement | null>(null);
   const [open, setOpen] = useState(false);
+  // Bumped on every open, so reopening right after Esc (before the dialog's close event lands) still opens.
+  const [session, setSession] = useState(0);
   const [Palette, setPalette] = useState<Palette | null>(null);
   const [message, setMessage] = useState("");
   const apple = useSyncExternalStore(noSubscribe, isApple, () => false);
@@ -31,6 +33,7 @@ export function CommandButton({ items }: { items: CommandItem[] }) {
   const show = useCallback((opener: Element | null) => {
     openerRef.current = opener instanceof HTMLElement && opener !== document.body ? opener : buttonRef.current;
     setOpen(true);
+    setSession((n) => n + 1);
     void loadPalette().then((P) => setPalette(() => P));
   }, []);
 
@@ -40,16 +43,13 @@ export function CommandButton({ items }: { items: CommandItem[] }) {
     if (reason !== "navigate") openerRef.current?.focus({ preventScroll: true });
   }, []);
 
-  // ⌘K / Ctrl+K anywhere toggles the palette (attached once).
-  const openRef = useRef(open);
-  useEffect(() => {
-    openRef.current = open;
-  }, [open]);
+  // ⌘K / Ctrl+K anywhere toggles the palette (attached once). "Open" is read from the DOM, not state,
+  // so a quick Esc then ⌘K can't race React's update.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key.toLowerCase() !== "k" || !(e.metaKey || e.ctrlKey) || e.altKey || e.shiftKey || e.isComposing) return;
       e.preventDefault();
-      if (openRef.current) close("dismiss");
+      if (e.target instanceof Element && e.target.closest("dialog[open]")) close("dismiss");
       else show(document.activeElement);
     };
     window.addEventListener("keydown", onKey);
@@ -106,7 +106,7 @@ export function CommandButton({ items }: { items: CommandItem[] }) {
       <p role="status" className={s.status} data-visible={message ? "" : undefined}>
         {message}
       </p>
-      {Palette ? <Palette open={open} items={items} onClose={close} onAnnounce={setMessage} takeTyped={takeTyped} /> : null}
+      {Palette ? <Palette open={open} session={session} items={items} onClose={close} onAnnounce={setMessage} takeTyped={takeTyped} /> : null}
     </>
   );
 }

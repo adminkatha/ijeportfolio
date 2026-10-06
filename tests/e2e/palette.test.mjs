@@ -71,6 +71,20 @@ t.test("⌘K / Ctrl+K opens it with the labelled input focused; Esc closes and r
   await context.close();
 });
 
+t.test("Esc then ⌘K straight away reopens it (no race with the dialog's close event)", async () => {
+  const { context, page } = await open();
+  for (let i = 0; i < 5; i++) {
+    await page.keyboard.press("Control+k");
+    await dialog(page).waitFor({ state: "visible", timeout: 5000 });
+    await page.keyboard.press("Escape");
+    await page.keyboard.press("Control+k"); // no wait in between
+    await dialog(page).waitFor({ state: "visible", timeout: 5000 });
+    await page.keyboard.press("Escape");
+    await dialog(page).waitFor({ state: "hidden" });
+  }
+  await context.close();
+});
+
 t.test("the header button opens it; focus is trapped; Esc returns focus to the button", async () => {
   const { context, page } = await open();
   const button = page.getByRole("button", { name: /Jump to/ });

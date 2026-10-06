@@ -12,6 +12,8 @@ import type { CommandGroup, CommandItem } from "./types";
 
 export type PaletteProps = {
   open: boolean;
+  /** Changes on every open request. */
+  session: number;
   items: CommandItem[];
   onClose: (reason: CloseReason) => void;
   onAnnounce: (message: string) => void;
@@ -51,7 +53,7 @@ function score(label: string, terms: string[], query: string): number {
  * is inert (focus stays inside), Esc closes it, and focus goes back to whatever opened it.
  * cmdk provides the combobox + listbox semantics, filtering and arrow-key selection.
  */
-export function CommandPalette({ open, items, onClose, onAnnounce, takeTyped }: PaletteProps) {
+export function CommandPalette({ open, session, items, onClose, onAnnounce, takeTyped }: PaletteProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const reason = useRef<CloseReason>("dismiss");
   const [early] = useState(takeTyped);
@@ -70,7 +72,7 @@ export function CommandPalette({ open, items, onClose, onAnnounce, takeTyped }: 
     } else if (!open && dialog.open) {
       dialog.close();
     }
-  }, [open]);
+  }, [open, session]);
 
   // Labels double as cmdk values, so they must be unique.
   const groups = useMemo(() => {
@@ -166,6 +168,8 @@ export function CommandPalette({ open, items, onClose, onAnnounce, takeTyped }: 
       aria-label="Command menu"
       data-lenis-prevent=""
       onClose={() => {
+        // The close event arrives a task later: if the palette was reopened meanwhile, it is stale.
+        if (dialogRef.current?.open) return;
         setSearch("");
         onClose(reason.current);
       }}
@@ -175,7 +179,7 @@ export function CommandPalette({ open, items, onClose, onAnnounce, takeTyped }: 
       }}
     >
       {/* cmdk labels its input with this (aria-labelledby), so it names the search field. */}
-      <Command label="Search commands" className={s.command} loop shouldFilter={false}>
+      <Command label="Search commands" className={s.command} loop shouldFilter={false} vimBindings={false}>
         <div className={s.head}>
           <Command.Input
             value={search}

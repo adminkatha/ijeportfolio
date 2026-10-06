@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque, JetBrains_Mono } from "next/font/google";
 import { GeistSans } from "geist/font/sans";
 import { SkipLink } from "@/components/layout/SkipLink";
+import { MotionRoot } from "@/components/motion/MotionRoot";
 import { MotionScript } from "@/components/motion/MotionScript";
 import "./globals.css";
 
@@ -41,6 +42,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body>
         <SkipLink />
         {children}
+        <MotionRoot />
       </body>
     </html>
   );
