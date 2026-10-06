@@ -106,6 +106,7 @@ export const projects = validate("content/data/projects.ts", projectsSchema, [
         title: "Angle 1: the weekly rent figure",
         description: "Vertical talking-head ad for Rooming House Expert: a presenter explains that a big weekly rent figure isn't the number that matters, with captions, a floor-plan animation and a mock-up of the free 'Ultimate Rooming House Conversion Guide'. Ends on the Rooming House Expert logo. The e-mail address on the guide mock-up is blurred.",
         durationSec: 58.8,
+        audio: true,
       },
       {
         src: "/media/video/rooming-house-expert-campaign/angle-2.mp4",
@@ -115,6 +116,7 @@ export const projects = validate("content/data/projects.ts", projectsSchema, [
         title: "Angle 2: more rent isn't a better investment",
         description: "Vertical talking-head ad for Rooming House Expert: 'more rent does not automatically mean better investment', with captions, b-roll (paperwork, a route map, a calculator), the free guide mock-up and the Rooming House Expert logo. The e-mail address on the guide mock-up is blurred.",
         durationSec: 53.2,
+        audio: true,
       },
       {
         src: "/media/video/rooming-house-expert-campaign/angle-3.mp4",
@@ -124,12 +126,15 @@ export const projects = validate("content/data/projects.ts", projectsSchema, [
         title: "Angle 3: what is actually left",
         description: "Vertical talking-head ad for Rooming House Expert: what is left after costs decides whether a rooming house strategy works, with animated icons (layout, demand, management, vacancy, compliance, expenses), the free guide mock-up and the Rooming House Expert logo. The e-mail address on the guide mock-up is blurred.",
         durationSec: 52.4,
+        audio: true,
       },
     ],
     disclosures: [
-      "No campaign figures are shown: Rooming House Expert hasn't approved sharing them.",
-      "The Ads Manager screenshot is cropped: campaign names and a Meta tip are removed. Videos play without their soundtrack.",
+      "The Ads Manager screenshot is cropped: campaign names and a Meta tip are removed.",
     ],
+    metric: { value: "257", label: "leads at A$25.01 each, 1 Aug – 1 Sep 2026" },
+    result:
+      "257 leads at A$25.01 per lead from A$6,427.45 of spend between 1 August and 1 September 2026, with 14% of link clicks turning into leads.",
     related: ["rooming-house-expert", "client-reporting-dashboards"],
     featured: true,
     order: 2,
@@ -176,7 +181,8 @@ export const projects = validate("content/data/projects.ts", projectsSchema, [
         height: 1280,
         title: "Janet Jumper",
         description: "Vertical product video: a model in Honey Tribe's army-green Janet Jumper (a wide-leg jumpsuit with striped tie suspenders) in an arched, plant-filled set, with captions on the relaxed fit, adjustable suspenders, pockets and convertible ankles. Ends on a Honey Tribe 'Shop Now' card with shophoneytribe.com.",
-        durationSec: 44.3,
+        durationSec: 44.4,
+        audio: true,
       },
       {
         src: "/media/video/honey-tribe/milo-tassel-kimono.mp4",
@@ -186,6 +192,7 @@ export const projects = validate("content/data/projects.ts", projectsSchema, [
         title: "Milo Tassel Kimono",
         description: "Vertical product video: a model styles the pink colour-block Milo Tassel Kimono with cream tassels, with bold word-by-word captions about layering it over different outfits. Ends on a Honey Tribe end card.",
         durationSec: 51.1,
+        audio: true,
       },
       {
         src: "/media/video/honey-tribe/knox-tassel-kimono.mp4",
@@ -195,6 +202,7 @@ export const projects = validate("content/data/projects.ts", projectsSchema, [
         title: "Knox Tassel Kimono",
         description: "Vertical product video: the green, yellow and tan Knox Tassel Kimono worn in a sunlit room, with serif captions such as 'easy to layer and designed to move with you'. Ends on a Honey Tribe end card.",
         durationSec: 57.9,
+        audio: true,
       },
       {
         src: "/media/video/honey-tribe/proverbs-3-5-scripture-sweatpants.mp4",
@@ -204,9 +212,10 @@ export const projects = validate("content/data/projects.ts", projectsSchema, [
         title: "Proverbs 3:5 Scripture Sweatpants",
         description: "Vertical product video: yellow wide-leg sweatpants whose side zip opens to a Proverbs 3:5 scripture print, with captions on the stretch waist, pockets, zippers and inseam. Ends on a Honey Tribe end card.",
         durationSec: 43.0,
+        audio: true,
       },
     ],
-    disclosures: ["Videos play without their soundtrack. Carousel end cards (QR codes) are left out."],
+    disclosures: ["Carousel end cards (QR codes) are left out."],
     related: ["client-reporting-dashboards"],
     featured: true,
     order: 3,
@@ -253,6 +262,7 @@ export const projects = validate("content/data/projects.ts", projectsSchema, [
         title: "Not just parking. A full RV getaway.",
         description: "Vertical promo: the Eagle River, aerial views and RV sites with captions such as 'Wake up to the calm of the Eagle River.', then an offer card with nightly and weekly rates and the Riverdance RV Resort logo.",
         durationSec: 20.8,
+        audio: true,
       },
       {
         src: "/media/video/riverdance-rv-resort/place-to-park.mp4",
@@ -262,9 +272,9 @@ export const projects = validate("content/data/projects.ts", projectsSchema, [
         title: "A place to park your RV",
         description: "Vertical drone video of Riverdance RV Resort in Gypsum, Colorado: canyon, river, RV rows and cabins, with hand-lettered captions ('Looking for a place to park your RV?', 'Your home base in Gypsum Colorado'), a Book Now! button and the resort logo.",
         durationSec: 48.7,
+        audio: true,
       },
     ],
-    disclosures: ["Videos play without their soundtrack."],
     related: ["client-reporting-dashboards"],
     featured: true,
     order: 4,
@@ -278,7 +288,7 @@ export const projects = validate("content/data/projects.ts", projectsSchema, [
     summary:
       "A website and a digital operations portal for a spa with two branches: online booking, digital waivers, memberships, in-room ordering and a staff back office.",
     role: "Web development",
-    stack: ["Next.js", fillIn("the rest of the stack (database, hosting, auth)")],
+    stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Supabase", "React Hook Form", "Zod", "Resend", fillIn("where it's hosted")],
     liveUrl: fillIn("live website URL"),
     client: { name: "Sabbath Spa & Wellness Hub" },
     cover: {
@@ -339,6 +349,12 @@ export const projects = validate("content/data/projects.ts", projectsSchema, [
       { src: "/media/img/super-cashflow-developments/your-retirement-needs-more-than-a-balance.jpg", width: 1080, height: 1350, alt: "Ad with the orange headline 'YOUR RETIREMENT NEEDS MORE THAN A BALANCE' on a dark background, about investing super in an income-producing rooming house, with a View Available Listing button.", group: "SMSF deadline static ads" },
       { src: "/media/img/super-cashflow-developments/not-converted-purpose-built.jpg", width: 1080, height: 1350, alt: "Ad with the headline 'NOT CONVERTED. PURPOSE-BUILT.' over a furnished bedroom, with the line 'Designed from the ground up for Rooming House living.' and a Book a call now! button.", group: "Listing static ads" },
       { src: "/media/img/super-cashflow-developments/nine-room-rooming-house-for-sale.jpg", width: 1080, height: 1350, alt: "Ad with the headline '9-ROOM ROOMING HOUSE FOR SALE' over a new house and driveway, 'Purpose-built specialist accommodation in Shepparton', with a Book a call now! button.", group: "Listing static ads" },
+      { src: "/media/img/super-cashflow-developments/shepparton-nine-room-investment-01.jpg", width: 1080, height: 1350, alt: "Listing carousel slide 1 of 3: '75 GRUTZNER AVENUE, SHEPPARTON' above the orange headline 'A 9-ROOM INVESTMENT BUILT FOR CASH FLOW' and the line 'Purpose-built Rooming House in Shepparton.', over a dimmed photo of a concrete driveway and fence, with the Super Cashflow Developments logo.", group: "Shepparton listing carousel" },
+      { src: "/media/img/super-cashflow-developments/shepparton-nine-room-investment-02.jpg", width: 1080, height: 1350, alt: "Listing carousel slide 2 of 3: '9 PRIVATE ROOMS. 9 ENSUITES.' over a dimmed photo of the house front and garage, with a panel reading 'Each room includes private ensuite, kitchenette, robe, and split system. Built for tenant comfort and privacy.'", group: "Shepparton listing carousel" },
+      { src: "/media/img/super-cashflow-developments/shepparton-nine-room-investment-03.jpg", width: 1080, height: 1350, alt: "Listing carousel slide 3 of 3: '9 PRIVATE ROOMS. 9 ENSUITES.' and 'A modern Rooming House asset in a major regional hub.' over the garage and side fence, with a Book a call now! button.", group: "Shepparton listing carousel" },
+      { src: "/media/img/super-cashflow-developments/warragul-nine-room-investment-01.jpg", width: 1080, height: 1350, alt: "Listing carousel slide 1 of 3: the address '3 NORTH ROAD, WARRAGUL' begins in large white type (it continues on slide 2) above a brick house, with the orange headline 'A 9-ROOM INVESTMENT BUILT FOR CASH FLOW' and 'Licensed rooming house in Warragul with income from day one.'", group: "Warragul listing carousel" },
+      { src: "/media/img/super-cashflow-developments/warragul-nine-room-investment-02.jpg", width: 1080, height: 1350, alt: "Listing carousel slide 2 of 3: the address ends with 'WARRAGUL' in large white type, above 'Approx. $126,360 gross annual return.' and '9 lettable rooms at $270/week each, based on full occupancy.' over the garden and garage.", group: "Warragul listing carousel" },
+      { src: "/media/img/super-cashflow-developments/warragul-nine-room-investment-03.jpg", width: 1080, height: 1350, alt: "Listing carousel slide 3 of 3: a bright bedroom with a desk and a kitchen with a dining table, with 'Compliant. Central. High-demand.', 'Near shops, transport, and employers a ready-made rooming house asset.' and a Book a call now! button.", group: "Warragul listing carousel" },
     ],
     videos: [
       {
@@ -349,6 +365,7 @@ export const projects = validate("content/data/projects.ts", projectsSchema, [
         title: "Custom Is Chaos, Stratos Is Control",
         description: "Vertical talking-head video: a presenter in a rounded frame with orange-highlighted captions contrasts custom builds with the standardised 9-studio Stratos rooming house system, cut with stock b-roll of plans, builders and paperwork, a 'Custom Is Chaos / The Stratos Is Control' title card and the Super Cashflow Developments logo.",
         durationSec: 85.1,
+        audio: true,
       },
       {
         src: "/media/video/super-cashflow-developments/stop-treating-rooming-houses-like-normal-houses.mp4",
@@ -358,6 +375,7 @@ export const projects = validate("content/data/projects.ts", projectsSchema, [
         title: "Stop treating rooming houses like normal houses",
         description: "Vertical talking-head video: opens on 'this is why most rooming house projects fall apart', then covers Class 1B requirements (access, fire separation, ventilation, soundproofing) with stock b-roll and listing photos ('6 bedrooms, multiple bathrooms, professionally managed'). Ends on the Super Cashflow Developments logo.",
         durationSec: 91.0,
+        audio: true,
       },
       {
         src: "/media/video/super-cashflow-developments/the-income-is-obvious-the-process-is-the-problem.mp4",
@@ -367,9 +385,9 @@ export const projects = validate("content/data/projects.ts", projectsSchema, [
         title: "The income is obvious, the process is the problem",
         description: "Vertical talking-head video: the presenter argues that rooming-house income is easy to see but the process (council permits, builders, compliance) is where projects stall, and introduces the Stratos system, with stock b-roll. Ends on the Super Cashflow Developments logo.",
         durationSec: 112.9,
+        audio: true,
       },
     ],
-    disclosures: ["Listing ads that show a street address are left out. Videos play without their soundtrack."],
     order: 6,
     status: "shipped",
   },
@@ -381,7 +399,7 @@ export const projects = validate("content/data/projects.ts", projectsSchema, [
     summary:
       "The website for Rooming House Expert, a father-and-son team that converts existing homes into compliant, high-yield rooming houses in Victoria, handling the plans, permits and compliance.",
     role: "Web development",
-    stack: [fillIn("stack used for the website")],
+    stack: ["React", "React Router", "Vite"],
     liveUrl: "https://www.roominghouse.expert/",
     client: { name: "Rooming House Expert", url: "https://www.roominghouse.expert/" },
     cover: {
@@ -441,14 +459,14 @@ export const projects = validate("content/data/projects.ts", projectsSchema, [
   {
     slug: "latte-with-lata",
     title: "Latte with Lata",
-    eyebrow: "Website",
+    eyebrow: "Website · team build",
     discipline: "web-systems",
     summary:
       "A website for Latte with Lata, 'a cafe with a microphone': conversations with mission-driven leaders, recorded at a corner table and published as episodes, alongside the café's story and menu.",
-    role: fillIn("your role, and whether this is a live client site or a concept (its contact details are placeholders)"),
-    stack: [fillIn("stack used for the website")],
+    role: "Web development (team build)",
+    stack: ["HTML, CSS, JavaScript", "GSAP", "Splide", "GitHub Pages"],
     liveUrl: "https://addbp.github.io/latewlatta01/",
-    client: { name: "Latte with Lata" },
+    liveLabel: "View the site",
     cover: {
       src: "/media/poster/latte-with-lata/website.jpg",
       width: 1280,
@@ -466,7 +484,7 @@ export const projects = validate("content/data/projects.ts", projectsSchema, [
         durationSec: 31.1,
       },
     ],
-    disclosures: ["The address in the footer is blurred in the recording."],
+    disclosures: ["Its contact details are placeholders, so this isn't a client's live site. The address in the footer is blurred in the recording."],
     order: 9,
     status: "shipped",
   },

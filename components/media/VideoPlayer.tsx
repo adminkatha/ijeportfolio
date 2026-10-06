@@ -13,6 +13,8 @@ export type PlayerVideo = {
   description?: string;
   durationSec?: number;
   captions?: string;
+  /** Has a soundtrack: plays with sound (the click is the user gesture). Silent recordings play muted. */
+  audio?: boolean;
 };
 
 type VideoPlayerProps = {
@@ -29,7 +31,8 @@ const clock = (s: number) => `${Math.floor(s / 60)}:${String(Math.round(s % 60))
 /**
  * Poster-first video. Until it is played there is no <video> element at all, only a button showing the
  * sized poster, so no video bytes load. Pressing it creates the <video> (preload="none", src set then,
- * controls, playsInline, muted), starts it inside the same gesture and moves focus to it; the poster stays
+ * controls, playsInline; muted only when it has no soundtrack), starts it inside the same gesture and moves
+ * focus to it; the poster stays
  * on top until the first frame plays. The box keeps the video's own aspect ratio (9:16 social clips or
  * wide screen recordings), so nothing shifts.
  */
@@ -60,7 +63,7 @@ export function VideoPlayer({ video, sizes, caption = true, className = "" }: Vi
             height={video.height}
             controls
             playsInline
-            muted
+            muted={!video.audio}
             preload="none"
             tabIndex={0}
             aria-label={video.title}

@@ -82,3 +82,27 @@ Source: the bo-teardown at `C:\Users\Nico\teardowns\2026-10-05-adhamdannaway-com
   - **Live links:** Latte with Lata's URL was in the recording's address bar; Rooming House Expert's (www.roominghouse.expert) is printed in its ad videos; both answer 200 with matching titles. HydRate and Sabbath show no URL → `[FILL IN]`. Honey Tribe's shop (shophoneytribe.com) is printed on its ads and is used as the client link. Latte with Lata's contact details are placeholders and its footer credits the agency, so whether it is a live client site or a concept is a `[FILL IN]`.
   - **Brand spellings:** "Honey Tribe" (the logo is a one-word wordmark, but the brand writes "Honey Tribe" in its ads), "MeloYelo", "Super Cashflow Developments" (not the folder's "Super Cahsflow"), "Rooming House Expert" (its Facebook page is "RoomingHouse.Expert"), "HydRate Medbar".
 - **2026-10-06: Featured four** (one per discipline): Client reporting dashboards (Web & Systems), Rooming House Expert campaign (Campaigns), Honey Tribe (Video, also Creative), Riverdance RV Resort (Creative, also Video). Super Cashflow Developments is Creative (also Video); Sabbath Spa and the three other websites are Web & Systems.
+
+### 2026-10-06: Ehjay's answers (applied after the hero merge, before the final checks)
+- **LinkedIn:** https://www.linkedin.com/in/ehjaylorenzocrtv/. It's in `profile.links`, so it appears in the footer, the identity column, the contact section, the command palette (Links), the Person JSON-LD `sameAs` and llms.txt.
+- **Web tools** (his answer): WordPress, GitHub, Vercel, VS Code, Supabase → one Capabilities item in the Web group. **Per project, only with evidence:**
+  - Sabbath portal: confirmed from its own `package.json` (`C:\Users\Client\Sabbath-System`, package `sabbath-spa-system`, read-only, with permission): Next.js 16, React 19, TypeScript, Tailwind CSS 4, Supabase (database and auth via `@supabase/ssr`), React Hook Form + Zod, Resend + Nodemailer. Hosting isn't in the file → `[FILL IN]`.
+  - Rooming House Expert site: the live bundle is React + React Router (Vite build, lucide icons), served by Apache. No `wp-content`.
+  - Latte with Lata: GitHub Pages (`Server: GitHub.com`), static HTML/CSS/JS with GSAP and Splide. No `wp-content`.
+  - HydRate Medbar: no live URL → `[FILL IN]`. No live site shows WordPress, so it appears only in the toolkit line.
+- **Latte with Lata:** built by Ehjay with the team. Role "Web development (team build)"; its contact details are placeholders, so it isn't presented as a client's live site: no client field, and the link reads **"View the site"** (new optional `liveLabel` field).
+- **Permissions:** the clients approved all of these files, including real results, and the music is licensed.
+  - Rooming House Expert campaign: key results from the report (1 Aug – 1 Sep 2026, AUD, as written in the workbook; nothing extrapolated) in the case study, plus `metric` and `result`.
+  - Social videos re-encoded with their original audio (AAC); website recordings stay silent; total still under the limit.
+  - Super Cashflow listing ads that show a property's street address (the client's public ads) are now included.
+  - Disclosures that no longer apply ("no campaign figures", "play without their soundtrack", "listing ads … left out") removed.
+  - **Still not allowed** (clients can't approve it for their customers): customers' or leads' names, emails, phones, home addresses, health details, signatures, appointment details. Every blur and cut for these stays; the Sabbath CRM demo video stays out.
+  - **Dashboards** stay on the same sample data, no rebuild. Their accessibility fixes were applied in place (attributes and CSS only; the visible data is unchanged).
+
+### 2026-10-06: notes from the parallel build
+- **Hero:** the CODE side's outline glyphs use a page-coloured fill with a 2px stroke painted underneath (a transparent fill showed the variable font's overlapping contours inside E, H and A). The command palette does its own filtering and ranking (cmdk's fuzzy match let "toggle" select a project) and is a native modal `<dialog>`.
+- **In-page jumps** (palette, anchors under Lenis) land at the root's `scroll-padding-top` (header + 1.25rem = 84px), like native anchors. `--header-h` is in rem, so reading it with `parseFloat` gave 4px; fixed. Lenis honours scroll-padding itself.
+- **Fonts:** only Bricolage Grotesque (the LCP `<h1>`) is preloaded; Geist and JetBrains Mono swap in from size-adjusted fallbacks (about 110 KB off the critical path).
+- **Analytics:** on Vercel, clicks on `[data-event]` elements (the hero CTA) are sent as custom events (`components/layout/TrackEvents.tsx`), so the CTA really is the tracked link the CODE side shows.
+- **Contact form:** the spam timer's signed start time is issued when a visitor first focuses the form (the page is static, so a timestamp in the HTML would be the build time); without JavaScript the first Send gets one. The form-or-fallback choice is made at build time, so changing the env vars needs a rebuild/redeploy. OG images are prerendered per route; JSON-LD escaping fixed; OG fonts are static TTF cuts (OFL).
+- **Demos in iframes:** `/demos/*` sends `Access-Control-Allow-Origin: *` because the sandboxed iframe has an opaque origin and its self-hosted fonts are cross-origin requests. Phones get the preview image and "Open full screen" instead of an iframe.

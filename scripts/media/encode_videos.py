@@ -6,9 +6,11 @@ Usage (from the repo root):
   python scripts/media/encode_videos.py --only web      # or: social | posters | verify
   python scripts/media/encode_videos.py --keys janet,park --only social
 
-Social (9:16): 720x1280 lanczos, 30 fps, H.264 High, yuv420p, preset slow, two-pass, muted, faststart.
-  The bitrate budget left after the website recordings is shared out by duration, weighted by a
-  CRF-26 complexity probe (--alpha 1; use --alpha 0 for duration only), with a per-file floor.
+Social (9:16): 720x1280 lanczos, 30 fps, H.264 High, yuv420p, preset slow, two-pass, faststart, with the
+  original soundtrack re-encoded to AAC-LC stereo (config.SOCIAL_AUDIO; the owner confirmed on 2026-10-06
+  that the music is licensed). The bitrate budget left after the website recordings and the audio is
+  shared out by duration, weighted by a CRF-26 complexity probe (--alpha 1; use --alpha 0 for duration
+  only), with a per-file floor.
 Web recordings: 1280 wide, 30 fps, CRF, audio stripped. Decoded frames pass through Python so that
   blur boxes can follow the scrolling page (offsets are measured frame to frame), and cut ranges are
   dropped. Posters: one JPEG (quality 80) per video at the output resolution, from config.poster_t.
@@ -30,7 +32,7 @@ from PIL import Image, ImageChops, ImageStat
 
 from common import (FFMPEG, MAX_VIDEO_FILE_BYTES, MAX_VIDEO_TOTAL_BYTES, POSTER_DIR, SRC, TMP, VIDEO_DIR,
                     grab_frame, obscure, rel, run, save_jpeg, video_info)
-from config import VIDEOS
+from config import SOCIAL_AUDIO, VIDEOS
 
 FPS = 30
 SOCIAL_W, SOCIAL_H = 720, 1280
@@ -214,11 +216,20 @@ def probe_complexity(v: dict) -> float:
     return mbps
 
 
+def audio_kbps() -> int:
+    return SOCIAL_AUDIO["kbps"] if SOCIAL_AUDIO else 0
+
+
+def audio_budget_bytes(jobs: list[dict]) -> int:
+    """Expected audio bytes (3% margin for the encoder's average-bitrate drift and container overhead)."""
+    return int(sum(audio_kbps() * 1.03 * video_info(SRC / v["src"])["duration"] * 1000 / 8 for v in jobs))
+
+
 def allocate(jobs: list[dict], budget_bytes: int, alpha: float, floor_kbps: int) -> dict[str, int]:
-    """Target kbps per job so that sum(kbps * duration) fits the budget."""
+    """Target video kbps per job so that sum(kbps * duration) fits the budget."""
     durs = {v["key"]: video_info(SRC / v["src"])["duration"] for v in jobs}
     weights = {v["key"]: (v["complexity"] ** alpha) for v in jobs}
-    caps = {k: 0.97 * MAX_VIDEO_FILE_BYTES * 8 / d / 1000 for k, d in durs.items()}
+    caps = {k: 0.97 * MAX_VIDEO_FILE_BYTES * 8 / d / 1000 - audio_kbps() for k, d in durs.items()}
     budget_kbit = budget_bytes * 8 / 1000
 
     def rates(K):
@@ -239,12 +250,17 @@ def encode_social(v: dict, kbps: int) -> None:
     out.parent.mkdir(parents=True, exist_ok=True)
     log = TMP / "passlogs" / v["key"]
     log.parent.mkdir(parents=True, exist_ok=True)
-    common = [FFMPEG, "-nostdin", "-v", "error", "-y", "-i", str(src), "-an", "-filter_complex", social_filter(v),
+    common = [FFMPEG, "-nostdin", "-v", "error", "-y", "-i", str(src), "-filter_complex", social_filter(v),
               "-map", "[v]", "-c:v", "libx264", "-preset", "slow", "-profile:v", "high", "-pix_fmt", "yuv420p",
               "-b:v", f"{kbps}k", "-g", "150", "-threads", "4", "-passlogfile", str(log)]
-    run(common + ["-pass", "1", "-f", "null", "-"])
-    run(common + ["-pass", "2", "-map_metadata", "-1", "-map_chapters", "-1", "-movflags", "+faststart", str(out)])
-    print(f"  social {v['key']}: {kbps} kbps -> {rel(out)} ({out.stat().st_size / 1e6:.2f} MB)")
+    # Source audio and video both start at 0 (checked with ffprobe), so the soundtrack is mapped as is.
+    sound = (["-map", "0:a:0", "-c:a", "aac", "-profile:a", "aac_low", "-b:a", f"{audio_kbps()}k", "-ac", "2"]
+             if SOCIAL_AUDIO else ["-an"])
+    run(common + ["-an", "-pass", "1", "-f", "null", "-"])
+    run(common + sound + ["-pass", "2", "-map_metadata", "-1", "-map_chapters", "-1",
+                          "-movflags", "+faststart", str(out)])
+    print(f"  social {v['key']}: video {kbps} kbps, audio {audio_kbps()} kbps -> {rel(out)} "
+          f"({out.stat().st_size / 1e6:.2f} MB)")
 
 
 # ------------------------------------------------------------------------------------------------
@@ -257,15 +273,20 @@ def make_posters(jobs: list[dict]) -> None:
 
 def verify(jobs: list[dict]) -> int:
     total, problems = 0, []
-    print(f"{'file':<84} {'res':>9} {'sec':>7} {'MB':>6} {'kbps':>6}")
+    print(f"{'file':<84} {'res':>9} {'sec':>7} {'MB':>6} {'kbps':>6} {'audio':>14}")
     for v in jobs:
         p = out_path(v)
         i = video_info(p)
         total += i["bytes"]
         kbps = i["bytes"] * 8 / i["duration"] / 1000
-        print(f"{rel(p):<84} {i['width']:>4}x{i['height']:<4} {i['duration']:7.2f} {i['bytes'] / 1e6:6.2f} {kbps:6.0f}")
-        if i["codec"] != "h264" or i["audio_streams"] or i["pix_fmt"] != "yuv420p":
-            problems.append(f"{p.name}: codec={i['codec']} audio={i['audio_streams']} pix={i['pix_fmt']}")
+        a = i["audio"]
+        audio = f"{a['codec']} {a['channels']}ch {a['kbps']}k" if a else "none"
+        print(f"{rel(p):<84} {i['width']:>4}x{i['height']:<4} {i['duration']:7.2f} {i['bytes'] / 1e6:6.2f} {kbps:6.0f} {audio:>14}")
+        want_audio = 1 if (v["kind"] == "social" and SOCIAL_AUDIO) else 0
+        if i["codec"] != "h264" or i["audio_streams"] != want_audio or i["pix_fmt"] != "yuv420p":
+            problems.append(f"{p.name}: codec={i['codec']} audio={i['audio_streams']} (want {want_audio}) pix={i['pix_fmt']}")
+        if a and (a["codec"] != "aac" or a["channels"] != 2 or abs(a["start"] - i["video_start"]) > 0.05):
+            problems.append(f"{p.name}: audio {a}")
         if i["bytes"] >= MAX_VIDEO_FILE_BYTES:
             problems.append(f"{p.name}: {i['bytes']} bytes is over the per-file limit")
         want = (SOCIAL_W, SOCIAL_H) if v["kind"] == "social" else (WEB_W, web_size(v)[2])
@@ -307,12 +328,15 @@ def main() -> int:
             if "complexity" not in v:
                 v["complexity"] = probe_complexity(v)
         web_bytes = sum(out_path(v).stat().st_size for v in VIDEOS if v["kind"] == "web")
-        budget = int(a.budget_mb * 1e6) - web_bytes - RESERVE_BYTES
+        sound_bytes = audio_budget_bytes(all_social)
+        budget = int(a.budget_mb * 1e6) - web_bytes - sound_bytes - RESERVE_BYTES
         rates = allocate(all_social, budget, a.alpha, a.floor_kbps)
         plan = {v["key"]: {"complexity_mbps": round(v["complexity"], 3), "kbps": rates[v["key"]]} for v in all_social}
         (TMP / "allocation.json").write_text(json.dumps({"alpha": a.alpha, "floor_kbps": a.floor_kbps,
-                                                         "social_budget_bytes": budget, "plan": plan}, indent=1))
-        print(f"social budget {budget / 1e6:.2f} MB (web {web_bytes / 1e6:.2f} MB, reserve {RESERVE_BYTES / 1e6:.1f} MB)")
+                                                         "audio_kbps": audio_kbps(),
+                                                         "social_video_budget_bytes": budget, "plan": plan}, indent=1))
+        print(f"social video budget {budget / 1e6:.2f} MB (total {a.budget_mb:.0f} MB - web {web_bytes / 1e6:.2f} MB "
+              f"- audio {sound_bytes / 1e6:.2f} MB - reserve {RESERVE_BYTES / 1e6:.1f} MB)")
         for k, p in plan.items():
             print(f"  {k:<16} complexity {p['complexity_mbps']:.2f} Mbit/s -> {p['kbps']} kbps")
         with ThreadPoolExecutor(a.parallel) as ex:

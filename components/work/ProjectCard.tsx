@@ -93,7 +93,7 @@ export function ProjectCard({ project: p, number, sizes, headingLevel: H = "h3" 
         </span>
         {live ? (
           <a href={live} className="link relative z-10 inline-flex min-h-11 items-center gap-1.5 md:min-h-0" target="_blank" rel="noopener noreferrer">
-            Live site <span aria-hidden="true">↗</span>
+            {p.liveLabel ?? "Live site"} <span aria-hidden="true">↗</span>
             <span className="sr-only"> (opens in a new tab)</span>
           </a>
         ) : null}

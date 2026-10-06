@@ -16,9 +16,13 @@ Sabbath Spa & Wellness Hub runs two branches, and the same back office also cove
 
 ## Architecture
 
-The portal is a Next.js app. Guests get booking, waivers, memberships and in-room ordering; staff sign in to a management back office.
+The portal is a Next.js app (React, TypeScript, Tailwind CSS). Guests get booking, waivers, memberships and in-room ordering; staff sign in to a management back office.
 
-<FillIn>database, hosting and authentication</FillIn>
+- **Data and sign-in:** Supabase (its database, with authentication through Supabase's server-side helpers for Next.js).
+- **Forms:** React Hook Form with Zod validation.
+- **Email:** Resend and Nodemailer.
+
+<FillIn>where it's hosted</FillIn>
 
 ## Implementation
 

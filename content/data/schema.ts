@@ -44,6 +44,8 @@ export const videoSchema = z.object({
   durationSec: z.number().positive().optional(),
   /** WebVTT captions, if he has them. */
   captions: publicPath.optional(),
+  /** Has a soundtrack (licensed or original music, or voice). Screen recordings are silent. */
+  audio: z.boolean().default(false),
 });
 
 /** A live, read-only dashboard demo served from /public/demos/<slug>/ (always sample data). */
@@ -119,6 +121,8 @@ export const projectSchema = z
     /** Real numbers only. */
     metric: z.object({ value: text, label: text }).optional(),
     liveUrl: z.union([httpUrl, fillInString]).optional(),
+    /** Link text for liveUrl when it isn't a client's live site (e.g. "View the site"). */
+    liveLabel: text.optional(),
     githubUrl: httpUrl.optional(),
     /** Named only with permission. */
     client: z.object({ name: text, url: httpUrl.optional() }).optional(),

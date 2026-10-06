@@ -52,10 +52,10 @@ function ProjectMeta({ project: p }: { project: Project }) {
         {p.status === "shipped" ? "Shipped" : "In progress"}
       </Meta>
       {p.liveUrl ? (
-        <Meta label="Live site">
+        <Meta label={p.liveLabel ? "Site" : "Live site"}>
           {live ? (
             <a href={live} target="_blank" rel="noopener noreferrer" className="link inline-flex items-center gap-1.5">
-              {new URL(live).hostname.replace(/^www\./, "")} <span aria-hidden="true">↗</span>
+              {p.liveLabel ?? new URL(live).hostname.replace(/^www\./, "")} <span aria-hidden="true">↗</span>
               <span className="sr-only"> (opens in a new tab)</span>
             </a>
           ) : (

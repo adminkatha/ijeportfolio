@@ -1,6 +1,6 @@
 import type { Viewport } from "next";
 import { Bricolage_Grotesque, JetBrains_Mono } from "next/font/google";
-import { GeistSans } from "geist/font/sans";
+import localFont from "next/font/local";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { SkipLink } from "@/components/layout/SkipLink";
@@ -13,6 +13,8 @@ import "./globals.css";
 
 // Self-hosted at build time by next/font (no requests to Google from the browser),
 // with size-adjusted fallbacks so the swap causes no layout shift. Licenses: public/fonts/LICENSES/.
+// Only the display face is preloaded: the hero <h1> (the LCP element) needs it first. Body and mono text
+// swap in from their adjusted fallbacks, which keeps ~110 KB of fonts off the critical path.
 const display = Bricolage_Grotesque({
   subsets: ["latin"],
   axes: ["opsz"],
@@ -24,6 +26,16 @@ const mono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-jetbrains-mono",
   display: "swap",
+  preload: false,
+});
+
+// Geist from the geist package's own file (same as `geist/font/sans`, but not preloaded).
+const sans = localFont({
+  src: "../node_modules/geist/dist/fonts/geist-sans/Geist-Variable.woff2",
+  variable: "--font-geist-sans",
+  weight: "100 900",
+  display: "swap",
+  preload: false,
 });
 
 export const metadata = rootMetadata;
@@ -43,7 +55,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     // suppressHydrationWarning: the head scripts set attributes on <html> before hydration
     // (MotionScript: the saved motion preference; WORK_FILTER_BOOT: the /work filter).
-    <html lang="en" className={`${display.variable} ${GeistSans.variable} ${mono.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${display.variable} ${sans.variable} ${mono.variable}`} suppressHydrationWarning>
       <head>
         <MotionScript />
         <script dangerouslySetInnerHTML={{ __html: WORK_FILTER_BOOT }} />

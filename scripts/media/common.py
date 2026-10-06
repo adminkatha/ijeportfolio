@@ -33,7 +33,7 @@ FFPROBE = os.environ.get("FFPROBE", "ffprobe")
 
 # Budgets (decimal megabytes: 1 MB = 1,000,000 bytes).
 MAX_VIDEO_FILE_BYTES = 14_500_000
-MAX_VIDEO_TOTAL_BYTES = 76_000_000
+MAX_VIDEO_TOTAL_BYTES = 78_000_000   # all 16 videos, audio included (2026-10-06)
 
 
 def run(cmd: list[str], **kw) -> subprocess.CompletedProcess:
@@ -62,6 +62,11 @@ def video_info(path: Path) -> dict:
         "duration": float(j["format"]["duration"]),
         "bytes": int(j["format"]["size"]),
         "audio_streams": sum(1 for s in j["streams"] if s["codec_type"] == "audio"),
+        "audio": next(({"codec": s["codec_name"], "profile": s.get("profile"), "channels": s.get("channels"),
+                        "sample_rate": s.get("sample_rate"), "kbps": round(int(s.get("bit_rate", 0)) / 1000),
+                        "start": float(s.get("start_time", 0)), "duration": float(s.get("duration", 0))}
+                       for s in j["streams"] if s["codec_type"] == "audio"), None),
+        "video_start": float(v.get("start_time", 0)),
         "tags": j["format"].get("tags", {}),
     }
 

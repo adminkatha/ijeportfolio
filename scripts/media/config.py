@@ -1,9 +1,12 @@
 """What the media pipeline does with each of his source files.
 
 Paths in `src` are relative to the ehjay-files folder (see common.py). Coordinates are source pixels,
-boxes are (left, top, right, bottom). Times are seconds. This file deliberately contains no street
-addresses, e-mail addresses, phone numbers, customer names or business figures: where a source file
-name itself contains a street address it is listed under a withheld display name and never processed.
+boxes are (left, top, right, bottom). Times are seconds.
+
+Permissions (owner, 2026-10-06): the clients approved all files; the music in the social videos is
+licensed; the street addresses printed in Super Cashflow Developments' own listing ads may be shown.
+Still never shown, and not in this file: customers' or leads' names, e-mails, phones, home addresses,
+health details, signatures and appointment details.
 """
 from __future__ import annotations
 
@@ -106,6 +109,24 @@ IMAGES = [
     dict(project="super-cashflow-developments", src=f"{PROPERTY}/9-Room Rooming House For Sale.jpg",
          out="nine-room-rooming-house-for-sale.jpg", group="Listing static ads",
          alt="Ad with the headline '9-ROOM ROOMING HOUSE FOR SALE' over a new house and driveway, 'Purpose-built specialist accommodation in Shepparton', with a Book a call now! button."),
+    dict(project="super-cashflow-developments", src=f"{PROPERTY}/1(2).jpg", out="shepparton-nine-room-investment-01.jpg",
+         group="Shepparton listing carousel",
+         alt="Listing carousel slide 1 of 3: '75 GRUTZNER AVENUE, SHEPPARTON' above the orange headline 'A 9-ROOM INVESTMENT BUILT FOR CASH FLOW' and the line 'Purpose-built Rooming House in Shepparton.', over a dimmed photo of a concrete driveway and fence, with the Super Cashflow Developments logo."),
+    dict(project="super-cashflow-developments", src=f"{PROPERTY}/2(3).jpg", out="shepparton-nine-room-investment-02.jpg",
+         group="Shepparton listing carousel",
+         alt="Listing carousel slide 2 of 3: '9 PRIVATE ROOMS. 9 ENSUITES.' over a dimmed photo of the house front and garage, with a panel reading 'Each room includes private ensuite, kitchenette, robe, and split system. Built for tenant comfort and privacy.'"),
+    dict(project="super-cashflow-developments", src=f"{PROPERTY}/3(3).jpg", out="shepparton-nine-room-investment-03.jpg",
+         group="Shepparton listing carousel",
+         alt="Listing carousel slide 3 of 3: '9 PRIVATE ROOMS. 9 ENSUITES.' and 'A modern Rooming House asset in a major regional hub.' over the garage and side fence, with a Book a call now! button."),
+    dict(project="super-cashflow-developments", src=f"{PROPERTY}/1(3).jpg", out="warragul-nine-room-investment-01.jpg",
+         group="Warragul listing carousel",
+         alt="Listing carousel slide 1 of 3: the address '3 NORTH ROAD, WARRAGUL' begins in large white type (it continues on slide 2) above a brick house, with the orange headline 'A 9-ROOM INVESTMENT BUILT FOR CASH FLOW' and 'Licensed rooming house in Warragul with income from day one.'"),
+    dict(project="super-cashflow-developments", src=f"{PROPERTY}/2(2).jpg", out="warragul-nine-room-investment-02.jpg",
+         group="Warragul listing carousel",
+         alt="Listing carousel slide 2 of 3: the address ends with 'WARRAGUL' in large white type, above 'Approx. $126,360 gross annual return.' and '9 lettable rooms at $270/week each, based on full occupancy.' over the garden and garage."),
+    dict(project="super-cashflow-developments", src=f"{PROPERTY}/3(2).jpg", out="warragul-nine-room-investment-03.jpg",
+         group="Warragul listing carousel",
+         alt="Listing carousel slide 3 of 3: a bright bedroom with a desk and a kitchen with a dining table, with 'Compliant. Central. High-demand.', 'Near shops, transport, and employers a ready-made rooming house asset.' and a Book a call now! button."),
 
     # ---- Riverdance RV Resort (services/) ----
     dict(project="riverdance-rv-resort", src=f"{SERVICES}/Angle 1.jpg", out="angle-1-live-where-others-vacation.jpg",
@@ -170,12 +191,16 @@ IMAGES = [
 ]
 
 # --------------------------------------------------------------------------------------------
-# Videos. Social: 720x1280, two-pass H.264, muted. Web: 1280 wide, CRF, audio stripped.
+# Videos. Social: 720x1280, two-pass H.264 with the original soundtrack. Web: 1280 wide, CRF, silent.
 # blur: static boxes (source px) during a window. tracked: boxes that follow a scrolling page,
 # given in content coordinates (after `crop`) at time ref_t. cuts: source time ranges removed.
 # poster_t is in the output timeline.
 # --------------------------------------------------------------------------------------------
 GUIDE_EMAIL_BOX = (560, 1235, 800, 1360)   # e-mail in the footer of the free-guide mock-up
+
+# Soundtrack of the social videos: AAC-LC stereo. The owner confirmed on 2026-10-06 that the music is
+# licensed. Set to None to publish them muted. Website recordings are always silent.
+SOCIAL_AUDIO = {"codec": "aac", "kbps": 96}
 
 VIDEOS = [
     # ---- Honey Tribe ----
@@ -299,14 +324,8 @@ EXCLUDED = [
     dict(source="clothing/Obi-Mask-Bangle_03.jpg", reason=QR),
     dict(source="clothing/Proversb-SweatPants_03.jpg", reason=QR),
     # Super Cashflow Developments
-    dict(source=f"{PROPERTY}/1(2).jpg", reason="Shows a street address (Shepparton listing)."),
-    dict(source=f"{PROPERTY}/2(3).jpg", reason="Slide 2 of the Shepparton carousel, whose opening slide shows a street address; left out with its set (same layout family as the Moe carousel, kept)."),
-    dict(source=f"{PROPERTY}/3(3).jpg", reason="Slide 3 of the Shepparton carousel, whose opening slide shows a street address; left out with its set."),
-    dict(source=f"{PROPERTY}/1(3).jpg", reason="Shows a street address (Warragul listing; the address runs across slides 1 and 2)."),
-    dict(source=f"{PROPERTY}/2(2).jpg", reason="Shows the end of a street address (Warragul listing)."),
-    dict(source=f"{PROPERTY}/3(2).jpg", reason="Slide 3 of the Warragul carousel, whose first two slides show a street address; left out with its set."),
-    dict(source=f"{PROPERTY}/[file name withheld: a street address] Shepparton.jpg",
-         reason="Preview strip (3240x1350) of the Shepparton carousel: duplicate, and it shows a street address (so does its file name, withheld here)."),
+    dict(source=f"{PROPERTY}/75 Grutzner Ave Shepparton.jpg",
+         reason="Preview strip (3240x1350) of the three Shepparton slides, which are exported individually: duplicate."),
     dict(source=f"{PROPERTY}/2(1).jpg", reason="Slide 2 of the Sunbury carousel: same template as the Moe carousel (kept in full); the Sunbury opening slide is kept."),
     dict(source=f"{PROPERTY}/3(1).jpg", reason="Slide 3 of the Sunbury carousel: same template as the Moe carousel (kept in full)."),
     dict(source=f"{PROPERTY}/Guesswork Delays, Stratos Controls.jpg", reason="Near-duplicate of 'One System, Faster Decisions' (same aerial photo and layout)."),
@@ -321,7 +340,7 @@ EXCLUDED = [
          reason="Customer names, phone numbers, declared health conditions, signatures, visit histories, amounts and revenue totals appear in scrolling tables and pop-ups for most of its 137 seconds, so it cannot be cleaned reliably. Its title card says 'sample data', but that cannot be verified."),
     # Campaign report
     dict(source="campaigns/URHCG_Campaign_Dashboard_Aug1-Sep1_2026.xlsx",
-         reason="Campaign report full of client business figures (spend, leads and the like); no written permission (no notes.txt). Not opened for publication and no figure from it is used."),
+         reason="Campaign report spreadsheet, not a visual asset. The media pipeline does not publish it or quote any figure from it; using its figures in case studies is a content decision."),
     # Portrait
     dict(source="photo/ehjay.jpeg", reason="A different, smaller photo (420x525); the approved 768x1024 portrait is used instead."),
 ]
@@ -340,15 +359,19 @@ FACTS = {
         "sabbath-spa": "'Sabbath Spa & Wellness Hub' (logo 'SABBATH - SPA & WELLNESS HUB'); in-house cafe brand 'Sabasu'.",
     },
     "liveUrls": {
-        "latte-with-lata": {"url": "addbp.github.io/latewlatta01/", "seenIn": "browser address bar in the website recording (cropped out of the published video)", "verified": False},
-        "honey-tribe": {"url": "www.shophoneytribe.com", "seenIn": "video end cards and the Denim Palazzo posters", "verified": False},
-        "rooming-house-expert": {"url": "www.roominghouse.expert", "seenIn": "footer of the free-guide mock-up in the Angle 1-3 videos; page name in the ad preview", "verified": False},
+        "latte-with-lata": {"url": "addbp.github.io/latewlatta01/", "seenIn": "browser address bar in the website recording (cropped out of the published video)",
+                            "verified": True, "verifiedOn": "2026-10-06", "httpStatus": 200},
+        "honey-tribe": {"url": "www.shophoneytribe.com", "seenIn": "video end cards and the Denim Palazzo posters",
+                        "verified": True, "verifiedOn": "2026-10-06", "httpStatus": 200, "checkedUrl": "shophoneytribe.com"},
+        "rooming-house-expert": {"url": "www.roominghouse.expert", "seenIn": "footer of the free-guide mock-up in the Angle 1-3 videos; page name in the ad preview",
+                                 "verified": True, "verifiedOn": "2026-10-06", "httpStatus": 200},
     },
     "notes": [
         "No live URL is visible in the HydRate Medbar, Sabbath Spa and Rooming House Expert recordings (they show only the page, without the browser's address bar).",
         "Exact duplicates (md5): three Honey Tribe videos exist in both clothing/ and the Riverdance & HoneyTribe video folder; 'Not just parking. A full RV getaway.' (a Riverdance video) also sits in the Super Cashflow video folder. Each is encoded once.",
-        "Angle 1-3 were in the Super Cashflow video folder but are Rooming House Expert ads (Rooming House Expert logo end card; they promote a free downloadable guide, as does the ad in the Ads Manager screenshot), so they are filed under rooming-house-expert-campaign. Whether they ran in that campaign is not recorded.",
-        "All social videos are muted: no note confirms that the music is licensed or original.",
+        "Angle 1-3 were in the Super Cashflow video folder but are Rooming House Expert ads (Rooming House Expert logo end card; they promote a free downloadable guide, as does the ad in the Ads Manager screenshot). They stay under rooming-house-expert-campaign (decided 2026-10-06); whether they ran in the campaign shown in the screenshot is not recorded.",
+        "Social videos keep their original soundtrack (AAC-LC stereo, 96 kbps): the owner confirmed on 2026-10-06 that the music is licensed. Website recordings stay silent.",
+        "Street addresses printed in Super Cashflow Developments' own listing ads are allowed (owner, 2026-10-06), so the Shepparton and Warragul carousels are included. Customers' and leads' personal data stays removed: every blur and cut in VIDEOS is unchanged, and the Sabbath CRM demo stays out.",
         "The Latte with Lata footer carries a 'SITE BY ...' credit naming a web studio: confirm who built it before presenting it as his build.",
         "The Latte with Lata contact details look like placeholders (a 555-prefix phone number and an e-mail on the reserved .example domain), which suggests a demo or spec site; they are blurred anyway. Confirm before labelling it client work.",
         "The Honey Tribe sweatpants images are named 'Proversb-SweatPants' in the source (typo); output names use 'proverbs'.",

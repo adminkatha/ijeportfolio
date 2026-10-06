@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-05T21:40:44+00:00",
+  "generatedAt": "2026-10-06T03:53:46+00:00",
   "images": [
     {
       "project": "honey-tribe",
@@ -243,6 +243,66 @@
       "source": "property/Super Cashflow Development-1-001/9-Room Rooming House For Sale.jpg"
     },
     {
+      "project": "super-cashflow-developments",
+      "src": "/media/img/super-cashflow-developments/shepparton-nine-room-investment-01.jpg",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 156206,
+      "alt": "Listing carousel slide 1 of 3: '75 GRUTZNER AVENUE, SHEPPARTON' above the orange headline 'A 9-ROOM INVESTMENT BUILT FOR CASH FLOW' and the line 'Purpose-built Rooming House in Shepparton.', over a dimmed photo of a concrete driveway and fence, with the Super Cashflow Developments logo.",
+      "group": "Shepparton listing carousel",
+      "source": "property/Super Cashflow Development-1-001/1(2).jpg"
+    },
+    {
+      "project": "super-cashflow-developments",
+      "src": "/media/img/super-cashflow-developments/shepparton-nine-room-investment-02.jpg",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 119534,
+      "alt": "Listing carousel slide 2 of 3: '9 PRIVATE ROOMS. 9 ENSUITES.' over a dimmed photo of the house front and garage, with a panel reading 'Each room includes private ensuite, kitchenette, robe, and split system. Built for tenant comfort and privacy.'",
+      "group": "Shepparton listing carousel",
+      "source": "property/Super Cashflow Development-1-001/2(3).jpg"
+    },
+    {
+      "project": "super-cashflow-developments",
+      "src": "/media/img/super-cashflow-developments/shepparton-nine-room-investment-03.jpg",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 152518,
+      "alt": "Listing carousel slide 3 of 3: '9 PRIVATE ROOMS. 9 ENSUITES.' and 'A modern Rooming House asset in a major regional hub.' over the garage and side fence, with a Book a call now! button.",
+      "group": "Shepparton listing carousel",
+      "source": "property/Super Cashflow Development-1-001/3(3).jpg"
+    },
+    {
+      "project": "super-cashflow-developments",
+      "src": "/media/img/super-cashflow-developments/warragul-nine-room-investment-01.jpg",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 252450,
+      "alt": "Listing carousel slide 1 of 3: the address '3 NORTH ROAD, WARRAGUL' begins in large white type (it continues on slide 2) above a brick house, with the orange headline 'A 9-ROOM INVESTMENT BUILT FOR CASH FLOW' and 'Licensed rooming house in Warragul with income from day one.'",
+      "group": "Warragul listing carousel",
+      "source": "property/Super Cashflow Development-1-001/1(3).jpg"
+    },
+    {
+      "project": "super-cashflow-developments",
+      "src": "/media/img/super-cashflow-developments/warragul-nine-room-investment-02.jpg",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 234725,
+      "alt": "Listing carousel slide 2 of 3: the address ends with 'WARRAGUL' in large white type, above 'Approx. $126,360 gross annual return.' and '9 lettable rooms at $270/week each, based on full occupancy.' over the garden and garage.",
+      "group": "Warragul listing carousel",
+      "source": "property/Super Cashflow Development-1-001/2(2).jpg"
+    },
+    {
+      "project": "super-cashflow-developments",
+      "src": "/media/img/super-cashflow-developments/warragul-nine-room-investment-03.jpg",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 131112,
+      "alt": "Listing carousel slide 3 of 3: a bright bedroom with a desk and a kitchen with a dining table, with 'Compliant. Central. High-demand.', 'Near shops, transport, and employers a ready-made rooming house asset.' and a Book a call now! button.",
+      "group": "Warragul listing carousel",
+      "source": "property/Super Cashflow Development-1-001/3(2).jpg"
+    },
+    {
       "project": "riverdance-rv-resort",
       "src": "/media/img/riverdance-rv-resort/angle-1-live-where-others-vacation.jpg",
       "width": 1080,
@@ -423,9 +483,9 @@
       "width": 720,
       "height": 1280,
       "aspectRatio": "9:16",
-      "durationSec": 44.33,
-      "bytes": 4203087,
-      "audio": false,
+      "durationSec": 44.35,
+      "bytes": 4063548,
+      "audio": true,
       "title": "Janet Jumper",
       "description": "Vertical product video: a model in Honey Tribe's army-green Janet Jumper (a wide-leg jumpsuit with striped tie suspenders) in an arched, plant-filled set, with captions on the relaxed fit, adjustable suspenders, pockets and convertible ankles. Ends on a Honey Tribe 'Shop Now' card with shophoneytribe.com.",
       "posterTimeSec": 36.0,
@@ -438,9 +498,9 @@
       "width": 720,
       "height": 1280,
       "aspectRatio": "9:16",
-      "durationSec": 51.07,
-      "bytes": 7637194,
-      "audio": false,
+      "durationSec": 51.08,
+      "bytes": 6998578,
+      "audio": true,
       "title": "Milo Tassel Kimono",
       "description": "Vertical product video: a model styles the pink colour-block Milo Tassel Kimono with cream tassels, with bold word-by-word captions about layering it over different outfits. Ends on a Honey Tribe end card.",
       "posterTimeSec": 39.0,
@@ -453,9 +513,9 @@
       "width": 720,
       "height": 1280,
       "aspectRatio": "9:16",
-      "durationSec": 57.87,
-      "bytes": 9173992,
-      "audio": false,
+      "durationSec": 57.89,
+      "bytes": 8350470,
+      "audio": true,
       "title": "Knox Tassel Kimono",
       "description": "Vertical product video: the green, yellow and tan Knox Tassel Kimono worn in a sunlit room, with serif captions such as 'easy to layer and designed to move with you'. Ends on a Honey Tribe end card.",
       "posterTimeSec": 36.0,
@@ -468,9 +528,9 @@
       "width": 720,
       "height": 1280,
       "aspectRatio": "9:16",
-      "durationSec": 42.97,
-      "bytes": 5939933,
-      "audio": false,
+      "durationSec": 42.98,
+      "bytes": 5470692,
+      "audio": true,
       "title": "Proverbs 3:5 Scripture Sweatpants",
       "description": "Vertical product video: yellow wide-leg sweatpants whose side zip opens to a Proverbs 3:5 scripture print, with captions on the stretch waist, pockets, zippers and inseam. Ends on a Honey Tribe end card.",
       "posterTimeSec": 3.0,
@@ -483,9 +543,9 @@
       "width": 720,
       "height": 1280,
       "aspectRatio": "9:16",
-      "durationSec": 20.8,
-      "bytes": 2485040,
-      "audio": false,
+      "durationSec": 20.81,
+      "bytes": 2336484,
+      "audio": true,
       "title": "Not just parking. A full RV getaway.",
       "description": "Vertical promo: the Eagle River, aerial views and RV sites with captions such as 'Wake up to the calm of the Eagle River.', then an offer card with nightly and weekly rates and the Riverdance RV Resort logo.",
       "posterTimeSec": 6.0,
@@ -499,8 +559,8 @@
       "height": 1280,
       "aspectRatio": "9:16",
       "durationSec": 48.67,
-      "bytes": 9557106,
-      "audio": false,
+      "bytes": 8552484,
+      "audio": true,
       "title": "A place to park your RV",
       "description": "Vertical drone video of Riverdance RV Resort in Gypsum, Colorado: canyon, river, RV rows and cabins, with hand-lettered captions ('Looking for a place to park your RV?', 'Your home base in Gypsum Colorado'), a Book Now! button and the resort logo.",
       "posterTimeSec": 22.0,
@@ -513,9 +573,9 @@
       "width": 720,
       "height": 1280,
       "aspectRatio": "9:16",
-      "durationSec": 58.83,
-      "bytes": 3699219,
-      "audio": false,
+      "durationSec": 58.84,
+      "bytes": 4464434,
+      "audio": true,
       "title": "Angle 1: the weekly rent figure",
       "description": "Vertical talking-head ad for Rooming House Expert: a presenter explains that a big weekly rent figure isn't the number that matters, with captions, a floor-plan animation and a mock-up of the free 'Ultimate Rooming House Conversion Guide'. Ends on the Rooming House Expert logo. The e-mail address on the guide mock-up is blurred.",
       "posterTimeSec": 3.0,
@@ -528,9 +588,9 @@
       "width": 720,
       "height": 1280,
       "aspectRatio": "9:16",
-      "durationSec": 53.23,
-      "bytes": 3369400,
-      "audio": false,
+      "durationSec": 53.24,
+      "bytes": 4058868,
+      "audio": true,
       "title": "Angle 2: more rent isn't a better investment",
       "description": "Vertical talking-head ad for Rooming House Expert: 'more rent does not automatically mean better investment', with captions, b-roll (paperwork, a route map, a calculator), the free guide mock-up and the Rooming House Expert logo. The e-mail address on the guide mock-up is blurred.",
       "posterTimeSec": 3.0,
@@ -543,9 +603,9 @@
       "width": 720,
       "height": 1280,
       "aspectRatio": "9:16",
-      "durationSec": 52.4,
-      "bytes": 3405849,
-      "audio": false,
+      "durationSec": 52.41,
+      "bytes": 3999326,
+      "audio": true,
       "title": "Angle 3: what is actually left",
       "description": "Vertical talking-head ad for Rooming House Expert: what is left after costs decides whether a rooming house strategy works, with animated icons (layout, demand, management, vacancy, compliance, expenses), the free guide mock-up and the Rooming House Expert logo. The e-mail address on the guide mock-up is blurred.",
       "posterTimeSec": 3.0,
@@ -559,8 +619,8 @@
       "height": 1280,
       "aspectRatio": "9:16",
       "durationSec": 85.1,
-      "bytes": 5312346,
-      "audio": false,
+      "bytes": 6418606,
+      "audio": true,
       "title": "Custom Is Chaos, Stratos Is Control",
       "description": "Vertical talking-head video: a presenter in a rounded frame with orange-highlighted captions contrasts custom builds with the standardised 9-studio Stratos rooming house system, cut with stock b-roll of plans, builders and paperwork, a 'Custom Is Chaos / The Stratos Is Control' title card and the Super Cashflow Developments logo.",
       "posterTimeSec": 74.0,
@@ -573,9 +633,9 @@
       "width": 720,
       "height": 1280,
       "aspectRatio": "9:16",
-      "durationSec": 90.97,
-      "bytes": 5663212,
-      "audio": false,
+      "durationSec": 90.98,
+      "bytes": 6836423,
+      "audio": true,
       "title": "Stop treating rooming houses like normal houses",
       "description": "Vertical talking-head video: opens on 'this is why most rooming house projects fall apart', then covers Class 1B requirements (access, fire separation, ventilation, soundproofing) with stock b-roll and listing photos ('6 bedrooms, multiple bathrooms, professionally managed'). Ends on the Super Cashflow Developments logo.",
       "posterTimeSec": 50.0,
@@ -588,9 +648,9 @@
       "width": 720,
       "height": 1280,
       "aspectRatio": "9:16",
-      "durationSec": 112.93,
-      "bytes": 7245548,
-      "audio": false,
+      "durationSec": 112.94,
+      "bytes": 8597434,
+      "audio": true,
       "title": "The income is obvious, the process is the problem",
       "description": "Vertical talking-head video: the presenter argues that rooming-house income is easy to see but the process (council permits, builders, compliance) is where projects stall, and introduces the Stratos system, with stock b-roll. Ends on the Super Cashflow Developments logo.",
       "posterTimeSec": 10.0,
@@ -755,32 +815,8 @@
       "reason": "QR-code-only end card."
     },
     {
-      "source": "property/Super Cashflow Development-1-001/1(2).jpg",
-      "reason": "Shows a street address (Shepparton listing)."
-    },
-    {
-      "source": "property/Super Cashflow Development-1-001/2(3).jpg",
-      "reason": "Slide 2 of the Shepparton carousel, whose opening slide shows a street address; left out with its set (same layout family as the Moe carousel, kept)."
-    },
-    {
-      "source": "property/Super Cashflow Development-1-001/3(3).jpg",
-      "reason": "Slide 3 of the Shepparton carousel, whose opening slide shows a street address; left out with its set."
-    },
-    {
-      "source": "property/Super Cashflow Development-1-001/1(3).jpg",
-      "reason": "Shows a street address (Warragul listing; the address runs across slides 1 and 2)."
-    },
-    {
-      "source": "property/Super Cashflow Development-1-001/2(2).jpg",
-      "reason": "Shows the end of a street address (Warragul listing)."
-    },
-    {
-      "source": "property/Super Cashflow Development-1-001/3(2).jpg",
-      "reason": "Slide 3 of the Warragul carousel, whose first two slides show a street address; left out with its set."
-    },
-    {
-      "source": "property/Super Cashflow Development-1-001/[file name withheld: a street address] Shepparton.jpg",
-      "reason": "Preview strip (3240x1350) of the Shepparton carousel: duplicate, and it shows a street address (so does its file name, withheld here)."
+      "source": "property/Super Cashflow Development-1-001/75 Grutzner Ave Shepparton.jpg",
+      "reason": "Preview strip (3240x1350) of the three Shepparton slides, which are exported individually: duplicate."
     },
     {
       "source": "property/Super Cashflow Development-1-001/2(1).jpg",
@@ -820,7 +856,7 @@
     },
     {
       "source": "campaigns/URHCG_Campaign_Dashboard_Aug1-Sep1_2026.xlsx",
-      "reason": "Campaign report full of client business figures (spend, leads and the like); no written permission (no notes.txt). Not opened for publication and no figure from it is used."
+      "reason": "Campaign report spreadsheet, not a visual asset. The media pipeline does not publish it or quote any figure from it; using its figures in case studies is a content decision."
     },
     {
       "source": "photo/ehjay.jpeg",
@@ -842,26 +878,31 @@
         "url": "addbp.github.io/latewlatta01/",
         "seenIn": "browser address bar in the website recording (cropped out of the published video)",
         "verified": true,
-        "verifiedOn": "2026-10-06 (HTTP 200, matching title)"
+        "verifiedOn": "2026-10-06",
+        "httpStatus": 200
       },
       "honey-tribe": {
         "url": "www.shophoneytribe.com",
         "seenIn": "video end cards and the Denim Palazzo posters",
         "verified": true,
-        "verifiedOn": "2026-10-06 (HTTP 200, matching title)"
+        "verifiedOn": "2026-10-06",
+        "httpStatus": 200,
+        "checkedUrl": "shophoneytribe.com"
       },
       "rooming-house-expert": {
         "url": "www.roominghouse.expert",
         "seenIn": "footer of the free-guide mock-up in the Angle 1-3 videos; page name in the ad preview",
         "verified": true,
-        "verifiedOn": "2026-10-06 (HTTP 200, matching title)"
+        "verifiedOn": "2026-10-06",
+        "httpStatus": 200
       }
     },
     "notes": [
       "No live URL is visible in the HydRate Medbar, Sabbath Spa and Rooming House Expert recordings (they show only the page, without the browser's address bar).",
       "Exact duplicates (md5): three Honey Tribe videos exist in both clothing/ and the Riverdance & HoneyTribe video folder; 'Not just parking. A full RV getaway.' (a Riverdance video) also sits in the Super Cashflow video folder. Each is encoded once.",
-      "Angle 1-3 were in the Super Cashflow video folder but are Rooming House Expert ads (Rooming House Expert logo end card; they promote a free downloadable guide, as does the ad in the Ads Manager screenshot), so they are filed under rooming-house-expert-campaign. Whether they ran in that campaign is not recorded.",
-      "All social videos are muted: no note confirms that the music is licensed or original.",
+      "Angle 1-3 were in the Super Cashflow video folder but are Rooming House Expert ads (Rooming House Expert logo end card; they promote a free downloadable guide, as does the ad in the Ads Manager screenshot). They stay under rooming-house-expert-campaign (decided 2026-10-06); whether they ran in the campaign shown in the screenshot is not recorded.",
+      "Social videos keep their original soundtrack (AAC-LC stereo, 96 kbps): the owner confirmed on 2026-10-06 that the music is licensed. Website recordings stay silent.",
+      "Street addresses printed in Super Cashflow Developments' own listing ads are allowed (owner, 2026-10-06), so the Shepparton and Warragul carousels are included. Customers' and leads' personal data stays removed: every blur and cut in VIDEOS is unchanged, and the Sabbath CRM demo stays out.",
       "The Latte with Lata footer carries a 'SITE BY ...' credit naming a web studio: confirm who built it before presenting it as his build.",
       "The Latte with Lata contact details look like placeholders (a 555-prefix phone number and an e-mail on the reserved .example domain), which suggests a demo or spec site; they are blurred anyway. Confirm before labelling it client work.",
       "The Honey Tribe sweatpants images are named 'Proversb-SweatPants' in the source (typo); output names use 'proverbs'.",
@@ -869,7 +910,7 @@
     ]
   },
   "totals": {
-    "videoBytes": 74594479,
-    "imageBytes": 6976285
+    "videoBytes": 77049900,
+    "imageBytes": 8022830
   }
 }

@@ -10,23 +10,51 @@ Privacy rules and decisions: `docs/DECISIONS.md` (2026-10-06). Every file was re
 
 | Client | On the site | Left out (reason) |
 |---|---|---|
-| Honey Tribe | 12 carousel images, 4 product videos (muted), live dashboard demo | QR-code end cards, near-duplicates, a preview strip; 3 duplicate videos |
-| Riverdance RV Resort | 12 ads (five-angle set, extended-stay carousel, seasonal offers), 2 videos (muted), live dashboard demo (both tabs) | Angle 2 (same template as Angle 1), the $85 variant; the second dashboard file (same page, other tab) |
-| Super Cashflow Developments | 12 static ads, 3 talking-head videos (muted) | the two listing carousels that show a street address; near-duplicates |
-| Rooming House Expert | website recording (client stories cut); the campaign: winning ad, Ads Manager crop, 3 video angles; live dashboard demo | the campaign report's figures (no permission); one dashboard thumbnail with a street address |
+| Honey Tribe | 12 carousel images, 4 product videos (with sound), live dashboard demo | QR-code end cards, near-duplicates, a preview strip; 3 duplicate videos |
+| Riverdance RV Resort | 12 ads (five-angle set, extended-stay carousel, seasonal offers), 2 videos (with sound), live dashboard demo (both tabs) | Angle 2 (same template as Angle 1), the $85 variant; the second dashboard file (same page, other tab) |
+| Super Cashflow Developments | 18 static ads (incl. the Shepparton and Warragul listing carousels), 3 talking-head videos (with sound) | near-duplicates; a preview strip that repeats the Shepparton slides |
+| Rooming House Expert | website recording (client stories cut); the campaign: winning ad, Ads Manager crop, 3 video angles; live dashboard demo | the campaign workbook itself (its key results are in the case study); one dashboard thumbnail with a street address (the demos weren't rebuilt) |
 | Sabbath Spa & Wellness Hub | website recording, 2 portal screenshots (customer data blurred) | **the CRM demo video** (customer names, phones, health details and signatures for most of its 137 s) |
 | HydRate Medbar | website recording (testimonial name and contacts blurred) | nothing |
 | Latte with Lata | website recording (address blurred, browser bar cropped) | nothing |
 | MeloYelo, The Contract Shop | live dashboard demos | nothing |
 | Ehjay | portrait (`Downloads\Ehjay.webp`, 768×1024) | `photo\ehjay.jpeg` (a different, smaller photo) |
 
-Totals: 41 images (7.0 MB) + the campaign's winning ad (copied from the demo's public creative), 16 videos (74.6 MB, each under 10 MB, no audio), 16 posters, 5 demos (3.3 MB).
+Totals: 47 images (8.0 MB) + the campaign's winning ad (copied from the demo's public creative), 16 videos (77.05 MB, each under 9 MB: the 12 social videos with their licensed soundtrack, the 4 website recordings silent), 16 posters, 5 demos (3.3 MB).
 
 ## Orchestrator review (2026-10-06)
 - **Images:** every output image looked at on contact sheets, and the redacted ones at full size (the back-office ledger: rows and account unreadable; the Ads Manager crop: names and the Meta tip gone; the Sunbury listing: suburb only, no street address). EXIF/GPS stripped.
 - **Videos:** every website recording sampled once per second (the blurs and cuts hold; no address, phone, email or customer name is readable); the guide mock-up in the Angle videos checked (the e-mail is blurred). None of the 16 has an audio stream.
 - **Demos:** the pipeline's checks against the originals plus `pnpm check:push`; every image asset and poster looked at; text spot-checked (leads and agents are placeholders, campaign names anonymised).
 - **Public claims kept:** prices and offers inside ads, and claims on clients' own public sites (years in business, number of conversions completed) are marketing copy, not private business figures.
+
+## Update 2026-10-06: the owner's permissions
+The clients approved all of these files, including real results, and the music in the social videos is licensed. Still never shown: customers' or leads' names, e-mails, phones, home addresses, health details, signatures and appointment details (every blur and cut for these stays; the Sabbath CRM demo video stays out).
+
+**Social videos re-encoded with their original soundtrack** (AAC-LC stereo, about 96 kbps; same video settings, blurs and poster times; the talking-head ads stay at a 500 kbps video floor, product and drone videos about 15–18% lower to make room). A/V sync checked on four files against their sources (0 ms audio offset, 0 frames video offset).
+
+| Video (`public/media/video/…`) | Before (MB, silent) | Now (MB) |
+|---|---|---|
+| `honey-tribe/janet-jumper.mp4` | 4.20 | 4.06 |
+| `honey-tribe/milo-tassel-kimono.mp4` | 7.64 | 7.00 |
+| `honey-tribe/knox-tassel-kimono.mp4` | 9.17 | 8.35 |
+| `honey-tribe/proverbs-3-5-scripture-sweatpants.mp4` | 5.94 | 5.47 |
+| `riverdance-rv-resort/not-just-parking.mp4` | 2.49 | 2.34 |
+| `riverdance-rv-resort/place-to-park.mp4` | 9.56 | 8.55 |
+| `rooming-house-expert-campaign/angle-1.mp4` | 3.70 | 4.46 |
+| `rooming-house-expert-campaign/angle-2.mp4` | 3.37 | 4.06 |
+| `rooming-house-expert-campaign/angle-3.mp4` | 3.41 | 4.00 |
+| `super-cashflow-developments/custom-is-chaos-stratos-is-control.mp4` | 5.31 | 6.42 |
+| `super-cashflow-developments/stop-treating-rooming-houses-like-normal-houses.mp4` | 5.66 | 6.84 |
+| `super-cashflow-developments/the-income-is-obvious-the-process-is-the-problem.mp4` | 7.25 | 8.60 |
+| 4 website recordings (unchanged, silent) | 6.90 | 6.90 |
+| **All 16 videos** | **74.59** | **77.05** (limit 78) |
+
+**New images:** the Super Cashflow listing carousels for Shepparton (`shepparton-nine-room-investment-01…03.jpg`) and Warragul (`warragul-nine-room-investment-01…03.jpg`), 1080×1350, no metadata, 1.05 MB together. Re-checked at full size: no person's name, phone or e-mail; only the listing addresses and advertised rents and returns (ad copy). Super Cashflow now has 18 images and the site 47.
+
+**Campaign results:** the workbook's key figures (1 Aug – 1 Sep 2026) are now in the Rooming House Expert campaign case study; the workbook itself stays out (not a visual asset).
+
+**Dashboards:** unchanged sample-data demos (no rebuild); accessibility fixes were applied in place.
 
 # Part 1. Media
 
@@ -43,10 +71,10 @@ Needs Python 3.12 with Pillow, and ffmpeg/ffprobe on PATH. The source folder is 
 
 ### Rules applied
 - **There is no `notes.txt` and no résumé.** As a result:
-  - social videos are **muted**, because nothing shows the music is licensed or original;
+  - social videos keep their original soundtrack (AAC-LC stereo, about 96 kbps): the music is licensed (owner, 2026-10-06). Until then they were published muted;
   - website recordings have their audio stripped;
   - **no client business figure** (revenue, spend, leads, cost per lead, ROAS, CTR, CPM, impressions…) appears in any output or in this document.
-- **Removed wherever they appeared** (cropped, cut, blurred, or the file left out): customer names, e-mail addresses, phone numbers, street addresses, appointment details, internal campaign names and browser chrome.
+- **Removed wherever they appeared** (cropped, cut, blurred, or the file left out): customer names, e-mail addresses, phone numbers, home addresses, health details, signatures, appointment details (the street addresses printed in Super Cashflow's own listing ads are allowed since 2026-10-06), internal campaign names and browser chrome.
 - **Kept:** prices and yields printed in the ads themselves (nightly or monthly rates, "approx. gross income per year"). They are public ad copy, not the client's results.
 - **Images:** EXIF, XMP and ICC stripped; progressive JPEG at quality 82; long edge 2400 px or less (the 1080×1350 sources keep their size).
 - **Videos:**
@@ -76,7 +104,7 @@ Needs Python 3.12 with Pillow, and ffmpeg/ffprobe on PATH. The source folder is 
 | `latte-with-lata/website.mp4` | 1280×612 | 31.1 s | 3.09 MB | 795 kbps |
 | `rooming-house-expert/website.mp4` | 1280×588 | 21.1 s | 1.61 MB | 609 kbps |
 | `sabbath-spa/website.mp4` | 1280×580 | 19.3 s | 1.24 MB | 515 kbps |
-| **Total** | | 810.1 s | **74.59 MB** | |
+| **Total** | | 810.1 s | **74.59 MB** (first encode, silent; see the 2026-10-06 update) | |
 
 Budget: under 14.5 MB per file (largest 9.56 MB), and 76 MB in total.
 
@@ -129,12 +157,12 @@ Budget: under 14.5 MB per file (largest 9.56 MB), and 76 MB in total.
 | `clothing/Proversb-SweatPants_01.jpg` | "Introducing Proverbs 3:5 Scripture Sweatpants": a model in yellow sweatpants with a scripture-print panel | **Kept** → `img/honey-tribe/proverbs-3-5-scripture-sweatpants-01.jpg` | Source file names misspell "Proverbs" |
 | `clothing/Proversb-SweatPants_02.jpg` | Close-up of the open side zip showing the print, "Wear Your Faith. Own Your Style." | **Kept** → `img/honey-tribe/proverbs-3-5-scripture-sweatpants-02.jpg` | |
 | `clothing/Proversb-SweatPants_03.jpg` | QR-code card "Shop Now at HoneyTribe" | Left out | QR-code-only end card |
-| `videos/Riverdance & HoneyTribe-…/Janet Jumper Revised 2.mp4` | 44 s product video: a model in the Janet Jumper, serif captions on its features, Honey Tribe end card with the shop URL | **Encoded** → `video/honey-tribe/janet-jumper.mp4` | Muted |
+| `videos/Riverdance & HoneyTribe-…/Janet Jumper Revised 2.mp4` | 44 s product video: a model in the Janet Jumper, serif captions on its features, Honey Tribe end card with the shop URL | **Encoded** → `video/honey-tribe/janet-jumper.mp4` | Original soundtrack (licensed) |
 | `clothing/Janet Jumper Revised 2.mp4` | Identical file (same md5) | Duplicate | Encoded once |
-| `videos/Riverdance & HoneyTribe-…/Milo Tassel Kimono.mp4` | 51 s styling video of the pink colour-block Milo Tassel Kimono, bold word-by-word captions | **Encoded** → `video/honey-tribe/milo-tassel-kimono.mp4` | Muted |
+| `videos/Riverdance & HoneyTribe-…/Milo Tassel Kimono.mp4` | 51 s styling video of the pink colour-block Milo Tassel Kimono, bold word-by-word captions | **Encoded** → `video/honey-tribe/milo-tassel-kimono.mp4` | Original soundtrack (licensed) |
 | `clothing/Milo Tassel Kimono.mp4` | Identical file | Duplicate | Encoded once |
-| `videos/Riverdance & HoneyTribe-…/Knox Tassel Kimono .mp4` | 58 s video of the green, yellow and tan Knox Tassel Kimono in a sunlit room, serif captions | **Encoded** → `video/honey-tribe/knox-tassel-kimono.mp4` | Muted |
-| `videos/Riverdance & HoneyTribe-…/Proverbs 3_5 Revised.mp4` | 43 s video of the scripture sweatpants: the side zip opens to the print; captions on the waist, pockets, zips and inseam | **Encoded** → `video/honey-tribe/proverbs-3-5-scripture-sweatpants.mp4` | Muted |
+| `videos/Riverdance & HoneyTribe-…/Knox Tassel Kimono .mp4` | 58 s video of the green, yellow and tan Knox Tassel Kimono in a sunlit room, serif captions | **Encoded** → `video/honey-tribe/knox-tassel-kimono.mp4` | Original soundtrack (licensed) |
+| `videos/Riverdance & HoneyTribe-…/Proverbs 3_5 Revised.mp4` | 43 s video of the scripture sweatpants: the side zip opens to the print; captions on the waist, pockets, zips and inseam | **Encoded** → `video/honey-tribe/proverbs-3-5-scripture-sweatpants.mp4` | Original soundtrack (licensed) |
 | `clothing/Proverbs 3_5 Revised.mp4` | Identical file | Duplicate | Encoded once |
 
 ### Riverdance RV Resort (`riverdance-rv-resort`)
@@ -150,9 +178,9 @@ Budget: under 14.5 MB per file (largest 9.56 MB), and 76 MB in total.
 | `services/Riverdance-1-001/Mountain Recharge.jpg` | The same offer as an $85 variant on a cream layout | Left out | Near-duplicate; the $80 version matches the other two seasonal promos |
 | `services/Riverdance-1-001/ONE MORE AUGUST ESCAPE.png` | "ONE MORE AUGUST ESCAPE", red chairs by the river, nightly price (1092×1441 PNG) | **Kept** → `…/one-more-august-escape.jpg` | Converted to JPEG |
 | `services/Riverdance-1-001/Vail Valley Adventure ($80).png` | "VAIL VALLEY ADVENTURE WITHOUT VAIL PRICES" on a doodle background (1092×1440 PNG) | **Kept** → `…/vail-valley-adventure.jpg` | Converted to JPEG |
-| `videos/Riverdance & HoneyTribe-…/Not just parking. A full RV getaway..mp4` | 21 s promo: Eagle River, aerials, RV sites, offer card with nightly and weekly rates, logo | **Encoded** → `video/riverdance-rv-resort/not-just-parking.mp4` | Muted |
+| `videos/Riverdance & HoneyTribe-…/Not just parking. A full RV getaway..mp4` | 21 s promo: Eagle River, aerials, RV sites, offer card with nightly and weekly rates, logo | **Encoded** → `video/riverdance-rv-resort/not-just-parking.mp4` | Original soundtrack (licensed) |
 | `videos/Super Cahsflow-…/Not just parking. A full RV getaway..mp4` | Identical file, misfiled in the Super Cashflow folder | Duplicate | Encoded once |
-| `videos/Riverdance & HoneyTribe-…/Park .mp4` | 49 s drone video (HEVC 10-bit source): canyon, river, RV rows, cabins; hand-lettered captions ("Looking for a place to park your RV?", "Your home base in Gypsum Colorado"), logo | **Encoded** → `video/riverdance-rv-resort/place-to-park.mp4` | Muted; captions spell "River Dance" as two words |
+| `videos/Riverdance & HoneyTribe-…/Park .mp4` | 49 s drone video (HEVC 10-bit source): canyon, river, RV rows, cabins; hand-lettered captions ("Looking for a place to park your RV?", "Your home base in Gypsum Colorado"), logo | **Encoded** → `video/riverdance-rv-resort/place-to-park.mp4` | Original soundtrack (licensed); captions spell "River Dance" as two words |
 
 ### Super Cashflow Developments (`super-cashflow-developments`)
 | Source (in `property/Super Cashflow Development-1-001/` unless noted) | What it shows | Decision | Notes |
@@ -161,13 +189,13 @@ Budget: under 14.5 MB per file (largest 9.56 MB), and 76 MB in total.
 | `2(1).jpg` | Sunbury slide 2: rooms, baths and an approximate income line | Left out | Same template as the Moe carousel (kept in full) |
 | `3(1).jpg` | Sunbury slide 3: dusk photo, land size, "Book a call now!" | Left out | As above |
 | `1(1).jpg`, `2.jpg`, `3.jpg` | Moe listing carousel: "9 ROOMS 9 INCOMES.", an approximate gross income headline, "STRONG RENTAL DEMAND IN MOE." | **Kept, all three** → `…/nine-rooms-nine-incomes-01.jpg` … `-03.jpg` | Order confirmed by the seamless edges between slides |
-| `1(2).jpg` | Shepparton carousel slide 1, headed with a **street address** | Left out | Street address |
-| `2(3).jpg` | Shepparton slide 2: "9 PRIVATE ROOMS. 9 ENSUITES." | Left out | Its carousel opens with the street address |
-| `3(3).jpg` | Shepparton slide 3: "9 PRIVATE ROOMS. 9 ENSUITES.", Book a call now | Left out | As above |
-| *(file named after the listing's street address — name withheld here)* | 3240×1350 preview strip of the Shepparton carousel | Left out | Duplicate, and it shows the street address |
-| `1(3).jpg` | Warragul carousel slide 1: a **street address** across slides 1–2 | Left out | Street address |
-| `2(2).jpg` | Warragul slide 2: the end of the address and an annual-return line | Left out | Street address |
-| `3(2).jpg` | Warragul slide 3: interior, "Compliant. Central. High-demand." | Left out | Its carousel shows the street address |
+| `1(2).jpg` | Shepparton carousel slide 1, headed with the listing's street address | **Kept** → `img/super-cashflow-developments/shepparton-nine-room-investment-01.jpg` | The address is the client's public ad copy (allowed 2026-10-06) |
+| `2(3).jpg` | Shepparton slide 2: "9 PRIVATE ROOMS. 9 ENSUITES." | **Kept** → `…/shepparton-nine-room-investment-02.jpg` | |
+| `3(3).jpg` | Shepparton slide 3: "9 PRIVATE ROOMS. 9 ENSUITES.", Book a call now | **Kept** → `…/shepparton-nine-room-investment-03.jpg` | |
+| `75 Grutzner Ave Shepparton.jpg` | 3240×1350 preview strip of the Shepparton carousel | Left out | Duplicate of the three Shepparton slides |
+| `1(3).jpg` | Warragul carousel slide 1: the listing's street address across slides 1–2 | **Kept** → `…/warragul-nine-room-investment-01.jpg` | Allowed (client's public ad, 2026-10-06) |
+| `2(2).jpg` | Warragul slide 2: the end of the address and an annual-return line | **Kept** → `…/warragul-nine-room-investment-02.jpg` | |
+| `3(2).jpg` | Warragul slide 3: interior, "Compliant. Central. High-demand." | **Kept** → `…/warragul-nine-room-investment-03.jpg` | |
 | `Custom is Chaos. Stratos is Control.jpg` | "CUSTOM IS CHAOS. STRATOS IS CONTROL.", Discover Stratos | **Kept** → `…/custom-is-chaos-stratos-is-control.jpg` | |
 | `Custom builds drag, stratos moves.jpg` | "CUSTOM BUILDS DRAG. STRATOS MOVES." with a diagonal banner | **Kept** → `…/custom-builds-drag-stratos-moves.jpg` | |
 | `One System, Faster Decisions.jpg` | "ONE SYSTEM. FASTER DECISIONS." over an aerial suburb | **Kept** → `…/one-system-faster-decisions.jpg` | |
@@ -180,9 +208,9 @@ Budget: under 14.5 MB per file (largest 9.56 MB), and 76 MB in total.
 | `Private Ensuite + Kitchenette.jpg` | "PRIVATE ENSUITE + KITCHENETTE" over a bedroom | Left out | Near-duplicate of "Not Converted" |
 | `A Cashflow-Focused Asset.jpg` | "A CASHFLOW FOCUSED ASSET" over a kitchenette | Left out | Same layout as "Not Converted" |
 | `9-Room Rooming House For Sale.jpg` | "9-ROOM ROOMING HOUSE FOR SALE", Shepparton (town only) | **Kept** → `…/nine-room-rooming-house-for-sale.jpg` | No street address on it |
-| `videos/Super Cahsflow-…/Custom is Chaos Stratos is Control .mp4` | 85 s talking head in a rounded frame, orange-highlighted captions, stock b-roll, title card, logo | **Encoded** → `video/super-cashflow-developments/custom-is-chaos-stratos-is-control.mp4` | Muted |
-| `videos/Super Cahsflow-…/Stop treating rooming houses like normal houses.mp4` | 91 s talking head on Class 1B rooming-house requirements; listing photos (no address) | **Encoded** → `…/stop-treating-rooming-houses-like-normal-houses.mp4` | Muted |
-| `videos/Super Cahsflow-…/The income is obvious the process is the problem.mp4` | 113 s talking head on permits, builders and compliance; introduces Stratos | **Encoded** → `…/the-income-is-obvious-the-process-is-the-problem.mp4` | Muted; captions also spell "Stratus" |
+| `videos/Super Cahsflow-…/Custom is Chaos Stratos is Control .mp4` | 85 s talking head in a rounded frame, orange-highlighted captions, stock b-roll, title card, logo | **Encoded** → `video/super-cashflow-developments/custom-is-chaos-stratos-is-control.mp4` | Original soundtrack (licensed) |
+| `videos/Super Cahsflow-…/Stop treating rooming houses like normal houses.mp4` | 91 s talking head on Class 1B rooming-house requirements; listing photos (no address) | **Encoded** → `…/stop-treating-rooming-houses-like-normal-houses.mp4` | Original soundtrack (licensed) |
+| `videos/Super Cahsflow-…/The income is obvious the process is the problem.mp4` | 113 s talking head on permits, builders and compliance; introduces Stratos | **Encoded** → `…/the-income-is-obvious-the-process-is-the-problem.mp4` | Original soundtrack (licensed); captions also spell "Stratus" |
 
 ### Rooming House Expert (`rooming-house-expert`, `rooming-house-expert-campaign`)
 Angle 1–3 were found in the Super Cashflow video folder, but they are Rooming House Expert ads (Rooming House Expert logo end card, the same free-guide offer). They stay under `rooming-house-expert-campaign` (decided 2026-10-06). Whether they ran in the campaign shown in the Ads Manager screenshot is not recorded.
@@ -192,9 +220,9 @@ Angle 1–3 were found in the Super Cashflow video folder, but they are Rooming 
 | `website/RoomingHouseExpert.mp4` | 29 s recording of the website (page only, no address bar): hero, the father-and-son founders section, count-up company stats, featured properties, client stories, call to action, footer | **Encoded with cuts** → `video/rooming-house-expert/website.mp4` (21.1 s) | Cut 15.65–23.05 s (client stories: investor first names, their before/after rents and income figures, property photos) and 25.95–26.32 s (a fast scroll back past the same cards). Browser scrollbar cropped. The stats (years in the industry, conversions completed) are the site's public marketing claims and were left |
 | `campaigns/Screenshot of the winning Ad.png` | Meta Ads Manager editor: breadcrumb with internal campaign, ad set and ad names (including a person tag), placements, instant-form action "Book Free Strategy Call", an in-editor Meta suggestion, and the feed preview of the RoomingHouse.Expert ad | **Kept as two crops** → `img/rooming-house-expert-campaign/ads-manager-ad-preview.jpg` (966×704: setup panel and preview) and `…/ad-preview-card.jpg` (240×417: the preview card at its native size) | Breadcrumb, status bar, warning banner and Publish bar cropped off. Meta's suggestion card (a tip promising a higher conversion rate, not a result) painted out. No ad account ID appears in the source |
 | `campaigns/URHCG_Campaign_Dashboard_Aug1-Sep1_2026.xlsx` | Campaign report spreadsheet | Left out | Client business figures with no written permission. Not opened, and no figure from it appears anywhere |
-| `videos/Super Cahsflow-…/Angle 1.mp4` | 59 s talking-head ad (a big weekly rent figure isn't the number that matters): captions, floor-plan animation, mock-up of a free conversion guide, Rooming House Expert logo | **Encoded** → `video/rooming-house-expert-campaign/angle-1.mp4` | Muted. The guide footer's e-mail address is blurred, 48.5–53.7 s |
-| `videos/Super Cahsflow-…/Angle 2.mp4` | 53 s talking-head ad ("more rent does not automatically mean better investment"), b-roll, guide mock-up, logo | **Encoded** → `…/angle-2.mp4` | Muted; e-mail blurred 45.3–49.3 s. The route map in it carries no labels |
-| `videos/Super Cahsflow-…/Angle 3.mp4` | 52 s talking-head ad (what is left after costs), animated icons, guide mock-up, logo | **Encoded** → `…/angle-3.mp4` | Muted; e-mail blurred 44.9–48.4 s |
+| `videos/Super Cahsflow-…/Angle 1.mp4` | 59 s talking-head ad (a big weekly rent figure isn't the number that matters): captions, floor-plan animation, mock-up of a free conversion guide, Rooming House Expert logo | **Encoded** → `video/rooming-house-expert-campaign/angle-1.mp4` | Original soundtrack (licensed). The guide footer's e-mail address is blurred, 48.5–53.7 s |
+| `videos/Super Cahsflow-…/Angle 2.mp4` | 53 s talking-head ad ("more rent does not automatically mean better investment"), b-roll, guide mock-up, logo | **Encoded** → `…/angle-2.mp4` | Original soundtrack (licensed); e-mail blurred 45.3–49.3 s. The route map in it carries no labels |
+| `videos/Super Cahsflow-…/Angle 3.mp4` | 52 s talking-head ad (what is left after costs), animated icons, guide mock-up, logo | **Encoded** → `…/angle-3.mp4` | Original soundtrack (licensed); e-mail blurred 44.9–48.4 s |
 
 ### HydRate Medbar (`hydrate-medbar`)
 | Source | What it shows | Decision | Notes |
@@ -204,7 +232,7 @@ Angle 1–3 were found in the Super Cashflow video folder, but they are Rooming 
 ### Latte with Lata (`latte-with-lata`)
 | Source | What it shows | Decision | Notes |
 |---|---|---|---|
-| `website/LATTEWITHLATA.mp4` | 33 s recording of the **whole Chrome window**: tabs, address bar, profile avatar; then the kinetic "LATTE WITH LATA" hero, a page reload, cafe and menu sections, episode cards, the host section, newsletter, a "Visit" card and the footer | **Encoded with crop, cut and blur** → `video/latte-with-lata/website.mp4` (31.1 s) | Browser chrome (top 110 px) and scrollbar cropped; audio stripped; variable 60 fps → 30 fps. Cut 29.05–30.52 s (a "Visit" card with a street address and phone, then a fast scroll). The footer "Find us" block (street address, phone, e-mail) is blurred from 30.52 s to the end. These contact details look like placeholders (a 555-prefix phone number and an e-mail on the reserved `.example` domain), which suggests a demo or spec site. The address bar showed `addbp.github.io/latewlatta01/` (recorded in the manifest facts; not visible in the output). The footer carries a "site by" credit naming a web studio, so confirm who built the site |
+| `website/LATTEWITHLATA.mp4` | 33 s recording of the **whole Chrome window**: tabs, address bar, profile avatar; then the kinetic "LATTE WITH LATA" hero, a page reload, cafe and menu sections, episode cards, the host section, newsletter, a "Visit" card and the footer | **Encoded with crop, cut and blur** → `video/latte-with-lata/website.mp4` (31.1 s) | Browser chrome (top 110 px) and scrollbar cropped; audio stripped; variable 60 fps → 30 fps. Cut 29.05–30.52 s (a "Visit" card with a street address and phone, then a fast scroll). The footer "Find us" block (street address, phone, e-mail) is blurred from 30.52 s to the end. These contact details look like placeholders (a 555-prefix phone number and an e-mail on the reserved `.example` domain), which suggests a demo or spec site. The address bar showed `addbp.github.io/latewlatta01/` (recorded in the manifest facts; not visible in the output). The footer carries a "site by" credit. Answered 2026-10-06: built by Ehjay with the team; shown as a team build with a "View the site" link, not as a client's live site |
 
 ### Sabbath Spa & Wellness Hub (`sabbath-spa`)
 | Source | What it shows | Decision | Notes |
@@ -252,12 +280,12 @@ Angle 1–3 were found in the Super Cashflow video folder, but they are Rooming 
   - `shophoneytribe.com`: shown as `www.shophoneytribe.com` on the video end cards and posters.
   - `www.roominghouse.expert`: in the guide mock-up's footer.
   - HydRate Medbar, Rooming House Expert and Sabbath Spa: no URL visible, because their recordings show only the page.
-  - `content/media/manifest.json` still records these URLs as `verified: false`, because it was generated before the check.
+  - `content/media/manifest.json` records all three as `verified: true` (HTTP 200 on 2026-10-06).
 
 ### Open questions for the owner
 1. **Latte with Lata:** the footer credits a web studio, and the contact details look like placeholders. Is the site Ehjay's own build, a studio project he worked on, or a spec piece?
 2. **Rooming House Expert stats:** the website video still shows the company's count-up stats (years in the industry, conversions completed). Cut them if they count as business figures.
-3. **Music:** a `notes.txt` confirming licensed or original music would allow re-encoding the social videos with sound.
+3. ~~**Music:**~~ answered 2026-10-06: the music is licensed; the social videos were re-encoded with sound.
 4. **CRM demo:** it could go back in if it is re-recorded with obviously fictional demo data.
 
 # Part 2. Live dashboard demos

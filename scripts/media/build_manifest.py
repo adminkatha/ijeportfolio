@@ -55,12 +55,12 @@ def main() -> int:
         p = VIDEO_DIR / v["project"] / v["out"]
         poster = POSTER_DIR / v["project"] / (Path(v["out"]).stem + ".jpg")
         i = video_info(p)
-        if i["audio_streams"]:
-            raise SystemExit(f"{p} still has audio")
+        if v["kind"] == "web" and i["audio_streams"]:
+            raise SystemExit(f"{p}: website recordings must stay silent")
         videos.append({
             "project": v["project"], "src": public_url(p), "poster": public_url(poster),
             "width": i["width"], "height": i["height"], "aspectRatio": aspect(i["width"], i["height"]),
-            "durationSec": round(i["duration"], 2), "bytes": i["bytes"], "audio": False,
+            "durationSec": round(i["duration"], 2), "bytes": i["bytes"], "audio": bool(i["audio_streams"]),
             "title": v["title"], "description": v["description"], "posterTimeSec": v["poster_t"],
             "source": v["src"],
         })

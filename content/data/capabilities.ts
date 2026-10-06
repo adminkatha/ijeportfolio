@@ -51,8 +51,13 @@ export const capabilities = validate("content/data/capabilities.ts", capabilitie
       },
       {
         name: "Websites",
-        evidence: "Sites for Sabbath Spa, Rooming House Expert, HydRate Medbar and Latte with Lata.",
+        evidence: "Sites for Sabbath Spa, Rooming House Expert and HydRate Medbar, and Latte with Lata (a team build).",
         projectSlug: "rooming-house-expert",
+      },
+      {
+        name: "Web tools: WordPress, GitHub, Vercel, VS Code, Supabase",
+        evidence: "His everyday web toolkit. In the work here: Supabase runs the Sabbath portal's database and sign-in, and GitHub Pages hosts Latte with Lata.",
+        projectSlug: "sabbath-spa",
       },
     ],
   },

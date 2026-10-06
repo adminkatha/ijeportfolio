@@ -15,7 +15,7 @@ export const profile = validate("content/data/profile.ts", profileSchema, {
   location: fillIn("city, country"),
   email: "ehjaylorenzo2@gmail.com",
   links: {
-    linkedin: fillIn("LinkedIn URL, or remove"),
+    linkedin: "https://www.linkedin.com/in/ehjaylorenzocrtv/",
     resume: fillIn("résumé PDF (served at /resume.pdf)"),
     other: [],
   },
