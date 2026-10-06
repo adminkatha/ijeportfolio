@@ -28,6 +28,7 @@ Run order for this build (user, 2026-10-06): finish the whole site without stopp
 | Ehjay's answers (LinkedIn, tools, Latte, results, sound, listing ads) | ✅ applied after the hero merge, pushed | main |
 | 15 QA | 🔄 in progress (keyboard pass clean, axe 0 on the site); waiting for the demos' in-place accessibility fixes | main |
 | 16 Deploy prep (GitHub + Vercel docs, run-local.bat) | ✅ merged + pushed; run-local.bat tested (falls back to :3001 when :3000 is busy) | main |
+| CV update (facts from his CV, nothing blank on the site, new résumé) | ✅ pushed (`76dbbcf`) and redeployed 2026-10-06 | main + Vercel |
 | 16 Deploy | ✅ **live 2026-10-06 13:40: https://ehjay-lorenzo.vercel.app** (CLI deploy, Vercel build with corepack). Later: GitHub auto-deploys, domain + `SITE_URL`, contact env vars, Analytics | Vercel |
 
 ## How the parallel build works
