@@ -1,0 +1,8 @@
+/*
+ * Global motion styles (imported by MotionRoot and the command palette).
+ * Sections focused by in-page navigation (components/motion/scroll.ts) get no ring around the whole section:
+ * they are landing points, not controls.
+ */
+[data-scroll-target]:focus {
+  outline: none;
+}

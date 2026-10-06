@@ -1,9 +1,11 @@
 import { MDXContent } from "@content-collections/mdx/react";
+import { CommandButton } from "@/components/command/CommandButton";
 import { HeroSeam } from "@/components/hero/HeroSeam";
 import { Container } from "@/components/layout/Grid";
 import { FillIn, Fillable } from "@/components/ui/FillIn";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { disciplineLabels } from "@/content/data/schema";
+import { getCommandItems } from "@/lib/commands";
 import { getCaseStudy, getHomeSections, getProfile, getProjects } from "@/lib/content";
 
 // Phase 2 content check: data, [FILL IN] rendering, computed section numbers, one compiled case study.
@@ -17,6 +19,7 @@ export default function Home() {
       <HeroSeam name={profile.name} title={profile.title} roleLine={profile.roleLine} cta={{ label: "See the work →", href: "#work" }} />
       <Container className="space-y-16 pt-24">
         <header className="space-y-6">
+          <CommandButton items={getCommandItems()} />
           <p className="text-text-2">
             Location: <Fillable value={profile.location} />
           </p>
