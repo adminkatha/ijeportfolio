@@ -6,7 +6,7 @@ Next.js 16 (App Router, Turbopack) · React 19 · TypeScript 6 (strict) · Tailw
 - Phase plan: [docs/PLAN.md](docs/PLAN.md) · progress and resume point: [docs/PROGRESS.md](docs/PROGRESS.md)
 - Facts and open questions: [docs/INTAKE.md](docs/INTAKE.md) · decision log: [docs/DECISIONS.md](docs/DECISIONS.md)
 - His files, what each shows and what was done with it: [docs/ASSETS.md](docs/ASSETS.md)
-- Contact form setup (Google Sheet): [docs/CONTACT-SETUP.md](docs/CONTACT-SETUP.md) · deploying to Vercel: [docs/DEPLOY.md](docs/DEPLOY.md)
+- Contact form setup (email via Google Apps Script): [docs/CONTACT-SETUP.md](docs/CONTACT-SETUP.md) · deploying to Vercel: [docs/DEPLOY.md](docs/DEPLOY.md)
 
 ## Run it on this PC
 Double-click **`run-local.bat`**. It installs what's needed the first time, builds the site, starts it and opens

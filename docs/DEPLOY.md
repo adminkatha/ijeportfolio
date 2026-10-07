@@ -92,8 +92,8 @@ The site already includes both, switched off until you enable them (otherwise th
 
 ## 6. After each deploy: checklist
 - [ ] The site opens on the production URL, and the browser console (F12 → Console) shows no errors.
-- [ ] **Contact form:** send a test message → "Thanks…" appears, a row arrives in the sheet's
-      **Submissions** tab, and an email reaches ehjaylorenzo2@gmail.com (`docs/CONTACT-SETUP.md`, step 11).
+- [ ] **Contact form:** send a test message → "Thanks…" appears, and an email reaches ehjaylorenzo2@gmail.com
+      with a copy to the admin account (`docs/CONTACT-SETUP.md`, step 8).
       Without the two variables you should see "Email me instead" instead.
 - [ ] **Lighthouse:** in Chrome, F12 → **Lighthouse** → Mode **Navigation**, Device **Mobile** → **Analyze**,
       for the homepage and one case study. Targets: Performance 90+, Accessibility 100, Best Practices 100, SEO 100.

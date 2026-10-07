@@ -26,6 +26,40 @@ const SECRET = `test-${randomBytes(16).toString("hex")}`;
 const NEXT = path.join(process.cwd(), "node_modules", "next", "dist", "bin", "next");
 const WAIT_PAST_MIN_FILL = 3_300;
 
+// The copy the form must show, spelled out here (not imported) so a change to it is a deliberate one.
+const LETTERS = {
+  hire: [
+    "Hi Ehjay,",
+    "",
+    "I came across your portfolio and I'd like to talk to you about a role.",
+    "",
+    "Role:",
+    "Full-time or part-time:",
+    "Remote or on-site:",
+    "Start date:",
+    "Salary range (optional):",
+    "",
+    "Are you open to a quick call this week?",
+  ].join("\n"),
+  freelance: [
+    "Hi Ehjay,",
+    "",
+    "I have a project I'd like your help with.",
+    "",
+    "What I need (ads, videos, a website, a dashboard…):",
+    "Timeline:",
+    "Budget:",
+    "",
+    "Can you take this on?",
+  ].join("\n"),
+  other: "Hi Ehjay,",
+};
+const UNTOUCHED = "Add a few details about the role or project.";
+const INVALID = "Please check the highlighted fields.";
+const PRIVACY = "Your message goes to Ehjay (with a copy to the site's admin) and is used only to reply.";
+const SUCCESS = (email) => `Thanks, your message is on its way to Ehjay. He'll reply to ${email}.`;
+const HINT = { plain: "At least 10 characters.", letter: "Edit the letter, or write your own." };
+
 const results = [];
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -111,6 +145,9 @@ async function newWatchedPage(browser, problems, options = {}) {
 const form = (page) => page.locator("#contact-form");
 const status = (page) => page.locator("#contact-form [role=status]");
 const submit = (page) => page.locator("#contact-form button[type=submit]");
+const box = (page) => page.locator("#cf-message");
+const checkedType = (page) => page.locator("#contact-form input[name=inquiryType]:checked");
+const activeId = (page) => page.evaluate(() => document.activeElement?.id);
 
 /** Fills every visible field with valid values. Focusing the form first starts the signed clock. */
 async function fillValid(page, overrides = {}) {
@@ -194,6 +231,96 @@ async function main() {
       await context.close();
     });
 
+    // ── 2b. Starter letters ──────────────────────────────────────────────────────────────────
+    await step("starter letters", async () => {
+      const { context, page } = await newWatchedPage(browser, problems);
+      await page.goto(`${BASE}/`, { waitUntil: "networkidle" });
+      const hint = page.locator("#cf-message-hint");
+      check("letters: the section form starts with an empty box and no type chosen", (await box(page).inputValue()) === "" && (await checkedType(page).count()) === 0);
+      check("letters: before a letter, the hint asks for 10+ characters", (await hint.innerText()) === HINT.plain, await hint.innerText());
+      check("letters: privacy line under the form", (await form(page).getByText(PRIVACY, { exact: true }).count()) === 1);
+
+      await page.getByRole("radio", { name: "Hire full-time" }).check();
+      check("letters: choosing “Hire full-time” puts its letter in the box", (await box(page).inputValue()) === LETTERS.hire, await box(page).inputValue());
+      check("letters: the hint now says the letter can be edited", (await hint.innerText()) === HINT.letter, await hint.innerText());
+      check("letters: focus stays on the radio (arrow keys keep working)", (await page.evaluate(() => document.activeElement?.getAttribute("name"))) === "inquiryType");
+      await page.keyboard.press("ArrowRight");
+      check("letters: switching type with the arrow keys swaps an untouched letter (Freelance)",
+        (await checkedType(page).getAttribute("value")) === "freelance" && (await box(page).inputValue()) === LETTERS.freelance, await box(page).inputValue());
+      await page.getByRole("radio", { name: "Other" }).check();
+      check("letters: switching type swaps an untouched letter (Other)", (await box(page).inputValue()) === LETTERS.other, await box(page).inputValue());
+
+      // Trailing spaces and an extra final newline still count as untouched.
+      await box(page).fill(LETTERS.hire.replace("Role:", "Role:   ") + "\n");
+      await page.getByRole("radio", { name: "Freelance project" }).check();
+      check("letters: trailing spaces still count as untouched", (await box(page).inputValue()) === LETTERS.freelance);
+
+      const edited = LETTERS.freelance.replace("Timeline:", "Timeline: six weeks");
+      await box(page).fill(edited);
+      await page.getByRole("radio", { name: "Hire full-time" }).check();
+      check("letters: after editing, switching type keeps the text", (await box(page).inputValue()) === edited, await box(page).inputValue());
+      await box(page).fill("My own words, nothing like a letter.");
+      await page.getByRole("radio", { name: "Other" }).check();
+      check("letters: a message of their own is never replaced", (await box(page).inputValue()) === "My own words, nothing like a letter.");
+      await box(page).fill("");
+      await page.getByRole("radio", { name: "Hire full-time" }).check();
+      check("letters: an emptied box gets the letter again", (await box(page).inputValue()) === LETTERS.hire);
+
+      // The whole hire letter shows without scrolling, and the box can still be resized.
+      for (const width of [390, 768, 1440]) {
+        await page.setViewportSize({ width, height: 900 });
+        const size = await box(page).evaluate((el) => ({ scroll: el.scrollHeight, client: el.clientHeight, resize: getComputedStyle(el).resize }));
+        check(`letters: the hire letter fits without scrolling at ${width}px`, size.scroll <= size.client && size.resize === "vertical", JSON.stringify(size));
+      }
+      await context.close();
+    });
+
+    // ── 2c. Untouched letter → refused in the browser ──────────────────────────────────────
+    await step("untouched letter is refused in the browser", async () => {
+      const { context, page } = await newWatchedPage(browser, problems);
+      let posts = 0;
+      page.on("request", (r) => {
+        if (r.method() === "POST") posts++;
+      });
+      await page.goto(`${BASE}/`, { waitUntil: "networkidle" });
+      await startClock(page);
+      await page.locator("#cf-name").fill("Test Visitor");
+      await page.locator("#cf-email").fill("visitor@example.com");
+      await page.getByRole("radio", { name: "Hire full-time" }).check();
+      await sleep(WAIT_PAST_MIN_FILL);
+      const before = hook.received.length;
+      posts = 0;
+      await submit(page).click();
+      const error = page.locator("#cf-message-error");
+      await error.waitFor();
+      check("untouched: inline error on the message field", (await error.innerText()).includes(UNTOUCHED), await error.innerText());
+      check("untouched: aria-invalid + aria-describedby on the textarea",
+        (await box(page).getAttribute("aria-invalid")) === "true" && (await box(page).getAttribute("aria-describedby"))?.split(" ").includes("cf-message-error"));
+      check("untouched: focus moved to the textarea", (await activeId(page)) === "cf-message", await activeId(page));
+      check("untouched: the status line asks to check the fields", (await status(page).innerText()).includes(INVALID), await status(page).innerText());
+      check("untouched: the letter stays in the box", (await box(page).inputValue()) === LETTERS.hire);
+      // The short "Other" letter gets the same error, not the length one; Send again refocuses the box.
+      await page.getByRole("radio", { name: "Other" }).check();
+      await submit(page).click();
+      await page.waitForFunction(() => document.activeElement?.id === "cf-message", null, { timeout: 5_000 });
+      check("untouched: the “Other” letter gets the same error (not the length one)", (await error.innerText()).includes(UNTOUCHED), await error.innerText());
+      await sleep(500);
+      check("untouched: nothing was posted and nothing reached the webhook", posts === 0 && hook.received.length === before, `posts=${posts}`);
+
+      // Add details: it goes through.
+      await page.getByRole("radio", { name: "Hire full-time" }).check();
+      const message = LETTERS.hire.replace("Role:", "Role: Marketing lead");
+      await box(page).fill(message);
+      await submit(page).click();
+      await status(page).getByText(SUCCESS("visitor@example.com"), { exact: true }).waitFor();
+      check("untouched: once edited, the letter is sent",
+        hook.received.length === before + 1 && hook.received.at(-1)?.message === message && hook.received.at(-1)?.inquiryType === "Hire full-time",
+        JSON.stringify(hook.received.at(-1)));
+      check("untouched: the error is gone after the send", (await error.count()) === 0);
+      hook.received.length = before; // the next tests count from here
+      await context.close();
+    });
+
     // ── 3. Too fast → rejected ────────────────────────────────────────────────────────────────
     await step("too fast is rejected", async () => {
       const { context, page } = await newWatchedPage(browser, problems);
@@ -236,7 +363,7 @@ async function main() {
       await sleep(WAIT_PAST_MIN_FILL);
       const before = Date.now();
       await submit(page).click();
-      await status(page).getByText(/thanks, test visitor/i).waitFor();
+      await status(page).getByText(SUCCESS(v.email), { exact: true }).waitFor();
       check("valid: success message in the live region (role=status)", true);
       const p = hook.received.at(-1);
       check("valid: exactly one payload reached the webhook", hook.received.length === 1, JSON.stringify(hook.received));
@@ -247,7 +374,11 @@ async function main() {
       check("valid: page comes from ?from=", p?.page === "/work/sabbath-spa", p?.page);
       check("valid: timestamp is ISO and current", p && !Number.isNaN(Date.parse(p.timestamp)) && Math.abs(Date.parse(p.timestamp) - before) < 30_000 && p.timestamp.endsWith("Z"), p?.timestamp);
       check("valid: the secret was sent in the body as JSON", p?.contentType.startsWith("application/json"));
-      check("valid: the form is cleared after success", (await page.locator("#cf-name").inputValue()) === "" && (await page.locator("#cf-message").inputValue()) === "");
+      check("valid: the form is cleared after success (fields empty, no type chosen)",
+        (await page.locator("#cf-name").inputValue()) === "" && (await box(page).inputValue()) === "" && (await checkedType(page).count()) === 0);
+      check("valid: the hint is back to the plain one", (await page.locator("#cf-message-hint").innerText()) === HINT.plain);
+      await page.getByRole("radio", { name: "Freelance project" }).check();
+      check("valid: after a send, choosing a type offers its letter again", (await box(page).inputValue()) === LETTERS.freelance, JSON.stringify(await box(page).inputValue()));
       await context.close();
     });
 
@@ -295,6 +426,23 @@ async function main() {
       check("no-JS empty submit: first invalid field has aria-invalid and autofocus",
         (await page.locator("#cf-name").getAttribute("aria-invalid")) === "true" && (await page.locator("#cf-name").getAttribute("autofocus")) !== null);
       check("no-JS: the response lands on the form (#contact-form)", page.url().endsWith("#contact-form"), page.url());
+      await page.getByRole("radio", { name: "Hire full-time" }).check();
+      check("no-JS: choosing a type leaves the box as it is (letters need JavaScript)", (await box(page).inputValue()) === "");
+
+      // An untouched letter (with trailing spaces) posted without JavaScript gets the same error, from the server.
+      const hookBefore = hook.received.length;
+      const serverError = page.locator("#cf-message-error");
+      const serverErrorText = async () => ((await serverError.count()) ? await serverError.innerText() : "no error");
+      await page.goto(`${BASE}/`);
+      await fillValid(page, { name: "No Script", inquiry: "Hire full-time", message: LETTERS.hire.replace("Start date:", "Start date:  ") });
+      await postAndWait();
+      check("no-JS untouched letter: the server's inline error", (await serverErrorText()).includes(UNTOUCHED), await serverErrorText());
+      check("no-JS untouched letter: aria-invalid, autofocus and the letter kept",
+        (await box(page).getAttribute("aria-invalid")) === "true" && (await box(page).getAttribute("autofocus")) !== null && (await box(page).inputValue()).startsWith("Hi Ehjay,"));
+      await box(page).fill(LETTERS.other);
+      await postAndWait();
+      check("no-JS “Other” letter: the untouched error wins over the length one", (await serverErrorText()).includes(UNTOUCHED), await serverErrorText());
+      check("no-JS untouched letter: nothing reached the webhook", hook.received.length === hookBefore);
 
       const before = hook.received.length;
       await page.goto(`${BASE}/?from=/now`);
@@ -306,7 +454,7 @@ async function main() {
       await sleep(WAIT_PAST_MIN_FILL);
       await postAndWait();
       const done = await status(page).innerText();
-      check("no-JS second submit: success message", /thanks, no script/i.test(done), done);
+      check("no-JS second submit: success message", done.includes(SUCCESS("visitor@example.com")), done);
       const p = hook.received.at(-1);
       check("no-JS: payload reached the webhook with page from ?from=", hook.received.length === before + 1 && p?.name === "No Script" && p?.page === "/now", JSON.stringify(p));
       await context.close();
