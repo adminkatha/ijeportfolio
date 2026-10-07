@@ -69,7 +69,8 @@ try {
 const TEXT = /\.(md|mdx|ts|tsx|js|mjs|cjs|json|css|html|txt|xml|svg|yml|yaml|gs|bat|example)$/i;
 const SKIP = new Set(["pnpm-lock.yaml"]);
 const BRAND = new RegExp(["agora", "atrium"].join("[\\s\\u00b7·._-]*"), "i"); // assembled so this file never contains the name
-const ALLOWED_EMAILS = new Set(["ehjaylorenzo2@gmail.com", "noreply@anthropic.com"]);
+// His address (public on the site) and the admin address the contact form CCs (docs/contact/apps-script.gs).
+const ALLOWED_EMAILS = new Set(["ehjaylorenzo2@gmail.com", "admin.katha@gmail.com", "noreply@anthropic.com"]);
 const SECRET_PATTERNS = [
   ["Google API key", /AIza[0-9A-Za-z_-]{35}/],
   ["GitHub token", /\bgh[pousr]_[0-9A-Za-z]{30,}/],
