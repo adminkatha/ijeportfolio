@@ -5,6 +5,8 @@
 
 /** id of the <form>; the no-JS fallback posts to `<path>#contact-form` so the browser lands back on it. */
 export const CONTACT_FORM_ID = "contact-form";
+/** id of the form in the "Let's connect" pop-up (JavaScript only). */
+export const CONTACT_DIALOG_FORM_ID = "contact-dialog-form";
 
 export const CONTACT_LIMITS = {
   name: 100,

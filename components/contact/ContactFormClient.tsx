@@ -4,6 +4,7 @@ import { useActionState, useEffect, useRef, useState, useSyncExternalStore, type
 import { usePathname } from "next/navigation";
 import { getContactToken, submitContact } from "@/lib/contact/actions";
 import {
+  CONTACT_DIALOG_FORM_ID,
   CONTACT_FIELDS,
   CONTACT_FORM_ID,
   CONTACT_LIMITS,
@@ -22,8 +23,12 @@ import {
  * page comes back with the same state (errors, values, messages); with JavaScript, useActionState updates it in place.
  */
 
-const id = (field: string) => `cf-${field}`;
-const errorId = (field: string) => `cf-${field}-error`;
+/** Each form's ids get their own prefix, since the homepage can have both the Contact section's form and the pop-up's. */
+const PREFIX = { section: "cf", dialog: "cd" } as const;
+export type ContactFormVariant = keyof typeof PREFIX;
+
+const id = (prefix: string, field: string) => `${prefix}-${field}`;
+const errorId = (prefix: string, field: string) => `${prefix}-${field}-error`;
 
 const noSubscribe = () => () => {};
 
@@ -31,8 +36,22 @@ const control =
   "block w-full min-h-11 rounded-none border border-text-3 bg-surface px-3.5 py-2.5 text-base text-text " +
   "transition-colors duration-[var(--dur-1)] hover:border-text-2 focus-visible:border-text aria-invalid:border-text";
 
-export function ContactFormClient({ email }: { email: string }) {
+export type ContactFormClientProps = {
+  email: string;
+  /**
+   * "section": the homepage Contact section (ids cf-*, form id "contact-form").
+   * "dialog": the "Let's connect" pop-up (ids cd-*, form id "contact-dialog-form").
+   */
+  variant?: ContactFormVariant;
+  /** Dialog only: closes the pop-up (the Close button shown after a successful send). */
+  onClose?: () => void;
+};
+
+export function ContactFormClient({ email, variant = "section", onClose }: ContactFormClientProps) {
   const pathname = usePathname();
+  const prefix = PREFIX[variant];
+  const formId = variant === "dialog" ? CONTACT_DIALOG_FORM_ID : CONTACT_FORM_ID;
+  void onClose;
   // The permalink is where the browser posts without JavaScript; the fragment brings the visitor back to the form.
   const [state, formAction, pending] = useActionState(submitContact, initialContactState, `${pathname}#${CONTACT_FORM_ID}`);
   const formRef = useRef<HTMLFormElement>(null);
@@ -72,28 +91,28 @@ export function ContactFormClient({ email }: { email: string }) {
   }
 
   const describedBy = (field: ContactField, hint?: string) =>
-    [hint, errors[field] ? errorId(field) : undefined].filter(Boolean).join(" ") || undefined;
+    [hint, errors[field] ? errorId(prefix, field) : undefined].filter(Boolean).join(" ") || undefined;
 
   return (
     <form
-      id={CONTACT_FORM_ID}
+      id={formId}
       ref={formRef}
       action={formAction}
       onSubmit={onSubmit}
       onFocus={startClock}
       noValidate
-      aria-describedby="cf-required-note"
+      aria-describedby={`${prefix}-required-note`}
       className="@container space-y-7"
     >
-      <p id="cf-required-note" className="text-sm text-text-2">
+      <p id={`${prefix}-required-note`} className="text-sm text-text-2">
         Fields marked <span aria-hidden="true">*</span>
         <span className="sr-only">with an asterisk</span> are required.
       </p>
 
       <div className="grid gap-7 @xl:grid-cols-2 @xl:gap-x-6">
-        <Field label="Name" field="name" required error={errors.name}>
+        <Field prefix={prefix} label="Name" field="name" required error={errors.name}>
           <input
-            id={id("name")}
+            id={id(prefix, "name")}
             name="name"
             type="text"
             autoComplete="name"
@@ -107,9 +126,9 @@ export function ContactFormClient({ email }: { email: string }) {
           />
         </Field>
 
-        <Field label="Email" field="email" required error={errors.email}>
+        <Field prefix={prefix} label="Email" field="email" required error={errors.email}>
           <input
-            id={id("email")}
+            id={id(prefix, "email")}
             name="email"
             type="email"
             inputMode="email"
@@ -127,9 +146,9 @@ export function ContactFormClient({ email }: { email: string }) {
         </Field>
       </div>
 
-      <Field label="Company" field="company" optional error={errors.company}>
+      <Field prefix={prefix} label="Company" field="company" optional error={errors.company}>
         <input
-          id={id("company")}
+          id={id(prefix, "company")}
           name="company"
           type="text"
           autoComplete="organization"
@@ -144,13 +163,13 @@ export function ContactFormClient({ email }: { email: string }) {
 
       <fieldset
         role="radiogroup"
-        aria-labelledby="cf-inquiryType-legend"
+        aria-labelledby={`${prefix}-inquiryType-legend`}
         aria-required="true"
         aria-invalid={errors.inquiryType ? true : undefined}
         aria-describedby={describedBy("inquiryType")}
         className="min-w-0"
       >
-        <legend id="cf-inquiryType-legend" className="label-mono mb-3 text-text-2">
+        <legend id={`${prefix}-inquiryType-legend`} className="label-mono mb-3 text-text-2">
           What&apos;s this about? <Required />
         </legend>
         <div className="grid gap-3 @md:flex @md:flex-wrap">
@@ -172,19 +191,19 @@ export function ContactFormClient({ email }: { email: string }) {
             </label>
           ))}
         </div>
-        <FieldError field="inquiryType" error={errors.inquiryType} />
+        <FieldError prefix={prefix} field="inquiryType" error={errors.inquiryType} />
       </fieldset>
 
-      <Field label="Message" field="message" required error={errors.message} hint={`At least ${CONTACT_LIMITS.messageMin} characters.`}>
+      <Field prefix={prefix} label="Message" field="message" required error={errors.message} hint={`At least ${CONTACT_LIMITS.messageMin} characters.`}>
         <textarea
-          id={id("message")}
+          id={id(prefix, "message")}
           name="message"
           required
           rows={6}
           maxLength={CONTACT_LIMITS.messageMax}
           defaultValue={values.message ?? ""}
           aria-invalid={errors.message ? true : undefined}
-          aria-describedby={describedBy("message", "cf-message-hint")}
+          aria-describedby={describedBy("message", `${prefix}-message-hint`)}
           autoFocus={firstError === "message"}
           className={`${control} min-h-40 resize-y leading-relaxed`}
         />
@@ -192,8 +211,8 @@ export function ContactFormClient({ email }: { email: string }) {
 
       {/* Spam trap: invisible and unreachable for people; bots that fill every field get rejected. */}
       <div aria-hidden="true" className="sr-only">
-        <label htmlFor={id(HONEYPOT_FIELD)}>Leave this field empty</label>
-        <input id={id(HONEYPOT_FIELD)} name={HONEYPOT_FIELD} type="text" tabIndex={-1} autoComplete="off" defaultValue="" />
+        <label htmlFor={id(prefix, HONEYPOT_FIELD)}>Leave this field empty</label>
+        <input id={id(prefix, HONEYPOT_FIELD)} name={HONEYPOT_FIELD} type="text" tabIndex={-1} autoComplete="off" defaultValue="" />
       </div>
       <input type="hidden" name={TOKEN_FIELD} value={state.token || token} />
       <input type="hidden" name={PAGE_FIELD} value={clientPage || state.page || ""} />
@@ -244,6 +263,7 @@ function Required() {
 }
 
 function Field({
+  prefix,
   label,
   field,
   required,
@@ -252,6 +272,7 @@ function Field({
   error,
   children,
 }: {
+  prefix: string;
   label: string;
   field: ContactField;
   required?: boolean;
@@ -262,25 +283,25 @@ function Field({
 }) {
   return (
     <div className="min-w-0">
-      <label htmlFor={id(field)} className="label-mono mb-3 block text-text-2">
+      <label htmlFor={id(prefix, field)} className="label-mono mb-3 block text-text-2">
         {label} {required ? <Required /> : null}
         {optional ? <span className="normal-case tracking-normal">(optional)</span> : null}
       </label>
       {hint ? (
-        <p id={`cf-${field}-hint`} className="-mt-1.5 mb-3 text-sm text-text-2">
+        <p id={`${prefix}-${field}-hint`} className="-mt-1.5 mb-3 text-sm text-text-2">
           {hint}
         </p>
       ) : null}
       {children}
-      <FieldError field={field} error={error} />
+      <FieldError prefix={prefix} field={field} error={error} />
     </div>
   );
 }
 
-function FieldError({ field, error }: { field: ContactField; error?: string }) {
+function FieldError({ prefix, field, error }: { prefix: string; field: ContactField; error?: string }) {
   if (!error) return null;
   return (
-    <p id={errorId(field)} className="mt-2.5 flex items-start gap-2 text-sm text-text">
+    <p id={errorId(prefix, field)} className="mt-2.5 flex items-start gap-2 text-sm text-text">
       <svg aria-hidden="true" viewBox="0 0 16 16" className="mt-[0.2em] size-[1em] shrink-0" fill="none">
         <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.5" />
         <path d="M8 4.25v4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
