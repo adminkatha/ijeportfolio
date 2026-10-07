@@ -29,8 +29,8 @@ Run order for this build (user, 2026-10-06): finish the whole site without stopp
 | 15 QA | 🔄 in progress (keyboard pass clean, axe 0 on the site); waiting for the demos' in-place accessibility fixes | main |
 | 16 Deploy prep (GitHub + Vercel docs, run-local.bat) | ✅ merged + pushed; run-local.bat tested (falls back to :3001 when :3000 is busy) | main |
 | CV update (facts from his CV, nothing blank on the site, new résumé) | ✅ pushed (`76dbbcf`) and redeployed 2026-10-06 | main + Vercel |
-| "Let’s connect" pop-up + email-only contact form (2026-10-08) | ✅ built by 3 agents (email script, form letters, pop-up), merged, checks passed, pushed; **not redeployed yet**. Next: the owner deploys the Apps Script (docs/CONTACT-SETUP.md), then `CONTACT_WEBHOOK_URL` in Vercel + `.env.local`, redeploy, one live test message | main |
-| 16 Deploy | ✅ **live 2026-10-06 13:40: https://ehjay-lorenzo.vercel.app** (CLI deploy, Vercel build with corepack). Later: GitHub auto-deploys, domain + `SITE_URL`, contact env vars, Analytics | Vercel |
+| "Let’s connect" pop-up + email-only contact form (2026-10-08) | ✅ built by 3 agents (email script, form letters, pop-up), merged, checks passed, pushed. Apps Script deployed by the owner; `CONTACT_WEBHOOK_URL` + `CONTACT_SECRET` in Vercel (Production, Preview) and `.env.local`; **redeployed and live 2026-10-08**; one test message sent through the live pop-up (webhook ok); waiting for the owner to confirm both inboxes | main + Vercel |
+| 16 Deploy | ✅ **live 2026-10-06 13:40: https://ehjay-lorenzo.vercel.app** (CLI deploy, Vercel build with corepack). Later: GitHub auto-deploys, domain + `SITE_URL`, Analytics (contact env vars: done 2026-10-08) | Vercel |
 
 ## How the parallel build works
 - Phases 1–2 were built first on `main`; they define the tokens, the content API (`lib/content.ts`) and **interface stubs** (files marked `STUB`) so every branch compiles on its own.

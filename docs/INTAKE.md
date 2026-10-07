@@ -75,7 +75,7 @@ A case study switches from a short page to a full one once at least half its sec
 ## 6. Contact, GitHub, deploy
 | Item | Answer |
 |---|---|
-| Contact form | ✅ "Let’s connect" pop-up + the Contact section's form; each message is emailed to ehjaylorenzo2@gmail.com with a CC to admin.katha@gmail.com (no Sheet). `CONTACT_SECRET` is in Vercel; waiting for the Apps Script web app URL (`CONTACT_WEBHOOK_URL`), so it shows "Email me instead" until then. Setup: `docs/CONTACT-SETUP.md`. |
+| Contact form | ✅ "Let’s connect" pop-up + the Contact section's form; each message is emailed to ehjaylorenzo2@gmail.com with a CC to admin.katha@gmail.com (no Sheet). Connected and live since 2026-10-08 (both env vars in Vercel; the script is owned by admin.katha@gmail.com). Setup: `docs/CONTACT-SETUP.md`. |
 | GitHub | ✅ https://github.com/adminkatha/ijeportfolio (public), `main`. |
 | Vercel | ✅ Live at https://ehjay-lorenzo.vercel.app (CLI deploys). GitHub auto-deploys, domain, Analytics: `docs/DEPLOY.md`. |
 | `SITE_URL` / domain | open: until a domain is set, canonical URLs use the vercel.app address |
