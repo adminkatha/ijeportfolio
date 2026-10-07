@@ -2,7 +2,7 @@
 
 import { headers } from "next/headers";
 import { getContactConfig } from "./config";
-import { HONEYPOT_FIELD, PAGE_FIELD, TOKEN_FIELD, inquiryLabel, sanitizePath, type ContactState } from "./fields";
+import { HONEYPOT_FIELD, INVALID_MESSAGE, PAGE_FIELD, TOKEN_FIELD, inquiryLabel, sanitizePath, type ContactState } from "./fields";
 import { parseContactForm, readSubmittedValues } from "./schema";
 import { MIN_FILL_MS, issueToken, verifyToken } from "./token";
 import { sendToWebhook } from "./webhook";
@@ -16,7 +16,7 @@ import { sendToWebhook } from "./webhook";
 const MESSAGES = {
   notConfigured: "The form isn't connected right now, so your message wasn't sent. Please email me instead:",
   rejected: "Sorry, your message couldn't be sent. Please email me instead:",
-  invalid: "Please check the highlighted fields.",
+  invalid: INVALID_MESSAGE,
   retry: "Almost there. For spam protection, please press Send again.",
   tooFast: "That was quick. Please check your message, then press Send again.",
   failed: "Sorry, your message couldn't be sent. Please try again in a moment, or email me instead:",
@@ -88,7 +88,7 @@ export async function submitContact(_previous: ContactState, formData: FormData)
   }
   return {
     status: "success",
-    message: `Thanks, ${data.name}. Your message is on its way, and I'll reply to ${data.email}.`,
+    message: `Thanks, your message is on its way to Ehjay. He'll reply to ${data.email}.`,
     token: nextToken,
     page,
   };

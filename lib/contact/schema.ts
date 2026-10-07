@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { CONTACT_FIELDS, CONTACT_LIMITS, INQUIRY_VALUES, type ContactField } from "./fields";
+import { UNTOUCHED_LETTER, isUntouchedLetter } from "./letters";
 
 /*
  * Server-side validation for the contact form (the server action is the only gate; the browser's own
@@ -55,6 +56,8 @@ export const contactSchema = z.object({
       z
         .string()
         .min(1, "Please write a message.")
+        // Before the length check: the "Other" letter is shorter than the minimum, and this error says more.
+        .refine((value) => !isUntouchedLetter(value), UNTOUCHED_LETTER)
         .min(messageMin, `Please write at least ${messageMin} characters.`)
         .max(messageMax, `Please keep your message to ${messageMax.toLocaleString("en-US")} characters or fewer.`),
     ),

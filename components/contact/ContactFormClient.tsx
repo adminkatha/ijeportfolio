@@ -10,22 +10,38 @@ import {
   CONTACT_LIMITS,
   HONEYPOT_FIELD,
   INQUIRY_TYPES,
+  INVALID_MESSAGE,
   PAGE_FIELD,
   PRIVACY_NOTE,
   TOKEN_FIELD,
   initialContactState,
   pageFromLocation,
   type ContactField,
+  type ContactState,
+  type InquiryType,
 } from "@/lib/contact/fields";
+import { LETTERS, UNTOUCHED_LETTER, isUntouchedLetter } from "@/lib/contact/letters";
 
 /*
  * The hire-me form. Progressive enhancement: without JavaScript it is a plain POST to the server action and the
- * page comes back with the same state (errors, values, messages); with JavaScript, useActionState updates it in place.
+ * page comes back with the same state (errors, values, messages); with JavaScript, useActionState updates it in place,
+ * and choosing an inquiry type puts its starter letter in the message box (lib/contact/letters.ts).
  */
 
 /** Each form's ids get their own prefix, since the homepage can have both the Contact section's form and the pop-up's. */
 const PREFIX = { section: "cf", dialog: "cd" } as const;
 export type ContactFormVariant = keyof typeof PREFIX;
+
+/** A fresh form: the pop-up opens on "Hire full-time" with its letter; the section starts with nothing chosen. */
+const START: Record<ContactFormVariant, Partial<Record<ContactField, string>>> = {
+  section: {},
+  dialog: { inquiryType: "hire" satisfies InquiryType, message: LETTERS.hire },
+};
+
+const HINT = {
+  plain: `At least ${CONTACT_LIMITS.messageMin} characters.`,
+  letter: "Edit the letter, or write your own.",
+};
 
 const id = (prefix: string, field: string) => `${prefix}-${field}`;
 const errorId = (prefix: string, field: string) => `${prefix}-${field}-error`;
@@ -51,26 +67,52 @@ export function ContactFormClient({ email, variant = "section", onClose }: Conta
   const pathname = usePathname();
   const prefix = PREFIX[variant];
   const formId = variant === "dialog" ? CONTACT_DIALOG_FORM_ID : CONTACT_FORM_ID;
-  void onClose;
   // The permalink is where the browser posts without JavaScript; the fragment brings the visitor back to the form.
   const [state, formAction, pending] = useActionState(submitContact, initialContactState, `${pathname}#${CONTACT_FORM_ID}`);
   const formRef = useRef<HTMLFormElement>(null);
+  const messageRef = useRef<HTMLTextAreaElement>(null);
+  const sentRef = useRef<HTMLParagraphElement>(null);
   const tokenRequested = useRef(false);
   const [token, setToken] = useState("");
   // Where the visitor came from: "" on the server (no-JS falls back to the Referer), the real path in the browser.
   const clientPage = useSyncExternalStore(noSubscribe, pageFromLocation, () => "");
+  // The browser's untouched-letter check: a new object per refused attempt, shown until the server answers again.
+  const [untouched, setUntouched] = useState<{ on: ContactState } | null>(null);
+  // Whether the message box holds a starter letter we offered (the hint follows). Back to the start after a send.
+  const [lettered, setLettered] = useState(variant === "dialog");
+  const [seenState, setSeenState] = useState(state);
+  if (seenState !== state) {
+    setSeenState(state);
+    if (state.status === "success") setLettered(variant === "dialog");
+  }
 
-  const errors = state.errors ?? {};
-  const values = state.values ?? {};
+  const view: ContactState =
+    untouched?.on === state
+      ? { ...state, status: "invalid", message: INVALID_MESSAGE, offerEmail: false, errors: { ...state.errors, message: UNTOUCHED_LETTER } }
+      : state;
+  const errors = view.errors ?? {};
+  // The submitted values after an error (React resets the form to them after each action), otherwise a fresh form.
+  const values = state.values ?? START[variant];
   const firstError = CONTACT_FIELDS.find((f) => errors[f]);
+  // After a send the pop-up swaps its fields for a thank-you panel; the section shows the thanks below a fresh form.
+  const sent = variant === "dialog" && state.status === "success";
 
-  // After a submit with errors, move focus to the first invalid field (without JS, autoFocus does it on load).
+  // After a send from the pop-up, focus the thanks; after a submit with errors, the first invalid field (without JS,
+  // autoFocus does it on load).
   useEffect(() => {
+    if (sent) {
+      sentRef.current?.focus();
+      return;
+    }
     if (state.status !== "invalid") return;
     const invalid = formRef.current?.querySelector<HTMLElement>("[aria-invalid='true']");
     const target = invalid instanceof HTMLFieldSetElement ? invalid.querySelector<HTMLElement>("input") : invalid;
     target?.focus();
-  }, [state]);
+  }, [state, sent]);
+
+  useEffect(() => {
+    if (untouched) messageRef.current?.focus();
+  }, [untouched]);
 
   /** Starts the minimum-fill-time clock: the server signs the moment the visitor first focuses the form. */
   function startClock() {
@@ -87,7 +129,29 @@ export function ContactFormClient({ email, variant = "section", onClose }: Conta
   }
 
   function onSubmit(event: FormEvent<HTMLFormElement>) {
-    if (pending) event.preventDefault(); // one submission at a time
+    if (pending) {
+      event.preventDefault(); // one submission at a time
+      return;
+    }
+    // A letter with nothing added isn't sent (the server refuses it too, for posts without JavaScript).
+    if (isUntouchedLetter(messageRef.current?.value ?? "")) {
+      event.preventDefault();
+      setUntouched({ on: state });
+    } else {
+      setUntouched(null);
+    }
+  }
+
+  /**
+   * Choosing a type puts its letter in the message box, unless the visitor has written something of their own.
+   * Wired to onClick (fired for mouse, Space and arrow keys alike), not onChange: React's form reset after a send
+   * leaves its record of the checked radio stale, so picking the same type again would fire no onChange.
+   */
+  function offerLetter(type: InquiryType) {
+    const box = messageRef.current;
+    if (!box || (box.value.trim() && !isUntouchedLetter(box.value))) return;
+    box.value = LETTERS[type];
+    setLettered(true);
   }
 
   const describedBy = (field: ContactField, hint?: string) =>
@@ -101,153 +165,183 @@ export function ContactFormClient({ email, variant = "section", onClose }: Conta
       onSubmit={onSubmit}
       onFocus={startClock}
       noValidate
-      aria-describedby={`${prefix}-required-note`}
+      aria-describedby={sent ? undefined : `${prefix}-required-note`}
       className="@container space-y-7"
     >
-      <p id={`${prefix}-required-note`} className="text-sm text-text-2">
-        Fields marked <span aria-hidden="true">*</span>
-        <span className="sr-only">with an asterisk</span> are required.
-      </p>
+      {sent ? null : (
+        <>
+          <p id={`${prefix}-required-note`} className="text-sm text-text-2">
+            Fields marked <span aria-hidden="true">*</span>
+            <span className="sr-only">with an asterisk</span> are required.
+          </p>
 
-      <div className="grid gap-7 @xl:grid-cols-2 @xl:gap-x-6">
-        <Field prefix={prefix} label="Name" field="name" required error={errors.name}>
-          <input
-            id={id(prefix, "name")}
-            name="name"
-            type="text"
-            autoComplete="name"
-            required
-            maxLength={CONTACT_LIMITS.name}
-            defaultValue={values.name ?? ""}
-            aria-invalid={errors.name ? true : undefined}
-            aria-describedby={describedBy("name")}
-            autoFocus={firstError === "name"}
-            className={control}
-          />
-        </Field>
-
-        <Field prefix={prefix} label="Email" field="email" required error={errors.email}>
-          <input
-            id={id(prefix, "email")}
-            name="email"
-            type="email"
-            inputMode="email"
-            autoComplete="email"
-            autoCapitalize="none"
-            spellCheck={false}
-            required
-            maxLength={CONTACT_LIMITS.email}
-            defaultValue={values.email ?? ""}
-            aria-invalid={errors.email ? true : undefined}
-            aria-describedby={describedBy("email")}
-            autoFocus={firstError === "email"}
-            className={control}
-          />
-        </Field>
-      </div>
-
-      <Field prefix={prefix} label="Company" field="company" optional error={errors.company}>
-        <input
-          id={id(prefix, "company")}
-          name="company"
-          type="text"
-          autoComplete="organization"
-          maxLength={CONTACT_LIMITS.company}
-          defaultValue={values.company ?? ""}
-          aria-invalid={errors.company ? true : undefined}
-          aria-describedby={describedBy("company")}
-          autoFocus={firstError === "company"}
-          className={control}
-        />
-      </Field>
-
-      <fieldset
-        role="radiogroup"
-        aria-labelledby={`${prefix}-inquiryType-legend`}
-        aria-required="true"
-        aria-invalid={errors.inquiryType ? true : undefined}
-        aria-describedby={describedBy("inquiryType")}
-        className="min-w-0"
-      >
-        <legend id={`${prefix}-inquiryType-legend`} className="label-mono mb-3 text-text-2">
-          What&apos;s this about? <Required />
-        </legend>
-        <div className="grid gap-3 @md:flex @md:flex-wrap">
-          {INQUIRY_TYPES.map((option, i) => (
-            <label
-              key={option.value}
-              className="flex min-h-11 cursor-pointer items-center gap-3 border border-text-3 px-4 py-2 text-text transition-colors duration-[var(--dur-1)] hover:border-text-2 has-checked:border-text has-checked:bg-surface-2 [[aria-invalid=true]_&]:border-text-2"
-            >
+          <div className="grid gap-7 @xl:grid-cols-2 @xl:gap-x-6">
+            <Field prefix={prefix} label="Name" field="name" required error={errors.name}>
               <input
-                type="radio"
-                name="inquiryType"
-                value={option.value}
+                id={id(prefix, "name")}
+                name="name"
+                type="text"
+                autoComplete="name"
                 required
-                defaultChecked={values.inquiryType === option.value}
-                autoFocus={firstError === "inquiryType" && i === 0}
-                className="size-4 shrink-0 cursor-pointer appearance-none rounded-full border border-text-2 bg-bg checked:border-text checked:bg-text checked:shadow-[inset_0_0_0_3px_var(--color-bg)]"
+                maxLength={CONTACT_LIMITS.name}
+                defaultValue={values.name ?? ""}
+                aria-invalid={errors.name ? true : undefined}
+                aria-describedby={describedBy("name")}
+                autoFocus={firstError === "name"}
+                className={control}
               />
-              {option.label}
-            </label>
-          ))}
-        </div>
-        <FieldError prefix={prefix} field="inquiryType" error={errors.inquiryType} />
-      </fieldset>
+            </Field>
 
-      <Field prefix={prefix} label="Message" field="message" required error={errors.message} hint={`At least ${CONTACT_LIMITS.messageMin} characters.`}>
-        <textarea
-          id={id(prefix, "message")}
-          name="message"
-          required
-          rows={6}
-          maxLength={CONTACT_LIMITS.messageMax}
-          defaultValue={values.message ?? ""}
-          aria-invalid={errors.message ? true : undefined}
-          aria-describedby={describedBy("message", `${prefix}-message-hint`)}
-          autoFocus={firstError === "message"}
-          className={`${control} min-h-40 resize-y leading-relaxed`}
-        />
-      </Field>
+            <Field prefix={prefix} label="Email" field="email" required error={errors.email}>
+              <input
+                id={id(prefix, "email")}
+                name="email"
+                type="email"
+                inputMode="email"
+                autoComplete="email"
+                autoCapitalize="none"
+                spellCheck={false}
+                required
+                maxLength={CONTACT_LIMITS.email}
+                defaultValue={values.email ?? ""}
+                aria-invalid={errors.email ? true : undefined}
+                aria-describedby={describedBy("email")}
+                autoFocus={firstError === "email"}
+                className={control}
+              />
+            </Field>
+          </div>
 
-      {/* Spam trap: invisible and unreachable for people; bots that fill every field get rejected. */}
-      <div aria-hidden="true" className="sr-only">
-        <label htmlFor={id(prefix, HONEYPOT_FIELD)}>Leave this field empty</label>
-        <input id={id(prefix, HONEYPOT_FIELD)} name={HONEYPOT_FIELD} type="text" tabIndex={-1} autoComplete="off" defaultValue="" />
-      </div>
-      <input type="hidden" name={TOKEN_FIELD} value={state.token || token} />
-      <input type="hidden" name={PAGE_FIELD} value={clientPage || state.page || ""} />
+          <Field prefix={prefix} label="Company" field="company" optional error={errors.company}>
+            <input
+              id={id(prefix, "company")}
+              name="company"
+              type="text"
+              autoComplete="organization"
+              maxLength={CONTACT_LIMITS.company}
+              defaultValue={values.company ?? ""}
+              aria-invalid={errors.company ? true : undefined}
+              aria-describedby={describedBy("company")}
+              autoFocus={firstError === "company"}
+              className={control}
+            />
+          </Field>
 
-      <div className="flex flex-col gap-5 @lg:flex-row @lg:items-center @lg:gap-8">
-        <button
-          type="submit"
-          aria-disabled={pending || undefined}
-          className="group inline-flex min-h-12 shrink-0 items-center justify-center gap-3 bg-accent px-7 font-mono text-sm tracking-[0.08em] text-accent-ink uppercase aria-disabled:cursor-progress"
-        >
-          {pending ? "Sending…" : "Send message"}
-          <span
-            aria-hidden="true"
-            className="transition-transform duration-[var(--dur-1)] ease-out group-hover:translate-x-1 group-aria-disabled:translate-x-0"
+          <fieldset
+            role="radiogroup"
+            aria-labelledby={`${prefix}-inquiryType-legend`}
+            aria-required="true"
+            aria-invalid={errors.inquiryType ? true : undefined}
+            aria-describedby={describedBy("inquiryType")}
+            className="min-w-0"
           >
-            →
-          </span>
-        </button>
-        <p className="text-sm text-text-2">{PRIVACY_NOTE}</p>
-      </div>
+            <legend id={`${prefix}-inquiryType-legend`} className="label-mono mb-3 text-text-2">
+              What&apos;s this about? <Required />
+            </legend>
+            <div className="grid gap-3 @md:flex @md:flex-wrap">
+              {INQUIRY_TYPES.map((option, i) => (
+                <label
+                  key={option.value}
+                  className="flex min-h-11 cursor-pointer items-center gap-3 border border-text-3 px-4 py-2 text-text transition-colors duration-[var(--dur-1)] hover:border-text-2 has-checked:border-text has-checked:bg-surface-2 [[aria-invalid=true]_&]:border-text-2"
+                >
+                  <input
+                    type="radio"
+                    name="inquiryType"
+                    value={option.value}
+                    required
+                    defaultChecked={values.inquiryType === option.value}
+                    onClick={() => offerLetter(option.value)}
+                    autoFocus={firstError === "inquiryType" && i === 0}
+                    className="size-4 shrink-0 cursor-pointer appearance-none rounded-full border border-text-2 bg-bg checked:border-text checked:bg-text checked:shadow-[inset_0_0_0_3px_var(--color-bg)]"
+                  />
+                  {option.label}
+                </label>
+              ))}
+            </div>
+            <FieldError prefix={prefix} field="inquiryType" error={errors.inquiryType} />
+          </fieldset>
 
-      {/* Always in the DOM (never display:none) so screen readers announce what appears in it. */}
-      <div role="status" aria-live="polite" aria-atomic="true">
-        {state.message ? (
-          <StatusMessage tone={state.status === "success" ? "success" : "problem"}>
-            {state.message}
-            {state.offerEmail ? (
-              <>
-                {" "}
-                <a href={`mailto:${email}`} className="text-text underline decoration-text-2 [overflow-wrap:anywhere] hover:decoration-text">
-                  {email}
-                </a>
-              </>
-            ) : null}
-          </StatusMessage>
+          <Field prefix={prefix} label="Message" field="message" required error={errors.message} hint={lettered ? HINT.letter : HINT.plain}>
+            {/* 13 rows: the whole "Hire full-time" letter shows without scrolling (11 lines, 12–13 where they wrap). */}
+            <textarea
+              ref={messageRef}
+              id={id(prefix, "message")}
+              name="message"
+              required
+              rows={13}
+              maxLength={CONTACT_LIMITS.messageMax}
+              defaultValue={values.message ?? ""}
+              aria-invalid={errors.message ? true : undefined}
+              aria-describedby={describedBy("message", `${prefix}-message-hint`)}
+              autoFocus={firstError === "message"}
+              className={`${control} min-h-40 resize-y leading-relaxed`}
+            />
+          </Field>
+
+          {/* Spam trap: invisible and unreachable for people; bots that fill every field get rejected. */}
+          <div aria-hidden="true" className="sr-only">
+            <label htmlFor={id(prefix, HONEYPOT_FIELD)}>Leave this field empty</label>
+            <input id={id(prefix, HONEYPOT_FIELD)} name={HONEYPOT_FIELD} type="text" tabIndex={-1} autoComplete="off" defaultValue="" />
+          </div>
+          <input type="hidden" name={TOKEN_FIELD} value={state.token || token} />
+          <input type="hidden" name={PAGE_FIELD} value={clientPage || state.page || ""} />
+
+          <div className="flex flex-col gap-5 @lg:flex-row @lg:items-center @lg:gap-8">
+            <button
+              type="submit"
+              aria-disabled={pending || undefined}
+              className="group inline-flex min-h-12 shrink-0 items-center justify-center gap-3 bg-accent px-7 font-mono text-sm tracking-[0.08em] text-accent-ink uppercase aria-disabled:cursor-progress"
+            >
+              {pending ? "Sending…" : "Send message"}
+              <span
+                aria-hidden="true"
+                className="transition-transform duration-[var(--dur-1)] ease-out group-hover:translate-x-1 group-aria-disabled:translate-x-0"
+              >
+                →
+              </span>
+            </button>
+            <p className="text-sm text-text-2">{PRIVACY_NOTE}</p>
+          </div>
+        </>
+      )}
+
+      {/* The pop-up's thank-you panel after a send (data-contact-sent tells the pop-up to start fresh next time).
+          The live region inside stays in the DOM in both states (never display:none) so screen readers announce it. */}
+      <div data-contact-sent={sent ? "" : undefined} className="space-y-8">
+        <div role="status" aria-live="polite" aria-atomic="true">
+          {sent ? (
+            <div className="space-y-3">
+              <p className="label-mono text-text-2">Sent</p>
+              <p
+                ref={sentRef}
+                tabIndex={-1}
+                className="font-display text-[clamp(1.25rem,1.05rem+0.6vw,1.5rem)] leading-snug font-semibold tracking-[-0.02em] [overflow-wrap:anywhere] text-text"
+              >
+                {state.message}
+              </p>
+            </div>
+          ) : view.message ? (
+            <StatusMessage tone={view.status === "success" ? "success" : "problem"}>
+              {view.message}
+              {view.offerEmail ? (
+                <>
+                  {" "}
+                  <a href={`mailto:${email}`} className="text-text underline decoration-text-2 [overflow-wrap:anywhere] hover:decoration-text">
+                    {email}
+                  </a>
+                </>
+              ) : null}
+            </StatusMessage>
+          ) : null}
+        </div>
+        {sent ? (
+          <button
+            type="button"
+            onClick={() => onClose?.()}
+            className="label-mono inline-flex min-h-12 cursor-pointer items-center justify-center border border-text-3 px-7 text-text transition-colors duration-[var(--dur-1)] hover:border-text-2"
+          >
+            Close
+          </button>
         ) : null}
       </div>
     </form>
