@@ -1,6 +1,7 @@
 export type CommandGroup = "Navigate" | "Work" | "Links" | "Actions";
 
-export type CommandAction = "copy-email" | "toggle-motion";
+/** "open-contact": closes the palette, then opens the "Let’s connect" pop-up. */
+export type CommandAction = "copy-email" | "toggle-motion" | "open-contact";
 
 export type CommandItem = {
   id: string;

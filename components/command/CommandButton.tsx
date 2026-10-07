@@ -1,13 +1,15 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore, type ComponentType } from "react";
+import { openContactDialog } from "@/lib/contact/dialog";
 import s from "./CommandButton.module.css";
 import type { PaletteProps } from "./CommandPalette";
 import type { CommandItem } from "./types";
 
 type Palette = ComponentType<PaletteProps>;
 export type Typed = { text: string; submit: boolean };
-export type CloseReason = "dismiss" | "action" | "navigate";
+/** "contact": the "Let’s connect" command; the contact pop-up opens once the palette is closed. */
+export type CloseReason = "dismiss" | "action" | "navigate" | "contact";
 
 const noSubscribe = () => () => {};
 const isApple = () => /Mac|iPhone|iPad|iPod/.test(navigator.platform || navigator.userAgent);
@@ -41,6 +43,8 @@ export function CommandButton({ items }: { items: CommandItem[] }) {
     setOpen(false);
     // Navigation moves focus to where it lands; everything else returns it to the opener.
     if (reason !== "navigate") openerRef.current?.focus({ preventScroll: true });
+    // The pop-up hands focus back to wherever the palette just left it (normally this button).
+    if (reason === "contact") openContactDialog(document.activeElement);
   }, []);
 
   // ⌘K / Ctrl+K anywhere toggles the palette (attached once). "Open" is read from the DOM, not state,

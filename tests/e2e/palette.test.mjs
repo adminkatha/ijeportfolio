@@ -27,6 +27,8 @@ function cmdkChunks() {
 }
 
 const dialog = (page) => page.getByRole("dialog", { name: "Command menu" });
+/** The palette's live region (with the contact form configured, the Contact section has a role=status of its own). */
+const toast = (page) => page.locator("header").getByRole("status");
 const active = (page) =>
   page.evaluate(() => {
     const el = document.activeElement;
@@ -99,7 +101,7 @@ t.test("the header button opens it; focus is trapped; Esc returns focus to the b
   }
   await page.keyboard.press("Escape");
   await dialog(page).waitFor({ state: "hidden" });
-  await page.waitForFunction(() => document.querySelector('[aria-haspopup="dialog"]')?.getAttribute("aria-expanded") === "false");
+  await page.waitForFunction(() => document.querySelector('button[aria-haspopup="dialog"][aria-keyshortcuts]')?.getAttribute("aria-expanded") === "false");
   assert.equal((await active(page)).label, "Jump to");
   await context.close();
 });
@@ -111,10 +113,11 @@ t.test("groups Navigate / Work / Links / Actions; placeholders are left out", as
   const headings = await page.locator("[cmdk-group-heading]").allTextContents();
   assert.deepEqual(headings, ["Navigate", "Work", "Links", "Actions"]);
   const labels = await page.getByRole("option").allTextContents();
-  for (const expected of ["Home", "Selected work", "All work", "Honey Tribe", "Email", "Copy email address", "Toggle motion", "Hire me"]) {
+  // LinkedIn and the résumé are real links in content/data/profile.ts; GitHub isn't set, so it has no command.
+  for (const expected of ["Home", "Selected work", "All work", "Honey Tribe", "Email", "LinkedIn", "Copy email address", "Toggle motion", "Download résumé", "Let’s connect"]) {
     assert.ok(labels.some((l) => l.startsWith(expected)), `has "${expected}"`);
   }
-  assert.ok(!labels.some((l) => /LinkedIn|résumé|FILL IN/i.test(l)), "no fillIn links, no résumé until there is a file");
+  assert.ok(!labels.some((l) => /GitHub|FILL IN/i.test(l)), "no fillIn placeholders, no link that isn't set");
   // The accent marks the selected item only.
   const marker = await page.evaluate(() => {
     const sel = document.querySelector('[cmdk-item][data-selected="true"]');
@@ -138,7 +141,8 @@ t.test("search ranks real matches first (no scattered-letter matches)", async ()
   assert.deepEqual((await first("toggle")).all, ["Toggle motion"]);
   assert.equal((await first("copy")).selected, "Copy email address");
   assert.equal((await first("honey")).selected, "Honey Tribe");
-  assert.equal((await first("hire")).selected, "Hire me");
+  assert.equal((await first("hire")).selected, "Let’s connect");
+  assert.equal((await first("let's connect")).selected, "Let’s connect", "a straight apostrophe finds it too");
   assert.ok((await first("web")).all.length >= 3, "discipline hints are searchable");
   const none = await first("zzzz");
   assert.deepEqual(none.all, []);
@@ -168,8 +172,8 @@ t.test("copy email: clipboard + polite live-region confirmation", async () => {
   await page.keyboard.type("copy email");
   await page.keyboard.press("Enter");
   await dialog(page).waitFor({ state: "hidden" });
-  const status = page.getByRole("status");
-  await page.waitForFunction(() => document.querySelector('[role="status"]')?.textContent?.includes("copied"));
+  const status = toast(page);
+  await page.waitForFunction(() => document.querySelector('header [role="status"]')?.textContent?.includes("copied"));
   assert.equal(await status.textContent(), "Email address copied: ehjaylorenzo2@gmail.com");
   assert.equal(await status.getAttribute("aria-live"), null, "role=status is polite by default");
   assert.equal(await page.evaluate(() => navigator.clipboard.readText()), "ehjaylorenzo2@gmail.com");
@@ -184,7 +188,7 @@ t.test("toggle motion: applies at once, is announced, and persists", async () =>
   await page.keyboard.type("toggle motion");
   await page.keyboard.press("Enter");
   await page.waitForFunction(() => document.documentElement.dataset.motion === "reduced");
-  assert.equal(await page.getByRole("status").textContent(), "Motion reduced");
+  assert.equal(await toast(page).textContent(), "Motion reduced");
   assert.equal(await page.evaluate(() => localStorage.getItem("motion")), "reduced");
   assert.equal(await page.locator('section[aria-labelledby="hero-title"]').getAttribute("data-mode"), "drag", "the seam stops following the cursor");
   await page.reload({ waitUntil: "networkidle" });

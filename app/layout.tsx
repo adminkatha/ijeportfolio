@@ -1,6 +1,7 @@
 import type { Viewport } from "next";
 import { Bricolage_Grotesque, JetBrains_Mono } from "next/font/google";
 import localFont from "next/font/local";
+import { ContactDialogHost } from "@/components/contact/ContactDialogHost";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { SkipLink } from "@/components/layout/SkipLink";
@@ -8,6 +9,8 @@ import { VercelInsights } from "@/components/layout/VercelInsights";
 import { MotionRoot } from "@/components/motion/MotionRoot";
 import { MotionScript } from "@/components/motion/MotionScript";
 import { disciplines } from "@/content/data/schema";
+import { getContactConfig } from "@/lib/contact/config";
+import { getProfile } from "@/lib/content";
 import { rootMetadata } from "@/lib/seo";
 import "./globals.css";
 
@@ -65,6 +68,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Header />
         {children}
         <Footer />
+        {/* The "Let’s connect" pop-up: nothing renders, and its code doesn't load, until it's first asked for. */}
+        <ContactDialogHost email={getProfile().email} configured={Boolean(getContactConfig())} />
         <MotionRoot />
         <VercelInsights />
       </body>

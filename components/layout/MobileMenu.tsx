@@ -1,9 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, type FocusEvent, type MouseEvent } from "react";
-import { hireHref } from "./HireLink";
+import { ContactLink } from "./ContactLink";
 import type { NavItem } from "./nav";
 import { NavLinks } from "./NavLinks";
 
@@ -11,6 +10,8 @@ import { NavLinks } from "./NavLinks";
  * The menu under 768px: a disclosure button (aria-expanded / aria-controls) and a panel under the header.
  * Esc closes it and returns focus to the button; it also closes when a link is chosen, when focus or a
  * tap leaves it, on navigation, and when the viewport grows past 768px. (Without JS the footer nav remains.)
+ * Its "Let’s connect" opens the contact pop-up, which hands focus back to the Menu button when it closes
+ * (the link itself is hidden by then).
  */
 export function MobileMenu({ items, resumeHref }: { items: NavItem[]; resumeHref?: string }) {
   const pathname = usePathname();
@@ -87,10 +88,13 @@ export function MobileMenu({ items, resumeHref }: { items: NavItem[]; resumeHref
               <span aria-hidden="true">↓</span>
             </a>
           ) : null}
-          <Link href={hireHref(pathname)} className="label-mono mt-6 flex h-12 items-center justify-between bg-accent px-4 text-accent-ink">
-            Hire me
+          <ContactLink
+            returnFocus={() => button.current}
+            className="label-mono mt-6 flex h-12 items-center justify-between bg-accent px-4 text-accent-ink"
+          >
+            Let&rsquo;s connect
             <span aria-hidden="true">→</span>
-          </Link>
+          </ContactLink>
         </nav>
       </div>
     </div>

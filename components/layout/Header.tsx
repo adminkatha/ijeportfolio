@@ -2,12 +2,12 @@ import Link from "next/link";
 import { CommandButton } from "@/components/command/CommandButton";
 import { getCommandItems } from "@/lib/commands";
 import { getProfile } from "@/lib/content";
-import { HireLink } from "./HireLink";
+import { ContactLink } from "./ContactLink";
 import { MobileMenu } from "./MobileMenu";
 import { NavLinks } from "./NavLinks";
 import { getNavItems } from "./nav";
 
-/** Sticky site header: wordmark, primary nav, the résumé, ⌘K, and the one primary CTA. */
+/** Sticky site header: wordmark, primary nav, the résumé, ⌘K, and the one primary CTA ("Let’s connect": the contact pop-up). */
 export function Header() {
   const { name, links } = getProfile();
   const items = getNavItems();
@@ -39,12 +39,12 @@ export function Header() {
         {/* Before ⌘K in DOM and visual order under 768px (wordmark · Menu · ⌘K). */}
         <MobileMenu items={items} resumeHref={links.resume} />
         <CommandButton items={getCommandItems()} />
-        <HireLink className="group label-mono hidden h-10 items-center gap-2 bg-accent px-4 text-accent-ink md:inline-flex">
-          Hire me
+        <ContactLink className="group label-mono hidden h-10 items-center gap-2 bg-accent px-4 text-accent-ink md:inline-flex">
+          Let&rsquo;s connect
           <span aria-hidden="true" className="transition-transform duration-(--dur-1) ease-out group-hover:translate-x-0.5">
             →
           </span>
-        </HireLink>
+        </ContactLink>
       </div>
     </header>
   );

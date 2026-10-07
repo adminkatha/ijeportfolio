@@ -1,0 +1,141 @@
+/*
+ * The "Let’s connect" pop-up: the whole screen under 768px, a centred 40rem panel above it.
+ * The site's dark surface with the grain (like the header), hairline rules; the form brings the accent button.
+ */
+
+.dialog {
+  /* Under 768px: full screen, like a page of its own. */
+  width: 100%;
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: var(--color-bg) url("/grain.png");
+  color: var(--color-text);
+  overflow: hidden;
+}
+
+.dialog[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+.dialog::backdrop {
+  background: rgb(10 10 11 / 0.8);
+}
+
+@media (min-width: 768px) {
+  .dialog {
+    width: min(40rem, calc(100vw - 2 * var(--gutter)));
+    /* Hugs its content (a modal dialog is inset top and bottom, so "auto" would fill the screen). */
+    height: fit-content;
+    max-height: 90dvh;
+    margin: auto;
+    border: 1px solid var(--color-line);
+  }
+}
+
+/* While it's open the page behind stays put (the scrollbar's gutter stays too, so nothing shifts). */
+:global(html):has(.dialog[open]) {
+  overflow: hidden;
+  scrollbar-gutter: stable;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :global(html:not([data-motion="reduced"])) .dialog[open] {
+    animation: dialogIn var(--dur-2) var(--ease-out);
+  }
+
+  :global(html:not([data-motion="reduced"])) .dialog[open]::backdrop {
+    animation: backdropIn var(--dur-2) var(--ease-out);
+  }
+}
+
+@keyframes dialogIn {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+}
+
+@keyframes backdropIn {
+  from {
+    opacity: 0;
+  }
+}
+
+/* The title bar stays in view; the content scrolls under it. */
+.bar {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 1rem;
+  min-height: var(--header-h);
+  padding: 0.5rem var(--gutter);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.title {
+  margin-right: auto;
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 1rem + 1vw, 1.625rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  font-optical-sizing: auto;
+}
+
+/* Focus lands here on phones: a starting point, not a control, so no ring. */
+.title:focus {
+  outline: none;
+}
+
+.close {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 0.625rem;
+  min-height: 2.75rem;
+  padding: 0 0.875rem;
+  border: 1px solid var(--color-text-3);
+  background: transparent;
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.close:hover {
+  border-color: var(--color-text-2);
+}
+
+/* The Menu button's cross, drawn with two hairlines. */
+.cross {
+  position: relative;
+  display: block;
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+.cross::before,
+.cross::after {
+  content: "";
+  position: absolute;
+  inset: 50% 0 auto;
+  height: 1px;
+  background: currentColor;
+  transform: rotate(45deg);
+}
+
+.cross::after {
+  transform: rotate(-45deg);
+}
+
+.body {
+  flex: 1;
+  min-height: 0;
+  padding: 1.5rem var(--gutter) 2rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}

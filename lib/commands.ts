@@ -46,7 +46,8 @@ export function getCommandItems(): CommandItem[] {
     ...(real(links.resume)
       ? [{ id: "download-resume", group: "Actions", label: "Download résumé", hint: "PDF", kind: "link", href: links.resume, download: true, keywords: ["cv", "resume"] } satisfies CommandItem]
       : []),
-    { id: "hire-me", group: "Actions", label: "Hire me", kind: "link", href: "/#contact", keywords: ["contact", "work together", "enquiry"] },
+    // Opens the contact pop-up on the current page (CommandPalette closes itself first).
+    { id: "lets-connect", group: "Actions", label: "Let’s connect", kind: "action", action: "open-contact", keywords: ["hire", "hire me", "contact", "work together", "enquiry", "lets connect"] },
   ];
 
   return [...navigate, ...work, ...linkItems, ...actions];

@@ -28,6 +28,7 @@ const norm = (text: string) =>
     .toLowerCase()
     .normalize("NFD")
     .replace(/\p{Diacritic}/gu, "")
+    .replace(/['‘’]/g, "") // "lets", "let's" and "let’s" all find "Let’s connect"
     .replace(/\s+/g, " ")
     .trim();
 const words = (text: string) => text.split(/[^\p{L}\p{N}@.]+/u).filter(Boolean);
@@ -122,6 +123,9 @@ export function CommandPalette({ open, session, items, onClose, onAnnounce, take
           () => onAnnounce(`Email address copied: ${address}`),
           () => onAnnounce(`Couldn't copy. The address is ${address}`),
         );
+      } else if (item.action === "open-contact") {
+        // CommandButton opens the pop-up once the palette has closed and focus is back on its opener.
+        close("contact");
       } else {
         const next = toggleMotion();
         close("action");
