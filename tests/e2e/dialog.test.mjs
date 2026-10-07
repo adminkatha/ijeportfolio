@@ -4,11 +4,7 @@
 //   node tests/e2e/dialog.test.mjs --skip-build    # reuse the current .next (built WITH the contact env vars): part 2 only
 //   node tests/e2e/dialog.test.mjs --port 3401     # port for `next start` (default 3401)
 //   node tests/e2e/dialog.test.mjs --only "palette"
-//   node tests/e2e/dialog.test.mjs --strict        # [after merge] checks count as failures too
 //
-// Checks marked [after merge] need the contact form's dialog variant (preselected "Hire full-time" with a letter,
-// the success panel with its Close button and data-contact-sent). Until that lands they are reported, not failed;
-// --strict makes them count.
 // Needs the local Chrome. Leaves .next built with test values: run `pnpm build` again before `pnpm start` or a deploy.
 
 import assert from "node:assert/strict";
@@ -27,7 +23,6 @@ const option = (name, fallback) => {
 };
 const PART = option("part", null); // set when this file runs itself for part 1
 const SKIP_BUILD = args.includes("--skip-build") || PART !== null;
-const STRICT = args.includes("--strict");
 const EMAIL = "ehjaylorenzo2@gmail.com";
 const NEXT = path.join(process.cwd(), "node_modules", "next", "dist", "bin", "next");
 const WAIT_PAST_MIN_FILL = 3_300;
@@ -129,20 +124,6 @@ const state = (page) =>
       scrollY,
     };
   });
-
-/** [after merge] checks: printed as they go; they fail the test only with --strict. */
-function afterMerge() {
-  const failed = [];
-  return {
-    check(name, ok, detail = "") {
-      console.log(`    ${ok ? "✓" : "○"} [after merge] ${name}${ok ? "" : ` (not yet${detail ? `: ${detail}` : ""})`}`);
-      if (!ok) failed.push(name);
-    },
-    done() {
-      if (STRICT && failed.length) throw new Error(`[after merge] checks failed: ${failed.join("; ")}`);
-    },
-  };
-}
 
 async function axe(page) {
   const result = await new AxeBuilder({ page }).withTags(AXE_TAGS).exclude("iframe").analyze();
@@ -305,23 +286,23 @@ if (PART === null) {
     }
   });
 
-  t.test("a send from a project page reaches the webhook (the lazily loaded form's server actions work there)", async () => {
-    const later = afterMerge();
+  t.test("opens on “Hire full-time” with its letter; a send from a project page reaches the webhook; Close after it gives a fresh form", async () => {
     const { context, page } = await load("/work/honey-tribe");
     await headerLink(page).click();
     await opened(page);
     const form = page.locator("#contact-dialog-form");
     const hire = form.getByRole("radio", { name: "Hire full-time" });
-    later.check("“Hire full-time” is preselected", await hire.isChecked());
-    const letter = await page.locator("#cd-message").inputValue();
-    later.check("the hiring letter is in the message box", letter.trim().length >= 40, JSON.stringify(letter.slice(0, 60)));
+    const message = page.locator("#cd-message");
+    assert.ok(await hire.isChecked(), "“Hire full-time” is preselected");
+    const letter = await message.inputValue();
+    assert.match(letter, /^Hi Ehjay,\n[\s\S]*role/, "the hiring letter is in the message box");
 
     // The Name field has focus, which starts the form's signed clock.
     await page.waitForFunction(() => document.querySelector("#contact-dialog-form input[name=t]")?.value.length > 10, null, { timeout: 10_000 });
     await page.locator("#cd-name").fill("Dialog Visitor");
     await page.locator("#cd-email").fill("dialog@example.com");
-    await hire.check();
-    if ((await page.locator("#cd-message").inputValue()).trim().length < 10) await page.locator("#cd-message").fill("Hello Ehjay,\nWe'd like to talk about a role.");
+    // A letter with nothing added is refused: add a detail.
+    await message.fill(`${letter}\n\nRole: creative and campaigns lead.`);
     await sleep(WAIT_PAST_MIN_FILL);
     const before = hook.received.length;
     await form.locator("button[type=submit]").click();
@@ -333,30 +314,25 @@ if (PART === null) {
     assert.equal(p.name, "Dialog Visitor");
     assert.equal(p.inquiryType, "Hire full-time");
 
+    // The thank-you panel, with focus on its text, and its own Close button.
     const sent = dialog(page).locator("[data-contact-sent]");
-    const shown = await sent.waitFor({ state: "visible", timeout: 5_000 }).then(() => true, () => false);
-    const text = shown ? await sent.innerText() : await page.locator("#contact-dialog-form [role=status]").innerText().catch(() => "");
-    later.check("success: “Thanks, your message is on its way to Ehjay. He'll reply to …”", shown && /Thanks, your message is on its way to Ehjay\. He.ll reply to dialog@example\.com/.test(text), JSON.stringify(text.slice(0, 90)));
-    const sentClose = sent.getByRole("button", { name: "Close" });
-    const hasClose = shown && (await sentClose.count()) === 1;
-    later.check("success: with a Close button", hasClose);
-    if (hasClose) await sentClose.click();
-    else await page.keyboard.press("Escape");
+    await sent.waitFor({ state: "visible", timeout: 10_000 });
+    assert.match(await sent.innerText(), /Thanks, your message is on its way to Ehjay\. He.ll reply to dialog@example\.com\./);
+    assert.ok((await state(page)).focusInside, "focus stays in the dialog");
+    await sent.getByRole("button", { name: "Close" }).click();
     await closed(page);
     const s = await state(page);
     assert.ok(s.activeInHeader && /connect/i.test(s.active.text), `focus back on the header link (${JSON.stringify(s.active)})`);
 
+    // Reopened: a fresh form (the sent one was replaced while closed).
     await headerLink(page).click();
     await opened(page);
-    const fresh = {
-      sentPanel: await dialog(page).locator("[data-contact-sent]").count(),
-      name: await page.locator("#cd-name").inputValue().catch(() => null),
-      status: (await page.locator("#contact-dialog-form [role=status]").innerText().catch(() => "")).trim(),
-      hire: await hire.isChecked().catch(() => false),
-    };
-    later.check("reopening after a send shows a fresh form", fresh.sentPanel === 0 && fresh.name === "" && fresh.status === "" && fresh.hire, JSON.stringify(fresh));
+    assert.equal(await dialog(page).locator("[data-contact-sent]").count(), 0, "no thank-you panel");
+    assert.equal(await page.locator("#cd-name").inputValue(), "", "Name is empty");
+    assert.equal(await message.inputValue(), letter, "the letter is back, untouched");
+    assert.ok(await hire.isChecked(), "“Hire full-time” is preselected again");
+    assert.equal((await form.locator("[role=status]").innerText()).trim(), "", "no status message");
     await context.close();
-    later.done();
   });
 
   t.test("mobile 390: Menu → Let’s connect → full-screen dialog; Close → focus on the Menu button", async () => {
