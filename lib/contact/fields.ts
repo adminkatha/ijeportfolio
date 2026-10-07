@@ -37,7 +37,10 @@ export const HONEYPOT_FIELD = "website";
 export const TOKEN_FIELD = "t";
 export const PAGE_FIELD = "page";
 
-export const PRIVACY_NOTE = "Your details go only to Ehjay and are used to reply.";
+export const PRIVACY_NOTE = "Your message goes to Ehjay (with a copy to the site's admin) and is used only to reply.";
+
+/** Form-level message when fields need fixing (from the server, or the browser's untouched-letter check). */
+export const INVALID_MESSAGE = "Please check the highlighted fields.";
 
 export type ContactStatus = "idle" | "invalid" | "retry" | "success" | "error";
 
