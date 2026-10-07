@@ -35,7 +35,7 @@ export const LETTERS: Record<InquiryType, string> = {
 };
 
 /** The field error for a message that is still one of the letters, exactly as offered. */
-export const UNTOUCHED_LETTER = "Add a few details about the role or project";
+export const UNTOUCHED_LETTER = "Add a few details about the role or project.";
 
 /** CRLF → LF, no trailing whitespace on any line, no outer whitespace. */
 const normalize = (text: string) =>

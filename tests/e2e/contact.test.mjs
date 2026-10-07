@@ -54,7 +54,7 @@ const LETTERS = {
   ].join("\n"),
   other: "Hi Ehjay,",
 };
-const UNTOUCHED = "Add a few details about the role or project";
+const UNTOUCHED = "Add a few details about the role or project.";
 const INVALID = "Please check the highlighted fields.";
 const PRIVACY = "Your message goes to Ehjay (with a copy to the site's admin) and is used only to reply.";
 const SUCCESS = (email) => `Thanks, your message is on its way to Ehjay. He'll reply to ${email}.`;
