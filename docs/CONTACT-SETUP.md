@@ -85,10 +85,13 @@ live (the website sends messages with POST, which a browser tab doesn't).
    The site decides between the form and "Email me instead" when it's built, so the form appears only after a new build.
 
 ## 8. Test it
-1. Open the live site and go to the contact section. You should see the form (not "Email me instead").
+1. Open the live site and click **Let’s connect** (top right; in the **Menu** on a phone). The pop-up should show the
+   form, not "Email me instead". (The same form is also in the Contact section at the bottom of the homepage.)
 2. Fill it in with your own name and email address and click **Send message**. (If you're very quick, it asks you to
    press Send again: it refuses messages sent within 3 seconds, which stops simple spam bots.)
-3. Within a few seconds "Thanks, … Your message is on its way" appears, and an email arrives at
+   The message box starts with a short letter for the chosen inquiry type: edit it before sending (an unedited letter
+   is refused with "Add a few details about the role or project.").
+3. Within a few seconds "Thanks, your message is on its way to Ehjay. He'll reply to …" appears, and an email arrives at
    ehjaylorenzo2@gmail.com with a copy at admin.katha@gmail.com. The first ones may land in Spam
    (see [Spam and Promotions](#spam-and-promotions)).
 

@@ -3,7 +3,7 @@
 Resume point for a fresh session: read this file, then `CLAUDE.md`, `docs/PLAN.md`, `docs/DECISIONS.md` and `docs/INTAKE.md`.
 Run order for this build (user, 2026-10-06): finish the whole site without stopping between phases; stop only for GitHub sign-in, videos that can't fit the size limit, a new dependency that ships to visitors, or low context.
 
-## Status (2026-10-06)
+## Status (2026-10-08)
 
 | Phase | State | Where |
 |---|---|---|
@@ -29,6 +29,7 @@ Run order for this build (user, 2026-10-06): finish the whole site without stopp
 | 15 QA | 🔄 in progress (keyboard pass clean, axe 0 on the site); waiting for the demos' in-place accessibility fixes | main |
 | 16 Deploy prep (GitHub + Vercel docs, run-local.bat) | ✅ merged + pushed; run-local.bat tested (falls back to :3001 when :3000 is busy) | main |
 | CV update (facts from his CV, nothing blank on the site, new résumé) | ✅ pushed (`76dbbcf`) and redeployed 2026-10-06 | main + Vercel |
+| "Let’s connect" pop-up + email-only contact form (2026-10-08) | ✅ built by 3 agents (email script, form letters, pop-up), merged, checks passed, pushed; **not redeployed yet**. Next: the owner deploys the Apps Script (docs/CONTACT-SETUP.md), then `CONTACT_WEBHOOK_URL` in Vercel + `.env.local`, redeploy, one live test message | main |
 | 16 Deploy | ✅ **live 2026-10-06 13:40: https://ehjay-lorenzo.vercel.app** (CLI deploy, Vercel build with corepack). Later: GitHub auto-deploys, domain + `SITE_URL`, contact env vars, Analytics | Vercel |
 
 ## How the parallel build works
